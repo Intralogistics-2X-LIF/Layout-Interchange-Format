@@ -35,54 +35,54 @@ Version 0.11.0
 [3 Foreword](#3-foreword)<br>
 [4 Aim of the Document](#4-aim-of-the-document)<br>
 [5 Aim of the LIF](#5-aim-of-the-lif)<br>
-[5.1 Requirements](#5-1-requirements)<br>
-[5.2 Further Assumptions](#5-2-further-assumptions)<br>
-[5.3 LIF Limitations](#5-3-lif-limitations)<br>
+[5.1 Requirements](#51-requirements)<br>
+[5.2 Further Assumptions](#52-further-assumptions)<br>
+[5.3 LIF Limitations](#53-lif-limitations)<br>
 [6 LIF Format](#6-lif-format)<br>
 [7 LIF Transfer and Responsibilities of Vehicle Integrator and (Third-party) Master Control System](#7-lif-transfer-and-responsibilities-of-vehicle-integrator-and-third-party-master-control-system)<br>
-[7.1 Export of the LIF File by the Integrator of the Driverless Transport Vehicles](#7-1-export-of-the-lif-file-by-the-integrator-of-the-driverless-transport-vehicles)<br>
-[7.2 Import and Processing of the LIF File by the (Third-party) Master Control System](#7-2-import-and-processing-of-the-lif-file-by-the-third-party-master-control-system)<br>
-[7.3 Further Exports of the LIF File and Imports into the (Third-party) Master Control System](#7-3-further-exports-of-the-lif-file-and-imports-into-the-third-party-master-control-system)<br>
+[7.1 Export of the LIF File by the Integrator of the Driverless Transport Vehicles](#71-export-of-the-lif-file-by-the-integrator-of-the-driverless-transport-vehicles)<br>
+[7.2 Import and Processing of the LIF File by the (Third-party) Master Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-master-control-system)<br>
+[7.3 Further Exports of the LIF File and Imports into the (Third-party) Master Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-master-control-system)<br>
 [8 Specification of LIF](#8-specification-of-lif)<br>
-[8.1 Table Symbols and Meaning of Formatting](#8-1-table-symbols-and-meaning-of-formatting)<br>
-[8.1.1 Optional Variables](#8-1-1-optional-variables)<br>
-[8.2 Element ID Uniqueness](#8-2-element-id-uniqueness)<br>
-[8.3 Elements of LIF](#8-3-elements-of-lif)<br>
-[8.3.1 LIF Structure](#8-3-1-lif-structure)<br>
-[8.3.2 MetaInformation](#8-3-2-metainformation)<br>
-[8.3.3 Layout](#8-3-3-layout)<br>
-[8.3.4 Node](#8-3-4-node)<br>
-[8.3.5 VehicleTypeNodeProperty](#8-3-5-vehicletype-nodeproperty)<br>
-[8.3.6 Action](#8-3-6-action)<br>
-[8.3.7 ActionParameter](#8-3-7-actionparameter)<br>
-[8.3.8 Edge](#8-3-8-edge)<br>
-[8.3.9 VehicleTypeEdgeProperty](#8-3-9-vehicletypeedgeproperty)<br>
-[8.3.10 LoadRestriction](#8-3-10-loadrestriction)<br>
-[8.3.11 Trajectory](#8-3-11-trajectory)<br>
-[8.3.12 ControlPoint](#8-3-12-controlpoint)<br>
-[8.3.13 Station](#8-3-13-station)<br>
-[8.4 Complete Data Structure of LIF](#8-4-complete-data-structure-of-lif)<br>
+[8.1 Table Symbols and Meaning of Formatting](#81-table-symbols-and-meaning-of-formatting)<br>
+[8.1.1 Optional Variables](#811-optional-variables)<br>
+[8.2 Element ID Uniqueness](#82-element-id-uniqueness)<br>
+[8.3 Elements of LIF](#83-elements-of-lif)<br>
+[8.3.1 LIF Structure](#831-lif-structure)<br>
+[8.3.2 MetaInformation](#832-metainformation)<br>
+[8.3.3 Layout](#833-layout)<br>
+[8.3.4 Node](#834-node)<br>
+[8.3.5 VehicleTypeNodeProperty](#835-vehicletype-nodeproperty)<br>
+[8.3.6 Action](#836-action)<br>
+[8.3.7 ActionParameter](#837-actionparameter)<br>
+[8.3.8 Edge](#838-edge)<br>
+[8.3.9 VehicleTypeEdgeProperty](#839-vehicletypeedgeproperty)<br>
+[8.3.10 LoadRestriction](#8310-loadrestriction)<br>
+[8.3.11 Trajectory](#8311-trajectory)<br>
+[8.3.12 ControlPoint](#8312-controlpoint)<br>
+[8.3.13 Station](#8313-station)<br>
+[8.4 Complete Data Structure of LIF](#84-complete-data-structure-of-lif)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Examples](#10-examples)<br>
-[10.1 Forward Edge](#10-1-forward-edge)<br>
-[10.2 Bidirectional Edge](#10-2-bidirectional-edge)<br>
-[10.3 Counter-clockwise Rotation on Node](#10-3-counter-clockwise-rotation-on-node)<br>
-[10.4 Omnidirectional Edge](#10-4-omnidirectional-edge)<br>
-[10.5 Multiple Layouts in One LIF](#10-5-multiple-layouts-in-one-lif)<br>
-[10.6 Station with One Node](#10-6-station-with-one-node)<br>
-[10.7 Station with Two Nodes](#10-7-station-with-two-nodes)<br>
-[10.8 Station with Two Nodes, Restricted for Different Vehicle Types](#10-8-station-with-two-nodes-restricted-for-different-vehicle-types)<br>
-[10.9 Rotation Station](#10-9-rotation-station)<br>
-[10.10 Station with Three Nodes, Restricted to Different Vehicle Types](#10-10-station-with-three-nodes-restricted-to-different-vehicle-types)<br>
-[10.11 Multiple Edges with Load Restrictions](#10-11-multiple-edges-with-load-restrictions)<br>
-[10.12 Multiple Edges Between Same Two Nodes for Different vehicleTypeEdgeProperty Constraints.](#10-12-multiple-edges-between-same-two-nodes-for-different-vehicletypeedgeproperty-constraints)<br>
-[10.13 Battery Charging Station](#10-13-battery-charging-station)<br>
-[10.14 Two Levels of a Facility in One LIF File](#10-14-two-levels-of-a-facility-in-one-lif-file)<br>
-[10.15 Rack Station Modelled by Three Stations](#10-15-rack-station-modelled-by-three-stations)<br>
-[10.16 Rack Station Modelled by Three Nodes](#10-16-rack-station-modelled-by-three-nodes)<br>
-[10.17 Edge with Trajectory Definition](#10-17-edge-with-trajectory-definition)<br>
-[10.18 Manufacturer Specific Action on an Edge](#10-18-manufacturer-specific-action-on-an-edge)<br>
-[10.19 Forward Edge with Two Vehicle Types with Differing Orientation](#10-19-forward-edge-with-two-vehicle-types-with-differing-orientation)<br>
+[10.1 Forward Edge](#101-forward-edge)<br>
+[10.2 Bidirectional Edge](#102-bidirectional-edge)<br>
+[10.3 Counter-clockwise Rotation on Node](#103-counter-clockwise-rotation-on-node)<br>
+[10.4 Omnidirectional Edge](#104-omnidirectional-edge)<br>
+[10.5 Multiple Layouts in One LIF](#105-multiple-layouts-in-one-lif)<br>
+[10.6 Station with One Node](#106-station-with-one-node)<br>
+[10.7 Station with Two Nodes](#107-station-with-two-nodes)<br>
+[10.8 Station with Two Nodes, Restricted for Different Vehicle Types](#108-station-with-two-nodes-restricted-for-different-vehicle-types)<br>
+[10.9 Rotation Station](#109-rotation-station)<br>
+[10.10 Station with Three Nodes, Restricted to Different Vehicle Types](#1010-station-with-three-nodes-restricted-to-different-vehicle-types)<br>
+[10.11 Multiple Edges with Load Restrictions](#1011-multiple-edges-with-load-restrictions)<br>
+[10.12 Multiple Edges Between Same Two Nodes for Different vehicleTypeEdgeProperty Constraints.](#1012-multiple-edges-between-same-two-nodes-for-different-vehicletypeedgeproperty-constraints)<br>
+[10.13 Battery Charging Station](#1013-battery-charging-station)<br>
+[10.14 Two Levels of a Facility in One LIF File](#1014-two-levels-of-a-facility-in-one-lif-file)<br>
+[10.15 Rack Station Modelled by Three Stations](#1015-rack-station-modelled-by-three-stations)<br>
+[10.16 Rack Station Modelled by Three Nodes](#1016-rack-station-modelled-by-three-nodes)<br>
+[10.17 Edge with Trajectory Definition](#1017-edge-with-trajectory-definition)<br>
+[10.18 Manufacturer Specific Action on an Edge](#1018-manufacturer-specific-action-on-an-edge)<br>
+[10.19 Forward Edge with Two Vehicle Types with Differing Orientation](#1019-forward-edge-with-two-vehicle-types-with-differing-orientation)<br>
 
 # 1 Terms
 
