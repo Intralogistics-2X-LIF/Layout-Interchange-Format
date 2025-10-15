@@ -2,7 +2,7 @@
 
 ### LIF - Layout Interchange Format
 
-### Version 0.11.0 - September 2023
+### DRAFT - Version 2.0.0 - September 2025
 
 ## Abstract
 
