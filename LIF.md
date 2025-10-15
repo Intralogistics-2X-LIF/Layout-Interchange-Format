@@ -63,28 +63,28 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [8.4 Complete Data Structure of LIF](#84-complete-data-structure-of-lif)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
-[10.1 Why aren't bi-directional edges supported in LIF?](#101-why-arent-bi-directional-edges-supported-in-lif)
-[10.2 Why are vehicle integrator-specific extensions of the LIF not foreseen?](#102-why-are-vehicle-integrator-specific-extensions-of-the-lif-not-foreseen)
+[10.1 Why aren't bi-directional edges supported in LIF?](#101-why-arent-bi-directional-edges-supported-in-lif)<br>
+[10.2 Why are vehicle integrator-specific extensions of the LIF not foreseen?](#102-why-are-vehicle-integrator-specific-extensions-of-the-lif-not-foreseen)<br>
 [11 Examples](#11-examples)<br>
 [11.1 Forward Edge](#111-forward-edge)<br>
 [11.2 Bidirectional Edge](#112-bidirectional-edge)<br>
 [11.3 Counter-clockwise Rotation on Node](#113-counter-clockwise-rotation-on-node)<br>
 [11.4 Omnidirectional Edge](#114-omnidirectional-edge)<br>
 [11.5 Multiple Layouts in One LIF](#115-multiple-layouts-in-one-lif)<br>
-[10.6 Station with One Node](#106-station-with-one-node)<br>
-[10.7 Station with Two Nodes](#107-station-with-two-nodes)<br>
-[10.8 Station with Two Nodes, Restricted for Different Vehicle Types](#108-station-with-two-nodes-restricted-for-different-vehicle-types)<br>
-[10.9 Rotation Station](#109-rotation-station)<br>
-[10.10 Station with Three Nodes, Restricted to Different Vehicle Types](#1010-station-with-three-nodes-restricted-to-different-vehicle-types)<br>
-[10.11 Multiple Edges with Load Restrictions](#1011-multiple-edges-with-load-restrictions)<br>
-[10.12 Multiple Edges Between Same Two Nodes for Different vehicleTypeEdgeProperty Constraints.](#1012-multiple-edges-between-same-two-nodes-for-different-vehicletypeedgeproperty-constraints)<br>
-[10.13 Battery Charging Station](#1013-battery-charging-station)<br>
-[10.14 Two Levels of a Facility in One LIF File](#1014-two-levels-of-a-facility-in-one-lif-file)<br>
-[10.15 Rack Station Modelled by Three Stations](#1015-rack-station-modelled-by-three-stations)<br>
-[10.16 Rack Station Modelled by Three Nodes](#1016-rack-station-modelled-by-three-nodes)<br>
-[10.17 Edge with Trajectory Definition](#1017-edge-with-trajectory-definition)<br>
-[10.18 Manufacturer Specific Action on an Edge](#1018-manufacturer-specific-action-on-an-edge)<br>
-[10.19 Forward Edge with Two Vehicle Types with Differing Orientation](#1019-forward-edge-with-two-vehicle-types-with-differing-orientation)<br>
+[11.6 Station with One Node](#116-station-with-one-node)<br>
+[11.7 Station with Two Nodes](#117-station-with-two-nodes)<br>
+[11.8 Station with Two Nodes, Restricted for Different Vehicle Types](#118-station-with-two-nodes-restricted-for-different-vehicle-types)<br>
+[11.9 Rotation Station](#119-rotation-station)<br>
+[11.10 Station with Three Nodes, Restricted to Different Vehicle Types](#1110-station-with-three-nodes-restricted-to-different-vehicle-types)<br>
+[11.11 Multiple Edges with Load Restrictions](#1111-multiple-edges-with-load-restrictions)<br>
+[11.12 Multiple Edges Between Same Two Nodes for Different vehicleTypeEdgeProperty Constraints.](#1112-multiple-edges-between-same-two-nodes-for-different-vehicletypeedgeproperty-constraints)<br>
+[11.13 Battery Charging Station](#1113-battery-charging-station)<br>
+[11.14 Two Levels of a Facility in One LIF File](#1114-two-levels-of-a-facility-in-one-lif-file)<br>
+[11.15 Rack Station Modelled by Three Stations](#1115-rack-station-modelled-by-three-stations)<br>
+[11.16 Rack Station Modelled by Three Nodes](#1116-rack-station-modelled-by-three-nodes)<br>
+[11.17 Edge with Trajectory Definition](#1117-edge-with-trajectory-definition)<br>
+[11.18 Manufacturer Specific Action on an Edge](#1118-manufacturer-specific-action-on-an-edge)<br>
+[11.19 Forward Edge with Two Vehicle Types with Differing Orientation](#1119-forward-edge-with-two-vehicle-types-with-differing-orientation)<br>
 
 # 1 Terms
 
