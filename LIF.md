@@ -55,11 +55,10 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [8.3.9 ActionParameter](#839-actionparameter)<br>
 [8.3.10 Edge](#8310-edge)<br>
 [8.3.11 VehicleTypeEdgeProperty](#8311-vehicletypeedgeproperty)<br>
-[8.3.12 LoadRestriction](#8312-loadrestriction)<br>
-[8.3.13 Trajectory](#8313-trajectory)<br>
-[8.3.14 ControlPoint](#8314-controlpoint)<br>
-[8.3.15 PhysicalLineGuidedProperty](#8315-physicallineguidedproperty)<br>
-[8.3.16 Station](#8316-station)<br>
+[8.3.12 Trajectory](#8312-trajectory)<br>
+[8.3.13 ControlPoint](#8313-controlpoint)<br>
+[8.3.14 PhysicalLineGuidedProperty](#8314-physicallineguidedproperty)<br>
+[8.3.15 Station](#8315-station)<br>
 [8.4 Complete Data Structure of LIF](#84-complete-data-structure-of-lif)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
@@ -391,7 +390,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | controlPoints[controlPoint] |  | array of JSON-object | List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end point. |
 | } |  |  |  |
 
-### 8.3.12 ControlPoint
+### 8.3.13 ControlPoint
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -401,7 +400,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *weight* |  | float64 | Range: [0.0 ... float64.max]  The weight with which this control point pulls on the curve. When not defined, the default is 1.0. |
 | } |  |  |  |
 
-### 8.3.13 PhysicalLineGuidedProperty
+### 8.3.14 PhysicalLineGuidedProperty
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -410,7 +409,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *length* | meter | float64 | The length of this edge for vehicle types which require it but are unable to process or respect trajectories. |
 | } |  |  |  |
 
-### 8.3.14 Station
+### 8.3.15 Station
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -427,7 +426,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *}* |  |  |  |
 | } |  |  |  |
 
-#### 8.3.14.1 Best Practices for Defining a Station
+#### 8.3.15.1 Best Practices for Defining a Station
 
 A station could be a battery charting point where a vehicle must interface with a physical charging infrastructure. A station could be a place to drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
 
@@ -439,7 +438,7 @@ An additional example would be a last in first out (LIFO) 1xNx1 variable deep la
 
 The exact configuration of the above and other more complex situations must always be handled on a case-by-case basis between the (third-party) master control system and the vehicle integrator(s).
 
-#### 8.3.13.1 How the (Third-party) Master Control System Can Identify the Purpose of a Station
+#### 8.3.15.2 How the (Third-party) Master Control System Can Identify the Purpose of a Station
 
 If the (third-party) master control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot fact sheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot fact sheet, and so forth.
 
