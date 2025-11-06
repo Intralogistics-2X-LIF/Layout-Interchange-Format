@@ -1,0 +1,485 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Layout Interchange Format",
+  "description": "The objective of the Layout Interchange Format is to standardize a way for the definition of automated vehicle track layouts to be presented toward (third-party) master control system providers.",
+  "type": "object",
+  "required": [
+    "metaInformation",
+    "layouts"
+    ],
+"properties": {
+    "metaInformation": {
+      "$ref": "#/definitions/metaInformation"
+    },
+    "layouts": {
+      "type": "array",
+      "description": "A list of tags associated with the item",
+      "items": {
+        "$ref": "#/definitions/layout"
+      }
+    }
+  },
+  "definitions": {
+    "metaInformation": {
+      "type": "object",
+      "description": "Contains meta information.",
+      "required":[
+        "projectIdentification",
+        "creator",
+        "exportTimestamp",
+        "lifVersion"
+      ],
+      "properties": {
+        "projectIdentification": {
+          "type": "string",
+          "description": "Human-readable name of the project (e.g., for display purposes)."
+        },
+        "creator": {
+          "type": "string",
+          "description": "Creator of the LIF file (e.g., name of company, or name of person)."
+        },
+        "exportTimestamp": {
+          "type": "string",
+          "description": "The timestamp at which this LIF file was created/ updated/modified. Used to distinguish LIF file versions over time. Timestamp format is ISO8601 in UTC (YYYY-MM-DDTHH:mm:ss.ssZ).",
+          "examples": ["2017-04-15T11:40:03.12Z"]
+        },
+        "lifVersion": {
+          "type": "string",
+          "description": "Version of LIF: [Major].[Minor].[Patch]. Note: This is the semantic version of the LIF format, as defined at the beginning of this document.",
+          "examples": ["1.0.0"]
+        }
+      }
+    },
+    "layout":{
+      "type": "object",
+      "description": "A layout for order generation and routing. This layout holds relevant information independently from possible vehicles or (third-party) master control systems. It is intended to hold the information for all different vehicle types. Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a „plane“, i.e., multiple levels must be modelled in different layouts. It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. Each layout has the same origin of coordinates.",
+      "required":[
+        "layoutId",
+        "layoutVersion",
+        "nodes",
+        "edges",
+        "stations"
+      ],
+      "properties": {
+        "layoutId": {
+          "type": "string",
+          "description": "Unique identifier for this layout."
+        },
+        "layoutName": {
+          "type": "string",
+          "description": "Human-readable name of the layout (e.g., for displaying)."
+        },
+        "layoutVersion": {
+          "type": "string",
+          "description": "Version of the layout. Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at „1“."
+        },
+        "layoutLevelId": {
+          "type": "string",
+          "description": "This attribute can be used to explicitly indicate which level or floor within a building or buildings a layout represents in a situation where there are multiple, such as multiple levels in the same facility, or two disconnected areas in the same facility."
+        },
+        "layoutDescription": {
+          "type": "string",
+          "description": "Brief description of the layout."
+        },
+        "nodes": {
+          "type": "array",
+          "description": "Collection of all nodes in the layout.",
+          "items": {
+            "$ref": "#/definitions/node"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "description": "Collection of all edges in the layout.",
+          "items": {
+            "$ref": "#/definitions/edge"
+          }
+        },
+        "stations": {
+          "type": "array",
+          "description": "Collection of all stations in the layout.",
+          "items": {
+            "$ref": "#/definitions/station"
+          }
+        }
+      }
+    },
+    "node":{
+      "type": "object",
+      "description": "Refers to VDA 5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA 5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself.",
+      "required":[
+        "nodeId",
+        "nodePosition",
+        "vehicleTypeNodeProperties"
+      ],
+      "properties": {
+        "nodeId": {
+          "type": "string",
+          "description": "Unique identifier of the node across all layouts contained in this LIF file. Note: Different LIF files, especially from different vehicle integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third- party) master control system to track whichever internal unique nodeId it wishes to use, and to map this to a vehicle integrators nodeId for its specific LIF."
+        },
+        "nodeName": {
+          "type": "string",
+          "description": "Name of the node. This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. Therefore, this node name need not necessarily be unique."
+        },
+        "nodeDescription": {
+          "type": "string",
+          "description": "Brief description of the node. This should only ever be for visualization or diagnostic purposes."
+        },
+        "mapId": {
+          "type": "string",
+          "description": "Unique identification of the map in which the node oder nodes position is referenced. Each map has the same project specific global origin of coordinates. When a vehicle uses an elevator, e.g., leading from a departure floor to a target floor, it will disappear off the map of the departure floor and spawn in the related lift node on the map of the target floor."
+        },
+        "nodePosition": {
+          "$ref": "#/definitions/nodePosition"
+        },
+        "vehicleTypeNodeProperties": {
+          "type": "array",
+          "description": "Vehicle type specific properties for this node. This attribute must not be empty. There must be an element for each vehicle type that may use this node. If no element exists for a particular vehicle type, the (third-party) master control sys- tem must consider that node invalid for use with that vehicle type.",
+          "items": {
+            "$ref": "#/definitions/vehicleTypeNodeProperty"
+          }
+        }
+      }
+    },
+    "nodePosition":{
+      "description": "Geometric location of the node.",
+      "type": "object",
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+            "type": "number",
+            "description": "X position on the layout in reference to the global origin."
+        },
+        "y": {
+            "type": "number",
+            "description":"Y position on the layout in reference to the global origin."
+        }
+      }
+    },
+    "vehicleTypeNodeProperty":{
+      "type": "object",
+      "required": [
+        "vehicleTypeId"
+      ],
+      "properties": {
+        "vehicleTypeId": {
+            "type": "string",
+            "description": "Unique Id for type of vehicle to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per vehicle type per node. Note: It is suggested that this be a combination of [factsheet.manufacturer]. [factsheet.seriesName]"
+        },
+        "theta": {
+            "type": "number",
+            "description":"Range: [-Pi ... Pi]. Absolute orientation of the vehicle on the node in reference to the global origins rotation."
+        },
+        "actions": {
+          "type": "array",
+          "description": "Holds actions that can be integrated into the order by the (third-party) master control system each time any vehicle with the corresponding vehicle TypeId is sent an order/order update that contains this node. The decision of which action is integrated into the order is the responsibility of the (third- party) master control system. If no actions can be integrated, the attribute may be omitted.",
+          "items": {
+            "$ref": "#/definitions/action"
+          }
+        }
+      }
+    },
+    "action":{
+      "description": "Refers to VDA 5050 action definition. All properties that have the same name are meant to be semantically identical.",
+      "type": "object",
+      "required": [
+        "actionType",
+        "blockingType"
+      ],
+      "properties": {
+        "actionType": {
+            "type": "string",
+            "description": "Name of the action same as described in the VDA 5050 specification document (section 6.8.2 in VDA 5050 2.0 specification document). Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third- party) master control system."
+        },
+        "actionDescription": {
+            "type": "string",
+            "description":"Brief description of the action."
+        },
+        "requirementType": {
+          "type": "string",
+          "description":"REQUIRED: The (third-party) master control system must always communicate this action to the vehicle on this node or edge. CONDITIONAL: The action may or may not be required contingent upon various factors. Discussion between the vehicle integrator and the (third-party) master control system is required. OPTIONAL: The action may or may not be communicated to the vehicle at the (third-party) mas- ter control systems discretion and responsibility. The vehicle must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it. Note: The LIF does not specify a rigid definition of behavior for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the vehicle integrator to define the implications of this to the (third-party) master control system, either be it that all of the required actions are always required, or that one of the actions is always required, or some other combination thereof.",
+          "enum": ["REQUIRED", "CONDITIONAL", "OPTIONAL"]
+        },
+        "blockingType": {
+          "type": "string",
+          "description":"NONE: allows moving and other actions. SOFT: allows other actions, but not moving. HARD: is the only allowed action at this time.",
+          "enum": ["NONE", "SOFT", "HARD"]
+        },
+        "actionParameters": {
+          "type": "array",
+          "description": "Exact list of parameters and their statically defined values which must be sent along with this action. Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The (third-party) master control system must still determine and send these actionParameters. Refer to the AGV Fact Sheet.",
+          "items": {
+            "$ref": "#/definitions/actionParameter"
+          }
+        }
+      }
+    },
+    "actionParameter":{
+      "description": "Key/value based generic action parameter listing.",
+      "type": "object",
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+            "type": "string",
+            "description": "Key which must be unique among the collection of action parameters."
+        },
+        "value": {
+            "type": "string",
+            "description":"Value corresponding to the key."
+        }
+      }
+    },
+    "edge":{
+      "description": "Geometric location of the node.",
+      "type": "object",
+      "required": [
+        "edgeId",
+        "startNodeId",
+        "endNodeId",
+        "vehicleTypeEdgeProperties"
+      ],
+      "properties": {
+        "edgeId": {
+            "type": "string",
+            "description": "Unique identifier of the edge across all layouts within this LIF file. Note: Different LIF files, especially from different vehicle integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) master control system to track whichever internal unique edgeId it wishes to use, and to map this to a vehicle integrators edgeId for its specific LIF."
+        },
+        "edgeName": {
+            "type": "string",
+            "description":"Name of the edge. This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose."
+        },
+        "edgeDescription": {
+          "type": "string",
+          "description": "Brief description of the edge. This should only be used for visualization or diagnostic purposes."
+        },
+        "startNodeId": {
+            "type": "string",
+            "description":"Id of the start node. The start node must always be part of the current layout."
+        },
+        "endNodeId": {
+          "type": "string",
+          "description": "Id of the end node. The end node can be located in another layout. This models a transition from one layout to another."
+        },
+        "vehicleTypeEdgeProperties": {
+          "type": "array",
+          "description": "Vehicle type specific properties for this edge. Note: This attribute must not be empty. For each allowed vehicle type there must be an element.",
+          "items": {
+            "$ref": "#/definitions/vehicleTypeEdgeProperty"
+          }
+        }
+      }
+    },
+    "vehicleTypeEdgeProperty":{
+      "type": "object",
+      "required": [
+        "vehicleTypeId",
+        "rotationAllowed"
+      ],
+      "properties": {
+        "vehicleTypeId": {
+            "type": "string",
+            "description": "Unique Id for the type of vehicle to which these properties apply on this edge. Only one vehicleTypeEdge Property can be declared per vehicle type per edge. Note: It is suggested that this be a combination of [factsheet.manufacturer]. [factsheet.seriesName]"
+        },
+        "vehicleOrientation": {
+            "type": "number",
+            "description":"Orientation of the vehicle on the edge. The value orientationType defines if it has to be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and Pi = backwards. Example: orientation Pi/2 rad will lead to a rotation of 90 degrees. If the vehicle starts in a different orientation, rotate the vehicle on the edge to the desired orientation if rotationAllowed is set to true. If rotationAllowed is „false“, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientation to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientation to the trajectory."
+        },
+        "orientationType": {
+          "type": "string",
+          "description": "GLOBAL: relative to the global project specific map coordinate system. TANGENTIAL: tangential to the edge. Note: If not defined, the default value is TANGENTIAL",
+          "enum": ["GLOBAL","TANGENTIAL"]
+        },
+        "rotationAllowed": {
+            "type": "boolean",
+            "description":"true: rotation is allowed on the edge. The (third-party) master control system must assume that the vehicle will rotate in any direction along the edge at any point. The (third-party) master control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other vehicles also under its control (e.g. deadlocks, potential collision). false: rotation is not allowed on the edge."
+        },
+        "rotationAtStartNodeAllowed": {
+          "type": "string",
+          "description": "Allowed directions of rotation for the vehicle at the start node.NONE: Rotation not allowed. CCW: Counter-clockwise (positive). CW: Clockwise (negative). BOTH: Both directions. Note: If not defined, the default value is BOTH. See section 8.3.9.1 for detailed description.",
+          "enum": ["NONE", "CCW", "CW", "BOTH"]
+        },
+        "rotationAtEndNodeAllowed": {
+          "type": "string",
+          "description": "Allowed directions of rotation for the vehicle at the end node.NONE: Rotation not allowed. CCW: Counter-clockwise (positive). CW: Clockwise (negative). BOTH: Both directions. Note: If not defined, the default value is BOTH. See section 8.3.9.1 for detailed description.",
+          "enum": ["NONE", "CCW", "CW", "BOTH"]
+        },
+        "maxSpeed": {
+          "type": "number",
+          "description": "Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the vehicle. Note: If not defined, no limitation."
+        },
+        "maxRotationSpeed": {
+          "type": "number",
+          "description": "Maximum rotation speed. Note: If not defined, no limitation."
+        },
+        "minHeight": {
+          "type": "number",
+          "description": "Permitted minimal height of the load handling device on the edge. Note: If not defined, no limitation."
+        },
+        "maxHeight": {
+          "type": "number",
+          "description": "Permitted maximum height of the vehicle, including the load, on edge. Note: If not defined, no limitation."
+        },
+        "loadRestriction": {
+          "$ref": "#/definitions/loadRestriction"
+        },
+        "actions": {
+          "type": "array",
+          "description": "Holds actions that can be integrated into the order by the (third-party) master control system each time any vehicle with the corresponding vehicleTypeId is sent an order/order update that contains this edge. Note: If no actions can be integrated, the attribute may be omitted.",
+          "items": {
+            "$ref": "#/definitions/action"
+          }
+        },
+        "trajectory": {
+          "type": "object",
+          "description": "Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the vehicle should move between startNode and endNode. Can be omitted if the vehicle cannot process trajectories or if the vehicle plans its own trajectory. Note: The trajectory is not required, but if it is not provided, the (third-party) master control system may not be able to determine whether different vehicles from the same or a different manufacturer are colliding.",
+          "$ref": "#/definitions/trajectory"
+        },
+        "reentryAllowed": {
+            "type": "boolean",
+            "description":"true: Vehicles of the corresponding vehicleTy- peId are allowed to enter into automatic management by the (third-party) master control system while on this edge. false: Vehicles of the corresponding vehicleTy- peId are not allowed to enter into automatic management by the (third-party) master control system while on this edge. Note: If not defined, the default is true."
+        }
+      }
+    },
+    "loadRestriction":{
+      "type": "object",
+      "description": "Describes the load restriction on this edge for a vehicle of the corresponding vehicleTypeId. Note: If not defined, the edge can be used by both an unloaded and loaded vehicle with the corresponding vehicleTypeId.",
+      "required": [
+        "unloaded",
+        "loaded"
+      ],
+      "properties": {
+        "unloaded": {
+            "type": "boolean",
+            "description": "true: This edge may be used by an unloaded vehicle with the corresponding vehicleTypeId. false: This edge must not be used by an unloaded vehicle with the corresponding vehicleTypeId."
+        },
+        "loaded": {
+            "type": "boolean",
+            "description":"true: This edge may be used by a loaded vehicle with the corresponding vehicleTypeId. false: This edge must not be used by a loaded vehicle with the corresponding vehicleTypeId."
+        },
+        "loadSetNames": {
+          "type": "array",
+          "description": "List of load sets that may be transported by the vehicle on this edge. The (third-party) master control system must evaluate this attribute only if the attribute loaded is set to true. Note: If not defined or the attribute is empty, it means that all load sets supported by the vehicle loadSets are allowed. The same names for the load sets must be used here as are given in the factsheet of the respective vehicle (Factsheet attribute: [loadSets.setName]).",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "trajectory":{
+      "type": "object",
+      "required": [
+        "knotVector",
+        "controlPoints"
+      ],
+      "properties": {
+        "degree": {
+            "type": "number",
+            "description": "Range: [1 ... integer.max] Defines the number of control points that influence any given point on the curve. Increasing the degree increases continuity. If not defined, the default value is 1.",
+            "minimum": 1
+        },
+        "knotVector": {
+          "type": "array",
+          "description": "Range: [0.0 ... 1.0] Sequence of parameter values that determines where and how the control points affect the NURBS curve. knotVector has size of number of control points + degree + 1.",
+          "items": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+          }
+        },
+        "controlPoints": {
+          "type": "array",
+          "description": "List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end points.",
+          "items": {
+            "$ref": "#/definitions/controlPoint"
+          }
+        }
+      }
+    },
+    "controlPoint":{
+      "type": "object",
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+            "type": "number",
+            "description": "X position on the layout in reference to the global origin."
+        },
+        "y": {
+          "type": "number",
+          "description": "Y position on the layout in reference to the global origin."
+        },
+        "weight": {
+          "type": "number",
+          "description": "Range: [0.0 ... float64.max] The weight with which this control point pulls on the curve. When not defined, the default is 1.0.",
+          "minimum": 1.0
+        }
+      }
+    },
+    "station":{
+      "description": "Every point where a vehicle can explicitly interact with the environment, including but not limited to physical interactions.",
+      "type": "object",
+      "required": [
+        "stationId",
+        "interactionNodeIds"
+      ],
+      "properties": {
+        "stationId": {
+            "type": "string",
+            "description": "Unique identifier of the station across all layouts within this LIF file. Note: It is recommended that stationIds match and align between all LIFs from all vehicle integrators and other load handling systems such as WMSs, as well as physical visual labelling and the like."
+        },
+        "interactionNodeIds": {
+          "type": "array",
+          "description": "List of nodeIds for this station. These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pal- let longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId. Note: The decision of which nodeId is used is the responsibility of the (third-party) master control system. Choosing the correct interaction node may require that the (third-party) master control system considers the list of load sets defined on the edge or edges leading to the interaction node.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stationName": {
+            "type": "string",
+            "description":"Human-readable name for the station (e.g., for displaying)."
+        },
+        "stationDescription": {
+          "type": "string",
+          "description": "Brief description of the station."
+        },
+        "stationHeight": {
+            "type": "number",
+            "description":"Range: [0.0 ... float64.max] Absolute physical height of the station. Note: If not defined, the station height is 0.",
+            "minimum": 0.0
+        },
+        "stationPosition": {
+          "$ref": "#/definitions/stationPosition"
+        }
+      }
+    },
+    "stationPosition":{
+      "type": "object",
+      "description": "Centre point and orientation of the station. Note: Only for visualization purposes.",
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+            "type": "number",
+            "description": "X position of the station in the layout in reference to the global origin."
+        },
+        "y": {
+            "type": "number",
+            "description": "Y position of the station in the layout in reference to the global origin."
+        },
+        "theta": {
+            "type": "number",
+            "description": "Range: [-Pi ... Pi] Absolute orientation of the station on the node."
+        }
+      }
+    }
+  }
+}
