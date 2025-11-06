@@ -249,7 +249,6 @@ The objects contained in this structure are described in more detail below.
 | --- | --- | --- | --- |
 | metaInformation { |  | JSON-object | Contains meta information. |
 | lifId |  | string | Unique identifier for the LIF file describing a specific facility.  Note: Multiple exports of the same LIF file describing the same facility should have the same lifId. Differentiations can be made with exportTimestamp. |
-|  |  |  |  |
 | creator |  | string | Creator of the LIF file (e.g., name of company, or name of person). |
 | exportTimestamp |  | string | The timestamp at which this LIF file was created/updated/modified. Used to distinguish LIF file versions over time.  Timestamp format is ISO8601 in UTC (YYYY-MM-DDTHH:mm:ss.ssZ, e.g., "2017-04-15T11:40:03.12Z"). |
 | lifVersion |  | string | Version of LIF: [Major].[Minor].[Patch] (2.x.x).  Note: This is the semantic version of the LIF format, as defined at the beginning of this document. |
