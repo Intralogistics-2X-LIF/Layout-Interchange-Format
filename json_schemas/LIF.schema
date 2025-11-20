@@ -495,19 +495,19 @@
       "properties": {
         "maxLeft": {
             "type": "number",
-            "description": "Maximum corridor margin to the left of the edge."
+            "description": "Maximum corridor margin possible to the left of the edge."
         },
         "maxRight": {
           "type": "number",
-          "description": "Maximum corridor margin to the right of the edge."
+          "description": "Maximum corridor margin possible to the right of the edge."
         },
         "minLeft": {
             "type": "number",
-            "description": "Minimum corridor margin to the left of the edge."
+            "description": "Minimum corridor margin required to the left of the edge."
         },
         "minRight": {
           "type": "number",
-          "description": "Minimum corridor margin to the right of the edge."
+          "description": "Minimum corridor margin required to the right of the edge."
         }
       }
     }
