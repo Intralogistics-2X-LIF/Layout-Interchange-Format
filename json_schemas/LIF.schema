@@ -342,6 +342,11 @@
         "reentryAllowed": {
             "type": "boolean",
             "description":"true: Vehicles of the corresponding vehicleTy- peId are allowed to enter into automatic management by the (third-party) master control system while on this edge. false: Vehicles of the corresponding vehicleTy- peId are not allowed to enter into automatic management by the (third-party) master control system while on this edge. Note: If not defined, the default is true."
+        },
+        "corridor": {
+          "type": "object",
+          "description": "Describes the options to set a corridor.",
+          "$ref": "#/definitions/corridor"
         }
       }
     },
@@ -478,6 +483,31 @@
         "theta": {
             "type": "number",
             "description": "Range: [-Pi ... Pi] Absolute orientation of the station on the node."
+        }
+      }
+    },
+    "corridor":{
+      "type": "object",
+      "required": [
+        "maxLeft",
+        "maxRight"
+      ],
+      "properties": {
+        "maxLeft": {
+            "type": "number",
+            "description": "Maximum corridor margin possible to the left of the edge."
+        },
+        "maxRight": {
+          "type": "number",
+          "description": "Maximum corridor margin possible to the right of the edge."
+        },
+        "minLeft": {
+            "type": "number",
+            "description": "Minimum corridor margin required to the left of the edge."
+        },
+        "minRight": {
+          "type": "number",
+          "description": "Minimum corridor margin required to the right of the edge."
         }
       }
     }

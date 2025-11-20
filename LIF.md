@@ -373,6 +373,7 @@ The mobile robot fact sheet may define actions that can be taken nearly anywhere
 | *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the vehicle should move between startNode and endNode. Can be omitted if the vehicle cannot process trajectories or if the vehicle plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) master control system may not have sufficient information to be responsible for determining whether different vehicles from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
 | *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited vehicle types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object must be used mutually exclusively with the trajectory object. |
 | *reentryAllowed* |  | boolean | "true": Vehicles of a type listed in vehicleTypeIds are allowed to enter automatic management by the third-party master control system while on this edge.  "false": Vehicles of a type listed in vehicleTypeIds are not allowed to enter into automatic management by the (third-party) master control system while on this edge.  Note: If not defined, the default is true. |
+| *corridor* |  | JSON-object | Describes the options to set a corridor. Note: If not defined, no corridor shall be used. |
 | } |  |  |  |
 
 #### 8.3.11.1 Rotation Allowed at Start and End
@@ -440,6 +441,17 @@ The exact configuration of the above and other more complex situations must alwa
 #### 8.3.15.2 How the (Third-party) Master Control System Can Identify the Purpose of a Station
 
 If the (third-party) master control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot fact sheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot fact sheet, and so forth.
+
+### 8.3.16 Corridor
+
+| Object structure | Unit | Data type | Description |
+| --- | --- | --- | --- |
+| corridor { |  | JSON-object |  |
+| maxLeft | meter | float64 | Maximum corridor margin possible to the left of the edge. |
+| maxRight | meter | float64 | Maximum corridor margin possible to the right of the edge. |
+| *minLeft* | meter | float64 | Minimum corridor margin required to the left of the edge. |
+| *minRight* | meter | float64 | Minimum corridor margin required to the right of the edge. |
+| } |  |  |  |
 
 ## 8.4 Complete Data Structure of LIF
 
