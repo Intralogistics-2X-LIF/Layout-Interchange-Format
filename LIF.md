@@ -359,9 +359,9 @@ The mobile robot fact sheet may define actions that can be taken nearly anywhere
 | --- | --- | --- | --- |
 | vehicleTypeEdgeProperty { |  | JSON-object |  |
 | vehicleTypeIds |  | array of string | Unique IDs for vehicle types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per vehicle type per edge.  Note: It is suggested that a vehicle type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
-| *vehicleOrientation* | rad | float64 | Orientation of the vehicle on the edge. The value *orientationType* defines whether it must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards. Example: orientation Pi/2 rad will lead to a rotation of 90 degrees. If the vehicle starts in different orientation, rotate the vehicle on the edge to the desired orientation if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientation to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientation to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) master control system must assume the vehicle traversing the edge could be in any orientation at any time. |
+| *vehicleOrientation* | rad | float64 | Orientation of the vehicle on the edge. The value *orientationType* defines whether it must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards. Example: orientation Pi/2 rad will lead to a rotation of 90 degrees. If the vehicle starts in different orientation, rotate the vehicle on the edge to the desired orientation if *reachOrientationBeforeEntering* is set to "false".  If *reachOrientationBeforeEntering* is "true", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientation to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientation to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) master control system must assume the vehicle traversing the edge could be in any orientation at any time. |
 | *orientationType* |  | string | Enum {GLOBAL, TANGENTIAL}:  "GLOBAL": relative to the global project specific map coordinate system.  "TANGENTIAL": tangential to the edge.  Note: If not defined, the default value is "TANGENTIAL". |
-| rotationAllowed |  | boolean | "true": rotation is allowed on the edge. The (third-party) master control system must assume that the vehicle will rotate in any direction along the edge at any point. The (third-party) master control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other vehicles also under its control (e.g. deadlocks, potential collision).  "false": rotation is not allowed on the edge. |
+| *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional vehicles. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Vehicle can rotate into the desired orientation on the edge. The (third-party) master control system must assume that the vehicle will rotate in any direction along the edge at any point. The (third-party) master control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other vehicles also under its control (e.g. deadlocks, potential collision).<br><br>Optional:<br>Default: "false". |
 | *rotationAtStartNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the vehicle at the start node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
 | *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the vehicle at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
 | *maxSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the vehicle.  Note: If not defined, no limitation. |
@@ -516,7 +516,7 @@ The complete data structure of LIF is shown below:
                             "vehicleTypeId": "string",
                             "vehicleOrientation": "number",
                             "orientationType": "string",
-                            "rotationAllowed": "boolean",
+                            "reachOrientationBeforeEntering": "boolean",
                             "rotationAtStartNodeAllowed": "string",
                             "rotationAtEndNodeAllowed": "string",
                             "maxSpeed": "number",
@@ -662,7 +662,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -731,7 +731,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -744,7 +744,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -812,7 +812,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "CCW"
                         }
@@ -827,7 +827,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "CCW",
                             "rotationAtEndNodeAllowed": "NONE"
                         }
@@ -897,7 +897,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 1.5707963267948966,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": true,
+                            "reachOrientationBeforeEntering": false,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "NONE"
                         }
@@ -912,7 +912,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": -1.5707963267948966,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": true,
+                            "reachOrientationBeforeEntering": false,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "NONE"
                         }
@@ -984,7 +984,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -1034,7 +1034,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -1116,7 +1116,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1129,7 +1129,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -1284,7 +1284,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1297,7 +1297,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1310,7 +1310,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1323,7 +1323,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1336,7 +1336,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1349,7 +1349,7 @@ LIF-File:
                             "vehicleTypeId":"Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -1482,7 +1482,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1495,7 +1495,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1508,7 +1508,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_2",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1521,7 +1521,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_2",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -1649,7 +1649,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1660,7 +1660,7 @@ LIF-File:
                     "vehicleTypeEdgeProperties": [
                         {
                             "vehicleTypeId": "Vehicle_Type_1",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "CW"
                         }
                     ]
@@ -1674,7 +1674,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -1865,7 +1865,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1878,7 +1878,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1891,7 +1891,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1904,7 +1904,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1917,13 +1917,13 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_2",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         },
                         {
                             "vehicleTypeId": "Vehicle_Type_3",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -1936,13 +1936,13 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_2",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         },
                         {
                             "vehicleTypeId": "Vehicle_Type_3",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -2075,7 +2075,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "loadRestriction": {
@@ -2094,7 +2094,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "NONE",
                             "loadRestriction": {
@@ -2111,7 +2111,7 @@ LIF-File:
                     "vehicleTypeEdgeProperties": [
                         {
                             "vehicleTypeId": "Vehicle_Type_1",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH"
                         }
@@ -2124,7 +2124,7 @@ LIF-File:
                     "vehicleTypeEdgeProperties": [
                         {
                             "vehicleTypeId": "Vehicle_Type_1",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH"
                         }
@@ -2137,7 +2137,7 @@ LIF-File:
                     "vehicleTypeEdgeProperties": [
                         {
                             "vehicleTypeId": "Vehicle_Type_1",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "loadRestriction": {
@@ -2157,7 +2157,7 @@ LIF-File:
                     "vehicleTypeEdgeProperties": [
                         {
                             "vehicleTypeId": "Vehicle_Type_1",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "loadRestriction": {
@@ -2177,7 +2177,7 @@ LIF-File:
                     "vehicleTypeEdgeProperties": [
                         {
                             "vehicleTypeId": "Vehicle_Type_1",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "loadRestriction": {
@@ -2197,7 +2197,7 @@ LIF-File:
                     "vehicleTypeEdgeProperties": [
                         {
                             "vehicleTypeId": "Vehicle_Type_1",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "loadRestriction": {
@@ -2300,7 +2300,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "loadRestriction": {
@@ -2319,7 +2319,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "NONE",
                             "maxSpeed": 0.8,
@@ -2342,7 +2342,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "NONE",
                             "maxSpeed": 0.3,
@@ -2433,7 +2433,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "loadRestriction": {
@@ -2452,7 +2452,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "NONE",
                             "loadRestriction": {
@@ -2539,7 +2539,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -2552,7 +2552,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -2602,7 +2602,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -2615,7 +2615,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -2628,7 +2628,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -2709,7 +2709,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 },
@@ -2722,7 +2722,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false
+                            "reachOrientationBeforeEntering": true
                         }
                     ]
                 }
@@ -2875,7 +2875,7 @@ LIF-File:
                           "vehicleTypeId": "Vehicle_Type_1",
                           "vehicleOrientation": 3.1415926535897931,
                           "orientationType": "TANGENTIAL",
-                          "rotationAllowed": false
+                          "reachOrientationBeforeEntering": true
                       }
                   ]
               },
@@ -2888,7 +2888,7 @@ LIF-File:
                           "vehicleTypeId": "Vehicle_Type_1",
                           "vehicleOrientation": 0.0,
                           "orientationType": "TANGENTIAL",
-                          "rotationAllowed": false
+                          "reachOrientationBeforeEntering": true
                       }
                   ]
               },
@@ -2901,7 +2901,7 @@ LIF-File:
                           "vehicleTypeId": "Vehicle_Type_1",
                           "vehicleOrientation": 3.1415926535897931,
                           "orientationType": "TANGENTIAL",
-                          "rotationAllowed": false
+                          "reachOrientationBeforeEntering": true
                       }
                   ]
               },
@@ -2914,7 +2914,7 @@ LIF-File:
                           "vehicleTypeId": "Vehicle_Type_1",
                           "vehicleOrientation": 0.0,
                           "orientationType": "TANGENTIAL",
-                          "rotationAllowed": false
+                          "reachOrientationBeforeEntering": true
                       }
                   ]
               },
@@ -2927,7 +2927,7 @@ LIF-File:
                           "vehicleTypeId": "Vehicle_Type_1",
                           "vehicleOrientation": 3.1415926535897931,
                           "orientationType": "TANGENTIAL",
-                          "rotationAllowed": false
+                          "reachOrientationBeforeEntering": true
                       }
                   ]
               },
@@ -2940,7 +2940,7 @@ LIF-File:
                           "vehicleTypeId": "Vehicle_Type_1",
                           "vehicleOrientation": 0.0,
                           "orientationType": "TANGENTIAL",
-                          "rotationAllowed": false
+                          "reachOrientationBeforeEntering": true
                       }
                   ]
               }
@@ -3037,7 +3037,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": -1.5707963267948966,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "trajectory": {
@@ -3082,7 +3082,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 1.5707963267948966,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
                             "trajectory": {
@@ -3183,7 +3183,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "actions": [
                                 {
                                     "actionType": "BEEP",
@@ -3204,7 +3204,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 3.1415926535897931,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "actions": [
                                 {
                                     "actionType": "LOWER_FORK_AND_BEEP",
@@ -3287,7 +3287,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_1",
                             "vehicleOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "NONE"
                         },
@@ -3295,7 +3295,7 @@ LIF-File:
                             "vehicleTypeId": "Vehicle_Type_2",
                             "vehicleOrientation": 1.5707963267948966,
                             "orientationType": "TANGENTIAL",
-                            "rotationAllowed": false,
+                            "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "NONE"
                         }
