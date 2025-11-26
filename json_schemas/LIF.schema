@@ -287,10 +287,10 @@
         },
         "vehicleOrientations": {
             "type": "array",
+            "description":"All possible orientations the vehicle can take while traversing the edge. The master control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the vehicle starts in different orientation, rotate the vehicle on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) master control system must assume the vehicle traversing the edge could be in any orientation at any time.",
             "items": {
-                "type": "float64"
+                "type": "number"
             }
-            "description":"Orientations of the vehicle on the edge. The value orientationType defines if it has to be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and Pi = backwards. Example: orientation Pi/2 rad will lead to a rotation of 90 degrees. If the vehicle starts in a different orientation, rotate the vehicle on the edge to the desired orientation if rotationAllowed is set to true. If rotationAllowed is „false“, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientation to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientation to the trajectory."
         },
         "orientationType": {
           "type": "string",
