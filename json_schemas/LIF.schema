@@ -285,9 +285,12 @@
             "type": "string",
             "description": "Unique Id for the type of vehicle to which these properties apply on this edge. Only one vehicleTypeEdge Property can be declared per vehicle type per edge. Note: It is suggested that this be a combination of [factsheet.manufacturer]. [factsheet.seriesName]"
         },
-        "vehicleOrientation": {
-            "type": "number",
-            "description":"Orientation of the vehicle on the edge. The value orientationType defines if it has to be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and Pi = backwards. Example: orientation Pi/2 rad will lead to a rotation of 90 degrees. If the vehicle starts in a different orientation, rotate the vehicle on the edge to the desired orientation if rotationAllowed is set to true. If rotationAllowed is „false“, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientation to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientation to the trajectory."
+        "vehicleOrientations": {
+            "type": "array",
+            "items": {
+                "type": "float64"
+            }
+            "description":"Orientations of the vehicle on the edge. The value orientationType defines if it has to be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and Pi = backwards. Example: orientation Pi/2 rad will lead to a rotation of 90 degrees. If the vehicle starts in a different orientation, rotate the vehicle on the edge to the desired orientation if rotationAllowed is set to true. If rotationAllowed is „false“, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientation to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientation to the trajectory."
         },
         "orientationType": {
           "type": "string",
