@@ -373,7 +373,7 @@ The mobile robot fact sheet may define actions that can be taken nearly anywhere
 | *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the vehicle should move between startNode and endNode. Can be omitted if the vehicle cannot process trajectories or if the vehicle plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) master control system may not have sufficient information to be responsible for determining whether different vehicles from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
 | *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited vehicle types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object must be used mutually exclusively with the trajectory object. |
 | *reentryAllowed* |  | boolean | "true": Vehicles of a type listed in vehicleTypeIds are allowed to enter automatic management by the third-party master control system while on this edge.  "false": Vehicles of a type listed in vehicleTypeIds are not allowed to enter into automatic management by the (third-party) master control system while on this edge.  Note: If not defined, the default is true. |
-| *allowedDeviationXY* |  | JSON-object | Indicates the deviation a vehicle needs for a node to traverse it smoothly. |
+| *allowedDeviationXY* |  | JSON-object | Indicates the distance a vehicle needs to deviate from a node to traverse it smoothly. |
 | *corridor* |  | JSON-object | Describes the options to set a corridor. Note: If not defined, no corridor shall be used. |
 | } |  |  |  |
 
@@ -445,7 +445,7 @@ If the (third-party) master control system would need to graphically identify ce
 
 ### 8.3.16 AllowedDeviationXY
 
-Indicates how precisely a vehicle shall match the position of a node for it to be considered traversed.
+Indicates the distance a vehicle needs to deviate from a node to traverse it smoothly.
 
 If a = b= 0.0: no deviation is allowed, which means the vehicle shall reach or pass the node position with the vehicle control point as precisely as is technically possible for the vehicle. This applies also if allowedDeviationXY is smaller than what is technically viable for the vehicle. If the vehicle supports this attribute, but it is not defined for this node by Master Control the vehicle shall assume the value of a and b as 0.0.
 
