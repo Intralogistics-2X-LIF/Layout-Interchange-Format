@@ -343,6 +343,10 @@
             "type": "boolean",
             "description":"true: Vehicles of the corresponding vehicleTy- peId are allowed to enter into automatic management by the (third-party) master control system while on this edge. false: Vehicles of the corresponding vehicleTy- peId are not allowed to enter into automatic management by the (third-party) master control system while on this edge. Note: If not defined, the default is true."
         },
+        "allowedDeviationXY": {
+          "type": "number",
+          "description": "Indicates the deviation a vehicle needs for a node to traverse it smoothly."
+        },
         "corridor": {
           "type": "object",
           "description": "Describes the options to set a corridor.",
