@@ -345,7 +345,7 @@
         },
         "allowedDeviationXY": {
           "type": "number",
-          "description": "Indicates the deviation a vehicle needs for a node to traverse it smoothly."
+          "description": "Indicates the distance a vehicle needs to deviate from a node to traverse it smoothly."
         },
         "corridor": {
           "type": "object",
