@@ -489,26 +489,21 @@
     "corridor":{
       "type": "object",
       "required": [
-        "maxLeft",
-        "maxRight"
+        "maximumLeftWidth",
+        "maximumRightWidth"
       ],
       "properties": {
-        "maxLeft": {
+        "maximumLeftWidth": {
             "type": "number",
             "description": "Maximum corridor margin possible to the left of the edge."
         },
-        "maxRight": {
+        "maximumRightWidth": {
           "type": "number",
           "description": "Maximum corridor margin possible to the right of the edge."
         },
-        "minLeft": {
-            "type": "number",
-            "description": "Minimum corridor margin required to the left of the edge."
-        },
-        "minRight": {
-          "type": "number",
-          "description": "Minimum corridor margin required to the right of the edge."
-        }
+        "corridorRefPoint": {
+          "type": "string",
+          "description": "Defines whether the boundaries are valid for the kinematic center or the contour of the vehicle. If not specified the boundaries are valid to the vehicles kinematic center. Enum {'KINEMATICCENTER', 'CONTOUR'}"
       }
     }
   }
