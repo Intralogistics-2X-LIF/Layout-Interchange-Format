@@ -447,8 +447,8 @@ If the (third-party) master control system would need to graphically identify ce
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | corridor { |  | JSON-object |  |
-| maximumLeft | meter | float64 | Maximum corridor margin possible to the left of the edge. |
-| maximumRight | meter | float64 | Maximum corridor margin possible to the right of the edge. |
+| maximumLeftWidth | meter | float64 | Maximum corridor margin possible to the left of the edge. |
+| maximumRightWidth | meter | float64 | Maximum corridor margin possible to the right of the edge. |
 | } |  |  |  |
 
 ## 8.4 Complete Data Structure of LIF
