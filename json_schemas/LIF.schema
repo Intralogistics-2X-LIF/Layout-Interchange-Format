@@ -343,6 +343,11 @@
             "type": "boolean",
             "description":"true: Vehicles of the corresponding vehicleTy- peId are allowed to enter into automatic management by the (third-party) master control system while on this edge. false: Vehicles of the corresponding vehicleTy- peId are not allowed to enter into automatic management by the (third-party) master control system while on this edge. Note: If not defined, the default is true."
         },
+        "allowedDeviationXY": {
+          "type": "object",
+          "description": "Indicates the distance a vehicle needs to deviate from a node to traverse it smoothly.",
+          "$ref": "#/definitions/allowedDeviationXY"
+        },
         "corridor": {
           "type": "object",
           "description": "Describes the options to set a corridor.",
@@ -486,6 +491,28 @@
         }
       }
     },
+    "allowedDeviationXY":{
+      "type": "object",
+      "required": [
+        "a",
+        "b",
+        "theta"
+      ],
+      "properties": {
+        "a": {
+            "type": "number",
+            "description": "Length of the ellipse semi-major axis in meters"
+        },
+        "b": {
+          "type": "number",
+          "description": "Length of the ellipse semi-minor axis in meters"
+        },
+        "theta": {
+            "type": "number",
+            "description": "Rotation angle "
+        }
+      }
+    }
     "corridor":{
       "type": "object",
       "required": [
