@@ -447,7 +447,7 @@ If the (third-party) master control system would need to graphically identify ce
 
 Indicates how precisely a vehicle shall match the position of a node for it to be considered traversed.
 
-If a = b= 0.0: no deviation is allowed, which means the vehicle shall reach or pass the node position with the vehicle control point as precisely as is technically possible for the vehicle. This applies also if allowedDeviationXY is smaller than what is technically viable for the vehicle. If the vehicle supports this attribute, but it is not defined for this node by Master Control the vehicle shall assume the value of a and b as 0.0.
+If a = b = 0.0: no deviation is allowed, which means the vehicle shall reach or pass the node position with the vehicle control point as precisely as is technically possible for the vehicle. This applies also if allowedDeviationXY is smaller than what is technically viable for the vehicle. If the vehicle supports this attribute, but it is not defined for this node by Master Control the vehicle shall assume the value of a and b as 0.0.
 
 In case an ellipse is not supported by either the vehicle or by VDA version, it should be defined such that a = b and theta = 0.0 in order to define a circle.
 
