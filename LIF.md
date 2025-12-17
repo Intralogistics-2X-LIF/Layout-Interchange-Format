@@ -445,7 +445,7 @@ If the (third-party) master control system would need to graphically identify ce
 
 ### 8.3.16 AllowedDeviationXY
 
-Indicates the distance a vehicle needs to deviate from a node to traverse it smoothly.
+Indicates how precisely a vehicle shall match the position of a node for it to be considered traversed.
 
 If a = b= 0.0: no deviation is allowed, which means the vehicle shall reach or pass the node position with the vehicle control point as precisely as is technically possible for the vehicle. This applies also if allowedDeviationXY is smaller than what is technically viable for the vehicle. If the vehicle supports this attribute, but it is not defined for this node by Master Control the vehicle shall assume the value of a and b as 0.0.
 
