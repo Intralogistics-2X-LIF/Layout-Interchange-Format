@@ -501,7 +501,7 @@
           "type": "number",
           "description": "Maximum corridor margin possible to the right of the edge."
         },
-        "corridorRefPoint": {
+        "corridorReferencePoint": {
           "type": "string",
           "description": "Defines whether the boundaries are valid for the kinematic center or the contour of the vehicle. If not specified the boundaries are valid to the vehicles kinematic center. Enum {'KINEMATICCENTER', 'CONTOUR'}"
       }
