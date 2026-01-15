@@ -465,8 +465,9 @@ In the case that an ellipse is not supported by either the vehicle or by VDA5050
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | corridor { |  | JSON-object |  |
-| maximumLeft | meter | float64 | Maximum corridor margin possible to the left of the edge. |
-| maximumRight | meter | float64 | Maximum corridor margin possible to the right of the edge. |
+| maximumLeftWidth | meter | float64 | Maximum corridor margin possible to the left of the edge. |
+| maximumRightWidth | meter | float64 | Maximum corridor margin possible to the right of the edge. |
+| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the vehicle. If not specified the boundaries are valid to the vehicles kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'} |
 | } |  |  |  |
 
 ## 8.4 Complete Data Structure of LIF
