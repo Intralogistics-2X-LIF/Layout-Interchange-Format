@@ -336,8 +336,8 @@ The AGV Fact Sheet may define actions that can be taken nearly anywhere, such as
 | *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the vehicle at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.9.1 for detailed description. |
 | *maxSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the vehicle.  Note: If not defined, no limitation. |
 | *maxRotationSpeed* | rad/s | float64 | Maximum rotation speed  Note: If not defined, no limitation. |
-| *minHeight* | m | float64 | Permitted minimal height of the load handling device on the edge.  Note: If not defined, no limitation. |
-| *maxHeight* | m | float64 | Permitted maximum height of the vehicle, including the load, on edge.  Note: If not defined, no limitation. |
+| *minimumLoadHandlingDeviceHeight* | m | float64 | Permitted minimal height of the load handling device(s) on the edge. Note: If not defined, no limitation. |
+| *maximumMobileRobotHeight* | m | float64 | Permitted maximum height of the vehicle, including the load, on edge.  Note: If not defined, no limitation. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for a vehicle of the corresponding vehicleTypeId.  Note: If not defined, the edge can be used by both an unloaded and loaded vehicle with the corresponding vehicleTypeId. |
 | *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into the order by the (third-party) master control system each time any vehicle with the corresponding vehicleTypeId is sent an order/order update that contains this edge.  Note: If no actions must be integrated, the attribute can be omitted. |
 | *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the vehicle should move between startNode and endNode. Can be omitted if the vehicle cannot process trajectories or if the vehicle plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) master control system may not be able to determine whether different vehicles from the same or a different manufacturer are colliding. |
@@ -466,8 +466,8 @@ The complete data structure of LIF is shown below:
                             "rotationAtEndNodeAllowed": "string",
                             "maxSpeed": "number",
                             "maxRotationSpeed": "number",
-                            "minHeight": "number",
-                            "maxHeight": "number",
+                            "minimumLoadHandlingHeight": "number",
+                            "maximumMobileRobotHeight": "number",
                             "loadRestriction": {
                                 "unloaded": "boolean",
                                 "loaded": "boolean",
