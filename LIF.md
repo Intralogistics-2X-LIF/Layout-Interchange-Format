@@ -130,7 +130,7 @@ The LIF described in this document is intended to map a common set of necessary 
 
 ## 5.2 Further Assumptions
 * The communication between the (third-party) master control system and the vehicle corresponds to the VDA5050 interface definition.
-* The vehicle integrator will also provide the (third-party) master control system with the AGV Fact Sheet per the VDA5050 specification, which will contain information about vehicle geometry, kinematics and other "capabilities of the vehicle".
+* The vehicle integrator will also provide the (third-party) master control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about vehicle geometry, kinematics and other "capabilities of the vehicle".
 
 ## 5.3 LIF Limitations
 The LIF does not describe any logical processes by which a (third-party) master control system must perform its tasks. This includes, but is not limited to the handling of, route planning, traffic management, intersections of multiple vehicles from the same of different vehicle integrators, interaction with stationary equipment and so forth. It is merely a definition of what a vehicle is capable of doing, and where, that a (third-party) master control system can use as input when determining these operations. Section 7.2, Import and Processing of the LIF File by the (Third-party) Master Control System, goes into further detail.
@@ -215,7 +215,7 @@ If a variable is marked as optional, it is optional for the vehicle integrator�
 
 If the LIF file contains an optional variable, the (third-party) master control system must not ignore the variable. If the (third-party) master control system cannot process the variable accordingly, it is expected that the (third-party) master control system will provide a warning or an error message when importing the LIF file.
 
-Variables that are optional in the LIF, but are strictly required by the vehicle, must be clearly communicated toward the (third-party) master control system. The LIF does not denote such variables; this agreement must be made between the vehicle integrator and (third-party) master control system. It is suggested this is written in an agreement parallel to the AGV Fact Sheet as defined in the VDA5050 standard.
+Variables that are optional in the LIF, but are strictly required by the vehicle, must be clearly communicated toward the (third-party) master control system. The LIF does not denote such variables; this agreement must be made between the vehicle integrator and (third-party) master control system. It is suggested this is written in an agreement parallel to the mobile robots' factsheets as defined in the VDA5050 standard.
 
 ## 8.2 Element ID Uniqueness
 
@@ -292,14 +292,14 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
-| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) master control system, such as via the interpretation of a mobile robot's fact sheet. |
+| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) master control system, such as via the interpretation of a mobile robot's factsheet. |
 | *actionDescription* |  | string | Brief description of the action. |
 | requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) master control system must always communicate this action to the vehicle on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the vehicle integrator and the (third-party) master control system is required.  "OPTIONAL" - The action may or may not be communicated to the vehicle at the (third-party) master control system's discretion and responsibility. The vehicle must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behaviour for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the vehicle integrator to define the implications of this to the (third-party) master control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
 | blockingType |  | string | Enum {NONE, SOFT, HARD}  "NONE" - allows moving and other actions.  "SOFT" - allows other actions, but not moving.  "HARD" - is the only allowed action at this time. |
-| *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The master traffic control must still determine and send these actionParameters. Refer to the AGV fact sheet. |
+| *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The master traffic control must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
 | } |  |  |  |
 
-The AGV Fact Sheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the vehicle. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the vehicle integrator and the (third-party) master control system.
+A mobile robot's factsheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the vehicle. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the vehicle integrator and the (third-party) master control system.
 
 ### 8.3.7 ActionParameter
 
@@ -397,7 +397,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 
 #### 8.3.13.1 How the (Third-party) Master Control System Can Identify the Purpose of a Station
 
-If the (third-party) master control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the AGV Fact Sheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the AGV Fact Sheet, and so forth.
+If the (third-party) master control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, and so forth.
 
 ## 8.4 Complete Data Structure of LIF
 
@@ -529,7 +529,7 @@ The complete data structure of LIF is shown below:
 ```
 # 9 Additional Information that Should Be Exchanged Uniformly
 
-In addition to the reference to the VDA5050 interface definition, information about geometry, kinematics, lifting systems, "capabilities of the vehicle", and so forth are included in the AGV Fact Sheet.
+In addition to the reference to the VDA5050 interface definition, information about geometry, kinematics, lifting systems, "capabilities of the vehicle", and so forth are included in the mobile robot's factsheet.
 
 # 10 Examples
 
