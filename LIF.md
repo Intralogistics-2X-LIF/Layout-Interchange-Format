@@ -449,7 +449,7 @@ If the (third-party) master control system would need to graphically identify ce
 | corridor { |  | JSON-object |  |
 | maximumLeftWidth | meter | float64 | Maximum corridor margin possible to the left of the edge. |
 | maximumRightWidth | meter | float64 | Maximum corridor margin possible to the right of the edge. |
-| *corridorRefPoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the vehicle. If not specified the boundaries are valid to the vehicles kinematic center. Enum {'KINEMATICCENTER', 'CONTOUR'} |
+| *corridorRefPoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the vehicle. If not specified the boundaries are valid to the vehicles kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'} |
 | } |  |  |  |
 
 ## 8.4 Complete Data Structure of LIF
