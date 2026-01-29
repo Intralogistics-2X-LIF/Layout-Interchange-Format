@@ -2,7 +2,7 @@
 
 ### LIF - Layout Interchange Format
 
-### Version 1.0.0 - September 2023
+### DRAFT - Version 2.0.0 - January 2026
 
 ## Abstract
 
@@ -13,11 +13,11 @@ This document represents a non-binding approach. Whoever uses it must ensure the
 Should you encounter any inaccuracies or the possibility of incorrect interpretation in the application of the proposals, please notify VDMA immediately so that any deficiencies can be rectified.
 
 ## Publisher 
-Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)
+VDMA e. V. 
 Lyoner Strasse 18, 60528 Frankfurt am Main
 
 ## Copyright 
-Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)
+VDMA e. V.
 Reprinting and any other form of reproduction is permitted only if the source is acknowledged.
 
 ## Legal Notice Regarding the Scope of Support for Layout Interchange Format on GitHub.
