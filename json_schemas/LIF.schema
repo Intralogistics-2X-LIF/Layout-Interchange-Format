@@ -455,7 +455,11 @@
         },
         "stationName": {
             "type": "string",
-            "description":"Human-readable name for the station (e.g., for displaying)."
+            "description": "Name of the station. May be used and forwarded to the vehicle as part of a VDA5050 order, such as a pick or drop action."
+        },
+        "stationType": {
+            "type": "string",
+            "description": "Type of the station. May be used and forwarded to the vehicle as part of a VDA5050 order, such as a pick or drop action."
         },
         "stationDescription": {
           "type": "string",
@@ -463,7 +467,7 @@
         },
         "stationHeight": {
             "type": "number",
-            "description":"Range: [0.0 ... float64.max] Absolute physical height of the station. Note: If not defined, the station height is 0.",
+            "description": "Range: [0.0 ... float64.max] Absolute physical height of the station. Note: If not defined, the station height is 0.",
             "minimum": 0.0
         },
         "stationPosition": {
