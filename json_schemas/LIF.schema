@@ -459,7 +459,7 @@
         },
         "stationType": {
             "type": "string",
-            "description": "Type of the station. Used to forward to the vehicle as part of the pick or drop action."
+            "description": "Type of the station. May be used and forwarded to the vehicle as part of a VDA5050 order, such as a pick or drop action."
         },
         "stationDescription": {
           "type": "string",
