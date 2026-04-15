@@ -2,14 +2,14 @@
 
 # LIF - Layout Interchange Format
 
-## Definition of a format of track layouts for exchange between the integrator of the mobile robots and a (third-party) master control system.
+## Definition of a format of track layouts for exchange between the integrator of the mobile robots and a (third-party) fleet control system.
 
 
 ## Version 2.0.0 - September 2026
 
 # Abstract
 
-The following embodiment describes an interchange format for a layout (e.g.: collection of edges, nodes and stations). By means of this interchange format, the integrator of the mobile robots will be able to initially transfer a layout to a central (third-party) master control system for use and integration.
+The following embodiment describes an interchange format for a layout (e.g.: collection of edges, nodes and stations). By means of this interchange format, the integrator of the mobile robots will be able to initially transfer a layout to a central (third-party) fleet control system for use and integration.
 
 This document represents a non-binding approach. Whoever uses it must ensure the correct application in the specific case. It is influenced by the state of the art at the time of the respective edition, in particular the VDA5050 interface definition. Ascribing to the suggestions described herein does not absolve parties of the responsibility for their own actions. No text in this document claims completeness nor provides exact interpretation of the existing legal provisions. The contents of this document must not replace the study of the relevant directives, laws and regulations. Furthermore, the special features of the respective products as well as their different possible applications must be considered. In this respect, all parties act at their own risk. Any liability of the VDMA and those involved in the development or application of the suggestions is excluded.
 
@@ -35,10 +35,10 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
 [6 LIF Format](#6-lif-format)<br>
-[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and (Third-party) Master Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-master-control-system)<br>
+[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and (Third-party) Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
 [7.1 Export of the LIF File by the Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-integrator-of-the-mobile-robots)<br>
-[7.2 Import and Processing of the LIF File by the (Third-party) Master Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-master-control-system)<br>
-[7.3 Further Exports of the LIF File and Imports into the (Third-party) Master Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-master-control-system)<br>
+[7.2 Import and Processing of the LIF File by the (Third-party) Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
+[7.3 Further Exports of the LIF File and Imports into the (Third-party) Fleet Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-fleet-control-system)<br>
 [8 Specification of LIF](#8-specification-of-lif)<br>
 [8.1 Table Symbols and Meaning of Formatting](#81-table-symbols-and-meaning-of-formatting)<br>
 [8.1.1 Optional Variables](#811-optional-variables)<br>
@@ -94,21 +94,21 @@ The following table is intended to describe supplementary terms:
 | **Item** | **Description** |
 | --- | --- |
 | deadlock | A situation where two or more devices are awaiting one another in a circular fashion, resulting in a system that is unable to exit this state and continue regular operation. Example: Mobile robot A is waiting on mobile robot B to get out of the way, but mobile robot B is also waiting on mobile robot A to do the same. |
-| facility | The facility in which the mobile robot system is used. The facility can consist of several levels. The facility could be made up by several LIF files from multiple mobile robot integrators. The facility is controlled by one (third-party) master control system. |
+| facility | The facility in which the mobile robot system is used. The facility can consist of several levels. The facility could be made up by several LIF files from multiple mobile robot integrators. The facility is controlled by one (third-party) fleet control system. |
 | integrator | Integrator refers to the manufacturer of mobile robots or a vendor that integrates a manufacturer's mobile robots into the driverless transport system. |
 | layout | A collection of nodes, edges and stations. A layout represents a level of a facility or a part of a level of a facility. |
 | level | A level of a facility that is used by the mobile robot systems |
-| re-entry | The induction of a mobile robot into automatic management under the (third-party) master control system, such as after having been taken under manual operation, or when the mobile robot is first inducted into the system after having been switched off. |
+| re-entry | The induction of a mobile robot into automatic management under the (third-party) fleet control system, such as after having been taken under manual operation, or when the mobile robot is first inducted into the system after having been switched off. |
 | station | Any point at which a mobile robot can explicitly interact with the environment, including but not limited to physical interactions. |
 
 # 2 Applicable Documents
 
 | **DOCUMENT** | **DESCRIPTION** |
 | --- | --- |
-| VDI-Richtlinie 2510 | Driverless transport systems |
-| VDI-Richtlinie 4451 Blatt 7 | Compatibility of driverless transport systems – Master control for driverless transport systems |
-| DIN EN ISO 3691-4 | Industrial trucks - Safety requirements and verification - Part 4: Driverless trucks and their systems |
-| VDA 5050 | Interface for communication between mobile robots and a master control |
+| VDI-Richtlinie 2510 | Automated Guided Vehicle Systems (AGVS) |
+| VDI-Richtlinie 4451 Blatt 7 | Compatibility of Automated Guided Vehicle Systems (AGVS) - AGVS guidance control system |
+| DIN EN ISO 3691-4 | Industrial trucks - Safety requirements and verification - Part 4: Driverless industrial trucks and their systems |
+| VDA 5050 | Interface for the Communication between Mobile Robots and a Fleet Control |
 
 # 3 Foreword
 
@@ -116,35 +116,35 @@ The Layout Interchange Format (LIF) was defined at Verband Deutscher Maschinen- 
 
 # 4 Aim of the Document
 
-This document describes the LIF, its purpose and examples of how to use it. This document does not describe any logical processes that a (third-party) master control system must implement to interpret the data contained in the LIF.
+This document describes the LIF, its purpose and examples of how to use it. This document does not describe any logical processes that a (third-party) fleet control system must implement to interpret the data contained in the LIF.
 
 # 5 Aim of the LIF
 
-The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward (third-party) master control system providers.
+The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward (third-party) fleet control system providers.
 
-The first primary goal is to complement the VDA5050 interface’s goal of facilitating decoupling between a mobile robot manufacturer and a (third-party) master control system provider. It uses the same terminology and much of the same structure as the VDA5050 interface.
+The first primary goal is to complement the VDA5050 interface’s goal of facilitating decoupling between a mobile robot manufacturer and a (third-party) fleet control system provider. It uses the same terminology and much of the same structure as the VDA5050 interface.
 
-The LIF described in this document is intended to map a common set of necessary information, as explicitly and unambiguously as possible, to enable a (third-party) master control system to steer/navigate a mobile robot on a layout specified by the mobile robot integrator. The LIF contains information on how the integrator’s mobile robots can interact with its environment and navigate inside of a layout. This satisfies the LIF’s second primary goal to allow a clear separation of responsibility between a mobile robot integrator and a (third-party) master control system.
+The LIF described in this document is intended to map a common set of necessary information, as explicitly and unambiguously as possible, to enable a (third-party) fleet control system to steer/navigate a mobile robot on a layout specified by the mobile robot integrator. The LIF contains information on how the integrator’s mobile robots can interact with its environment and navigate inside of a layout. This satisfies the LIF’s second primary goal to allow a clear separation of responsibility between a mobile robot integrator and a (third-party) fleet control system.
 
 ## 5.1 Requirements
 * The LIF concept, standard, and definition must always be compatible with the current status, terminology and developments of the VDA5050 interface.
 * A single LIF file may only contain layouts from one mobile robot integrator.
 * A single LIF file may contain multiple layouts for multiple mobile robot types of one mobile robot integrator.
-* A (third-party) master control system must be able to accept multiple LIF files from multiple mobile robot integrators for one facility.
+* A (third-party) fleet control system must be able to accept multiple LIF files from multiple mobile robot integrators for one facility.
 * The LIF must not preclude the inclusion of mobile robots with different levels of autonomy.
 
 ## 5.2 Further Assumptions
-* The communication between the (third-party) master control system and the mobile robot corresponds to the VDA5050 interface definition.
-* The mobile robot integrator will also provide the (third-party) master control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about mobile robot geometry, kinematics and other "capabilities of the mobile robot".
+* The communication between the (third-party) fleet control system and the mobile robot corresponds to the VDA5050 interface definition.
+* The mobile robot integrator will also provide the (third-party) fleet control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about mobile robot geometry, kinematics and other "capabilities of the mobile robot".
 
 ## 5.3 LIF Limitations
-The LIF does not describe any logical processes by which a (third-party) master control system must perform its tasks. This includes, but is not limited to the handling of, route planning, traffic management, intersections of multiple mobile robots from the same of different mobile robot integrators, interaction with stationary equipment and so forth. It is merely a definition of what a mobile robot is capable of doing, and where, that a (third-party) master control system can use as input when determining these operations. Section 7.2, Import and Processing of the LIF File by the (Third-party) Master Control System, goes into further detail.
+The LIF does not describe any logical processes by which a (third-party) fleet control system must perform its tasks. This includes, but is not limited to the handling of, route planning, traffic management, intersections of multiple mobile robots from the same of different mobile robot integrators, interaction with stationary equipment and so forth. It is merely a definition of what a mobile robot is capable of doing, and where, that a (third-party) fleet control system can use as input when determining these operations. Section 7.2, Import and Processing of the LIF File by the (Third-party) Fleet Control System, goes into further detail.
 
 The LIF does not affect, and is not affected by, different localization technologies that mobile robots may use, nor does it contain any information pertaining to localization methods.
 
-The LIF is never intended to flow in the reverse direction of from a (third-party) master control system toward a mobile robot or mobile robots. If a mobile robot integrator requires some information from a master control system or those responsible for it, it must be transferred outside of the context of the LIF.
+The LIF is never intended to flow in the reverse direction of from a (third-party) fleet control system toward a mobile robot or mobile robots. If a mobile robot integrator requires some information from a fleet control system or those responsible for it, it must be transferred outside of the context of the LIF.
 
-The LIF does not specify how a (third-party) master control system should accurately rotate, scale, or translate multiple LIF files from different mobile robot integrators in the same facility. It is recommended that all parties agree on a standard coordinate origin in such cases.
+The LIF does not specify how a (third-party) fleet control system should accurately rotate, scale, or translate multiple LIF files from different mobile robot integrators in the same facility. It is recommended that all parties agree on a standard coordinate origin in such cases.
 
 # 6 LIF Format
 
@@ -152,13 +152,13 @@ A JSON structure is used for the exchange format. JSON strings must conform to t
 
 The JSON structure allows for future extension of LIF with additional parameters. The parameters are described in English to ensure that LIF is also readable, understandable and applicable to the broadest possible audience.
 
-# 7 LIF Transfer and Responsibilities of Mobile Robot Integrator and (Third-party) Master Control System
+# 7 LIF Transfer and Responsibilities of Mobile Robot Integrator and (Third-party) Fleet Control System
 
-The following section describes the exchange of a LIF file between the integrator of mobile robots and a (third-party) master control system, and includes:
+The following section describes the exchange of a LIF file between the integrator of mobile robots and a (third-party) fleet control system, and includes:
 
 1. Export of the LIF file by the integrator of the mobile robots.
-2. Import and processing of the LIF file by the (third-party) master control system.
-3. Further exports of the LIF file and imports into the (third-party) master control system, such as incremental updates or changes.
+2. Import and processing of the LIF file by the (third-party) fleet control system.
+3. Further exports of the LIF file and imports into the (third-party) fleet control system, such as incremental updates or changes.
 
 ![](assets/fig7_1-1.png)
 
@@ -166,7 +166,7 @@ The following section describes the exchange of a LIF file between the integrato
 
 The planning and definition of the layout is done by the integrator of the mobile robots (e.g. by means of a planning or design tool). The mobile robot integrator should plan the layout in compliance with safety relevant standards (e.g.: minimum distances, speed reduction on certain edges, etc.) and considering the analysis of the envelope of the mobile robots.
 
-After the mobile robot integrator has physically tested and verified that the layout can be followed by the mobile robots in compliance with the safety-relevant standards, the mobile robot integrator should present the layout to the (third-party) master control system by means of a LIF file via data transfer. The process of transfer can be agreed individually between the mobile robot integrator and the (third-party) master control system.
+After the mobile robot integrator has physically tested and verified that the layout can be followed by the mobile robots in compliance with the safety-relevant standards, the mobile robot integrator should present the layout to the (third-party) fleet control system by means of a LIF file via data transfer. The process of transfer can be agreed individually between the mobile robot integrator and the (third-party) fleet control system.
 
 The elements that are exported into the LIF file must include:
 
@@ -174,13 +174,13 @@ The elements that are exported into the LIF file must include:
 * The collection of all edges between these nodes and any edge-specific actions.
 * The collection of stations on which the mobile robot may perform actions.
 
-## 7.2 Import and Processing of the LIF File by the (Third-party) Master Control System
+## 7.2 Import and Processing of the LIF File by the (Third-party) Fleet Control System
 
-The (third-party) master control system should import the LIF data to understand how a mobile robot or mobile robots can move on the given layout, as well as the actions that can be performed at the various places within it.
+The (third-party) fleet control system should import the LIF data to understand how a mobile robot or mobile robots can move on the given layout, as well as the actions that can be performed at the various places within it.
 
-The (third-party) master control system is responsible for the logic ensuring that all commands sent to a mobile robot or mobile robots based on information from a LIF file never result in conflicting commands with other mobile robots also under its control, including but not limited to examples such as commanding two mobile robots to drive through an intersection at the same time, creating deadlocks between multiple mobile robots, and so forth. The (third-party) master control system is further responsible for ensuring that any actions it sends to mobile robots that are not explicitly defined for a node or edge in the LIF are indeed valid—this may require further coordination and communication between the (third-party) master control system and the mobile robot integrator. It is always the responsibility of the (third-party) master control system to ensure it has all of the information required to make such determinations.
+The (third-party) fleet control system is responsible for the logic ensuring that all commands sent to a mobile robot or mobile robots based on information from a LIF file never result in conflicting commands with other mobile robots also under its control, including but not limited to examples such as commanding two mobile robots to drive through an intersection at the same time, creating deadlocks between multiple mobile robots, and so forth. The (third-party) fleet control system is further responsible for ensuring that any actions it sends to mobile robots that are not explicitly defined for a node or edge in the LIF are indeed valid—this may require further coordination and communication between the (third-party) fleet control system and the mobile robot integrator. It is always the responsibility of the (third-party) fleet control system to ensure it has all of the information required to make such determinations.
 
-Based on the provided layout, the routes for the individual mobile robots are to be calculated **dynamically** at runtime by the (third-party) master control system that has consumed one or more LIF files from one or more mobile robot integrators and/or for one or more mobile robot types.
+Based on the provided layout, the routes for the individual mobile robots are to be calculated **dynamically** at runtime by the (third-party) fleet control system that has consumed one or more LIF files from one or more mobile robot integrators and/or for one or more mobile robot types.
 
 Further information about the behaviour of a system must be obtained from outside of the definition of the LIF file. These things may include, but are not limited to:
 
@@ -194,13 +194,13 @@ Further information about the behaviour of a system must be obtained from outsid
   + Battery management of the mobile robots
 * Communication with the system periphery (e.g.: automatic stations, elevators, doors, etc.)
 * Connection to higher-level systems (e.g.: material flow computer, warehouse management systems, etc.)
-* Expansion to include specific elements of (third-party) master control system
+* Expansion to include specific elements of (third-party) fleet control system
 
-## 7.3 Further Exports of the LIF File and Imports into the (Third-party) Master Control System
+## 7.3 Further Exports of the LIF File and Imports into the (Third-party) Fleet Control System
 
-As soon as changes are to be made to the layout or mobile robot behaviour, the mobile robot integrator must provide the (third-party) master control system with an updated or adapted LIF file which reflects them. The mobile robots utilizing the new information in the updated LIF file should not be used; the mobile robot integrator then must await confirmation from the (third-party) master control system provider that this updated LIF file has been processed and its changes incorporated into the (third-party) master control system. It is the responsibility of the (third-party) master control system to re-process the new LIF file, incorporating any changes, and then to notify the mobile robot integrator that this has been completed. Both parties then confirm that they are ready to use the updated system definition. Then and only then are the changes to the system complete and ready for use, and the mobile robots should resume operation.
+As soon as changes are to be made to the layout or mobile robot behaviour, the mobile robot integrator must provide the (third-party) fleet control system with an updated or adapted LIF file which reflects them. The mobile robots utilizing the new information in the updated LIF file should not be used; the mobile robot integrator then must await confirmation from the (third-party) fleet control system provider that this updated LIF file has been processed and its changes incorporated into the (third-party) fleet control system. It is the responsibility of the (third-party) fleet control system to re-process the new LIF file, incorporating any changes, and then to notify the mobile robot integrator that this has been completed. Both parties then confirm that they are ready to use the updated system definition. Then and only then are the changes to the system complete and ready for use, and the mobile robots should resume operation.
 
-**Attention:** Changing a mobile robot’s behaviour without also updating the LIF file possessed by the (third-party) master control system leads to inconsistencies—potentially harmful or destructive ones. Likewise, a (third-party) master control system that changes information gained from the LIF (e.g. change of layout) without asking the mobile robot integrator to also implement these changes to supply a new LIF reflecting them, removes and adopts all liability from the mobile robot integrator, and can lead to potentially harmful outcomes.
+**Attention:** Changing a mobile robot’s behaviour without also updating the LIF file possessed by the (third-party) fleet control system leads to inconsistencies—potentially harmful or destructive ones. Likewise, a (third-party) fleet control system that changes information gained from the LIF (e.g. change of layout) without asking the mobile robot integrator to also implement these changes to supply a new LIF reflecting them, removes and adopts all liability from the mobile robot integrator, and can lead to potentially harmful outcomes.
 
 # 8 Specification of LIF
 
@@ -219,11 +219,11 @@ Each table contains the name of the identifier, its data type, its unit if appli
 
 ### 8.1.1 Optional Variables
 
-If a variable is marked as optional, it is optional for the mobile robot integrator’s mobile robots. The (third-party) master control system must be able to handle optional variables being either specified or not.
+If a variable is marked as optional, it is optional for the mobile robot integrator’s mobile robots. The (third-party) fleet control system must be able to handle optional variables being either specified or not.
 
-If the LIF file contains an optional variable, the (third-party) master control system must not ignore the variable. If the (third-party) master control system cannot process the variable accordingly, it is expected that the (third-party) master control system will provide a warning or an error message when importing the LIF file.
+If the LIF file contains an optional variable, the (third-party) fleet control system must not ignore the variable. If the (third-party) fleet control system cannot process the variable accordingly, it is expected that the (third-party) fleet control system will provide a warning or an error message when importing the LIF file.
 
-Variables that are optional in the LIF, but are strictly required by the mobile robot, must be clearly communicated toward the (third-party) master control system. The LIF does not denote such variables; this agreement must be made between the mobile robot integrator and (third-party) master control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA5050 standard.
+Variables that are optional in the LIF, but are strictly required by the mobile robot, must be clearly communicated toward the (third-party) fleet control system. The LIF does not denote such variables; this agreement must be made between the mobile robot integrator and (third-party) fleet control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA5050 standard.
 
 ## 8.2 Element ID Uniqueness
 
@@ -268,7 +268,7 @@ The objects contained in this structure are described in more detail below.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| layout { |  | JSON-object | A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or (third-party) master control systems. It is intended to hold the information for all different mobile robot types.  Nodes and edges model a graph structure that is used as foundation for order generation and routing.  A layout holds information that can be topologically considered a "plane", i.e., multiple levels must be modelled in different layouts.  It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. |
+| layout { |  | JSON-object | A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or (third-party) fleet control systems. It is intended to hold the information for all different mobile robot types.  Nodes and edges model a graph structure that is used as foundation for order generation and routing.  A layout holds information that can be topologically considered a "plane", i.e., multiple levels must be modelled in different layouts.  It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. |
 | layoutId |  | string | Unique identifier for this layout. |
 | *layoutName* |  | string | Human-readable name of the layout (e.g., for displaying). |
 | layoutVersion |  | string | Version of the layout.  Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at "1". |
@@ -284,7 +284,7 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | node { |  | JSON-object | Refers to VDA5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
-| nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) master control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
+| nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
 | *nodeName* |  | string | Name of the node.  This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. Therefore, this node name need not necessarily be unique. |
 | *nodeDescription* |  | string | Brief description of the node. This should only ever be for visualization or diagnostic purposes. |
 | mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
@@ -292,7 +292,7 @@ The objects contained in this structure are described in more detail below.
 | x | meter | float64 | X position on the layout in reference to the origin. |
 | y | meter | float64 | Y position on the layout in reference to the origin. |
 | } |  |  |  |
-| mobileRobotTypeNodeProperties [mobileRobotTypeNodeProperty] |  | array of JSON-object | Mobile robot type specific properties for this node.  This attribute must not be empty. There must be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the (third-party) master control system must consider that node invalid for use with that mobile robot type. |
+| mobileRobotTypeNodeProperties [mobileRobotTypeNodeProperty] |  | array of JSON-object | Mobile robot type specific properties for this node.  This attribute must not be empty. There must be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the (third-party) fleet control system must consider that node invalid for use with that mobile robot type. |
 | } |  |  |  |
 
 ### 8.3.6 MobileRobotTypeNodeProperty
@@ -304,7 +304,7 @@ The objects contained in this structure are described in more detail below.
 | *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the mobile robot on the node in reference to the origin’s rotation. |
 | *maximumAllowedDeviation* | meter | float64 | Maximum *maximumAllowedDeviation* |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each mobile robot type ID in mobileRobotTypeIds.  Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
-| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into an order by the third-party master control system can send for the given mobile robot types on this node.  The selection of which action to integrate is determined by the third-party master control system. If no actions are applicable, this attribute may be omitted. |
+| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into an order by the third-party fleet control system can send for the given mobile robot types on this node.  The selection of which action to integrate is determined by the third-party fleet control system. If no actions are applicable, this attribute may be omitted. |
 | } |  |  |  |
 
 ### 8.3.7 LoadRestriction
@@ -314,7 +314,7 @@ The objects contained in this structure are described in more detail below.
 | loadRestriction { |  | JSON-object |  |
 | unloaded |  | boolean | "true": This node or edge may be used by an unloaded mobile robot. "false": This node or edge must not be used by an unloaded mobile robot. |
 | loaded |  | boolean | "true": This node or edge may be used by a loaded mobile robot. "false": This node or edge must not be used by a loaded mobile robot.  Note: If set to true, the attribute loadSetNames, if given, must be respected. |
-| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The (third-party) master control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
+| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The (third-party) fleet control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
 | } |  |  |  |
 
 ### 8.3.8 Action
@@ -322,14 +322,14 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
-| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) master control system such as via the interpretation of a mobile robot's factsheet. |
+| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system such as via the interpretation of a mobile robot's factsheet. |
 | *actionDescription* |  | string | Brief description of the action. |
-| requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) master control system must always communicate this action to the mobile robot on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the (third-party) master control system is required.  "OPTIONAL" - The action may or may not be communicated to the mobile robot at the (third-party) master control system's discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behaviour for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) master control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
+| requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) fleet control system must always communicate this action to the mobile robot on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the (third-party) fleet control system is required.  "OPTIONAL" - The action may or may not be communicated to the mobile robot at the (third-party) fleet control system's discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behaviour for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) fleet control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
 | blockingType |  | string | Enum {NONE, SOFT, HARD}  "NONE" - allows moving and other actions.  "SOFT" - allows other actions, but not moving.  "HARD" - is the only allowed action at this time. |
-| *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The master traffic control must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
+| *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
 | } |  |  |  |
 
-The mobile robot's factsheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the mobile robot. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the mobile robot integrator and the (third-party) master control system.
+The mobile robot's factsheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the mobile robot. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the mobile robot integrator and the (third-party) fleet control system.
 
 ### 8.3.9 ActionParameter
 
@@ -345,7 +345,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | edge { |  | JSON-object | Refers to VDA5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
-| edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) master control system to whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
+| edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
 | *edgeName* |  | string | Name of the edge.  This should only for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. |
 | *edgeDescription* |  | string | Brief description of the edge. This should only be used for visualization or diagnostic purposes. |
 | startNodeId |  | string | Id of the start node.  The start node must always be part of the current layout. |
@@ -360,8 +360,8 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | mobileRobotTypeEdgeProperty { |  | JSON-object |  |
 | mobileRobotTypeIds |  | array of string | Unique IDs for mobile robot types to which these properties apply on this edge. Only one mobileRobotTypeEdgeProperty can be declared per mobile robot type per edge.  Note: It is suggested that a mobile robot type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
 | *orientationType* |  | string | Enum {GLOBAL, TANGENTIAL}:  "GLOBAL": relative to the global project specific map coordinate system.  "TANGENTIAL": tangential to the edge.  Note: If not defined, the default value is "TANGENTIAL". |
-| *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional mobile robots. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Mobile robot can rotate into the desired orientation on the edge. The (third-party) master control system must assume that the mobile robot will rotate in any direction along the edge at any point. The (third-party) master control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control (e.g., deadlocks, potential collisions).<br><br>Optional:<br>Default: "true". |
-| *mobileRobotOrientations* | rad | array of float64 | All possible orientations the mobile robot can take while traversing the edge. The master control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in different orientation, rotate the mobile robot on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) master control system must assume the mobile robot traversing the edge could be in any orientation at any time. |
+| *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional mobile robots. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Mobile robot can rotate into the desired orientation on the edge. The (third-party) fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The (third-party) fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control (e.g., deadlocks, potential collisions).<br><br>Optional:<br>Default: "true". |
+| *mobileRobotOrientations* | rad | array of float64 | All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in different orientation, rotate the mobile robot on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time. |
 | *rotationAtStartNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the start node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
 | *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
 | *maxSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot.  Note: If not defined, no limitation. |
@@ -369,10 +369,10 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | *minimumLoadHandlingDeviceHeight* | meter | float64 | Permitted minimal height of the load handling device on the edge.  Note: If not defined, no limitation. |
 | *maximumMobileRobotHeight* | meter | float64 | Permitted maximum height of the mobile robot, including the load, on edge.  Note: If not defined, no limitation. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each mobile robot type ID in mobileRobotTypeIds.  Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
-| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into the order by the (third-party) master control system each time any mobile robot of a type listed in mobileRobotTypeIds is sent an order/order update that contains this edge.  Note: If no actions must be integrated, the attribute can be omitted. |
-| *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) master control system may not have sufficient information to be responsible for determining whether different mobile robots from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
+| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into the order by the (third-party) fleet control system each time any mobile robot of a type listed in mobileRobotTypeIds is sent an order/order update that contains this edge.  Note: If no actions must be integrated, the attribute can be omitted. |
+| *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) fleet control system may not have sufficient information to be responsible for determining whether different mobile robots from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
 | *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited mobile robot types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object must be used mutually exclusively with the trajectory object. |
-| *reentryAllowed* |  | boolean | "true": Mobile robots of a type listed in mobileRobotTypeIds are allowed to enter automatic management by the third-party master control system while on this edge.  "false": Mobile robots of a type listed in mobileRobotTypeIds are not allowed to enter into automatic management by the (third-party) master control system while on this edge.  Note: If not defined, the default is true. |
+| *reentryAllowed* |  | boolean | "true": Mobile robots of a type listed in mobileRobotTypeIds are allowed to enter automatic management by the third-party fleet control system while on this edge.  "false": Mobile robots of a type listed in mobileRobotTypeIds are not allowed to enter into automatic management by the (third-party) fleet control system while on this edge.  Note: If not defined, the default is true. |
 | *allowedDeviationXY* |  | JSON-object | Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly. |
 | *corridor* |  | JSON-object | Describes the options to set a corridor. Note: If not defined, no corridor shall be used. |
 | } |  |  |  |
@@ -416,11 +416,11 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | --- | --- | --- | --- |
 | station { |  | JSON-object | A station represents any logical place where a mobile robot can explicitly interact with the environment, including but not limited to physical interactions. |
 | stationId |  | string | Unique identifier of the station across all layouts within this LIF file.  Note: It is recommended that stationIds match and align between all LIFs from all mobile robot integrators and other load handling systems such as WMSs, as well as physical visual labelling and the like. |
-| interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the (third-party) master control system. Choosing the correct interaction node may require that the (third-party) master control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
+| interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the (third-party) fleet control system. Choosing the correct interaction node may require that the (third-party) fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
 | *stationName* |  | string | Name of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
 | *stationType* |  | string | Type of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
 | *stationDescription* |  | string | Brief description of the station. |
-| *stationHeight* | meter | float64 | Range: [0 ... float64.max]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off.  For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the master control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
+| *stationHeight* | meter | float64 | Range: [0 ... float64.max]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off.  For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
 | *stationPosition {* |  |  | Centre point and orientation of the station.  Note: Only for visualization purposes, to assist how to represent this station in any user interface. This position is commonly the center point of the physical station or the center point of a load on the station but may not always be. |
 | x | meter | float64 | X position of the station in the layout in reference to the origin. |
 | y | meter | float64 | Y position of the station in the layout in reference to the origin. |
@@ -438,17 +438,17 @@ For stations where a variable number of loads might be kept, such as in the exam
 
 An additional example would be a last in first out (LIFO) 1xNx1 variable deep lane, where N is variable at runtime depending on the dimensions of the loads being stored. Accurately representing all possible combinations of where loads of varying dimensions may be stored may become impractical. It again is likely best to have the entire variable deep lane be a single station, ideally with a single interaction node of where to begin entering the deep lane and using an action parameter for the depth offset into the deep lane if the traffic controller decides or allowing the mobile robot to report the depth at which it dropped if the mobile robot decides. Conversely, if a 1xNx1 deep lane would contain loads of all the same dimensions, but there is some other reason to vary the number of loads stored in it, and therefore depth, at runtime, treating each individual position in the deep lane as its own station returns to being the explicit, more atomic representation.
 
-The exact configuration of the above and other more complex situations must always be handled on a case-by-case basis between the (third-party) master control system and the mobile robot integrator(s).
+The exact configuration of the above and other more complex situations must always be handled on a case-by-case basis between the (third-party) fleet control system and the mobile robot integrator(s).
 
-#### 8.3.15.2 How the (Third-party) Master Control System Can Identify the Purpose of a Station
+#### 8.3.15.2 How the (Third-party) Fleet Control System Can Identify the Purpose of a Station
 
-If the (third-party) master control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, and so forth.
+If the (third-party) fleet control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, and so forth.
 
 ### 8.3.16 AllowedDeviationXY
 
 Indicates how precisely a mobile robot shall match the position of a node for it to be considered traversed.
 
-If a = b = 0.0: no deviation is allowed, which means the mobile robot shall reach or pass the node position with the mobile robot control point as precisely as is technically possible for the mobile robot. This applies also if allowedDeviationXY is smaller than what is technically viable for the mobile robot. If the mobile robot supports this attribute, but it is not defined for this node by Master Control the mobile robot shall assume the value of a and b as 0.0.
+If a = b = 0.0: no deviation is allowed, which means the mobile robot shall reach or pass the node position with the mobile robot control point as precisely as is technically possible for the mobile robot. This applies also if allowedDeviationXY is smaller than what is technically viable for the mobile robot. If the mobile robot supports this attribute, but it is not defined for this node by the fleet control system the mobile robot shall assume the value of a and b as 0.0.
 
 In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), it should be defined such that a = b and theta = 0.0 in order to define a circle.
 
@@ -3205,7 +3205,7 @@ LIF-File:
                             "actions": [
                                 {
                                     "actionType": "BEEP",
-                                    "actionDescription": "Section where the (third-party) master control system could instruct the mobile robot to beep",
+                                    "actionDescription": "Section where the (third-party) fleet control system could instruct the mobile robot to beep",
                                     "requirementType": "OPTIONAL",
                                     "blockingType": "SOFT"
                                 }
@@ -3226,7 +3226,7 @@ LIF-File:
                             "actions": [
                                 {
                                     "actionType": "LOWER_FORK_AND_BEEP",
-                                    "actionDescription": "Section where the (third-party) master control system must tell the mobile robot to lower forks and beep",
+                                    "actionDescription": "Section where the (third-party) fleet control system must tell the mobile robot to lower forks and beep",
                                     "requirementType": "REQUIRED",
                                     "blockingType": "SOFT"
                                 }

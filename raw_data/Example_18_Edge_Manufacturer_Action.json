@@ -53,7 +53,7 @@
               "actions":[
                 {
                   "actionType":"BEEP",
-                  "actionDescription":"Section where the (third-party) master control system could instruct the mobile robot to beep",
+                  "actionDescription":"Section where the (third-party) fleet control system could instruct the mobile robot to beep",
                   "requirementType":"OPTIONAL",
                   "blockingType":"SOFT"
                 }
@@ -74,7 +74,7 @@
               "actions":[
                 {
                   "actionType":"LOWER_FORK_AND_BEEP",
-                  "actionDescription":"Section where the (third-party) master control system must tell the mobile robot to lower forks and beep",
+                  "actionDescription":"Section where the (third-party) fleet control system must tell the mobile robot to lower forks and beep",
                   "requirementType":"REQUIRED",
                   "blockingType":"SOFT"
                 }
