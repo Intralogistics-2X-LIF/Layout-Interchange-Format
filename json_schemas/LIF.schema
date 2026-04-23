@@ -162,14 +162,14 @@
     "vehicleTypeNodeProperty":{
       "type": "object",
       "required": [
-        "vehicleTypes"
+        "mobileRobotTypes"
       ],
       "properties": {
-        "vehicleTypes": {
+        "mobileRobotTypes": {
             "type": "array",
-            "description": "Holds vehicle types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per vehicle type per node.",
+            "description": "Holds mobile robot types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per mobile robot type per node.",
             "items": {
-              "$ref": "#/definitions/vehicleType"
+              "$ref": "#/definitions/mobileRobotType"
             }
         },
         "theta": {
@@ -185,7 +185,7 @@
         }
       }
     },
-   "vehicleType":{
+   "mobileRobotType":{
       "type": "object",
       "required": [
         "manufacturer",
@@ -194,11 +194,11 @@
       "properties": {
         "manufacturer": {
             "type": "string",
-            "description": "Name of the manufacturer. This shall correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level."
+            "description": "Name of the manufacturer of the mobile robot. This shall correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level."
         },
         "seriesName": {
             "type": "string",
-            "description":"Unique name of the robot series in the context of the manufacturer. This shall correspond to the robot's factsheet.typeSpecification.seriesName field."
+            "description":"Unique name of the mobile robot series in the context of the manufacturer. This shall correspond to the robot's factsheet.typeSpecification.seriesName field."
         }
       }
     },
@@ -297,14 +297,14 @@
     "vehicleTypeEdgeProperty":{
       "type": "object",
       "required": [
-        "vehicleTypes",
+        "mobileRobotTypes",
       ],
       "properties": {
-        "vehicleTypes": {
+        "mobileRobotTypes": {
             "type": "array",
-            "description": "Holds vehicle types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per vehicle type per edge.",
+            "description": "Holds mobile robot types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per mobile robot type per edge.",
             "items": {
-              "$ref": "#/definitions/vehicleType"
+              "$ref": "#/definitions/mobileRobotType"
             }
         },
         "vehicleOrientations": {
