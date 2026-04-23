@@ -50,7 +50,7 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [8.3.4 Layout](#834-layout)<br>
 [8.3.5 Node](#835-node)<br>
 [8.3.6 VehicleTypeNodeProperty](#836-vehicletype-nodeproperty)<br>
-[8.3.7 VehicleType](#837-vehicletype)<br>
+[8.3.7 MobileRobotType](#837-mobilerobottype)<br>
 [8.3.8 LoadRestriction](#838-loadrestriction)<br>
 [8.3.9 Action](#839-action)<br>
 [8.3.10 ActionParameter](#8310-actionparameter)<br>
@@ -301,20 +301,20 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | vehicleTypeNodeProperty { |  | JSON-object |  |
-| vehicleTypes |  | array of JSON-object | Holds vehicle types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per vehicle type per node. |
+| mobileRobotTypes |  | array of JSON-object | Holds mobile robot types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per mobile robot type per node. |
 | *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the vehicle on the node in reference to the origin’s rotation. |
 | *maximumAllowedDeviation* | meter | float64 | Maximum *maximumAllowedDeviation* |
-| *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each vehicle type ID in vehicleTypeIds.  Note: If not defined, the node can be used by both unloaded vehicles and loaded vehicles carrying any load set. |
+| *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each robot type in robotTypes.  Note: If not defined, the node can be used by both unloaded vehicles and loaded vehicles carrying any load set. |
 | *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into an order by the third-party master control system can send for the given vehicle types on this node.  The selection of which action to integrate is determined by the third-party master control system. If no actions are applicable, this attribute may be omitted. |
 | } |  |  |  |
 
-### 8.3.7 VehicleType
+### 8.3.7 MobileRobotType
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| vehicleType { |  | JSON-object |  |
-| manufacturer |  | string | Name of the manufacturer. This shall correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level. |
-| seriesName |  | string | Unique name of the robot series in the context of the manufacturer. This shall correspond to the robot's factsheet.typeSpecification.seriesName field. |
+| robotType { |  | JSON-object |  |
+| manufacturer |  | string | Name of the manufacturer of the mobile robot. This shall correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level. |
+| seriesName |  | string | Unique name of the mobile robot series in the context of the manufacturer. This shall correspond to the robot's factsheet.typeSpecification.seriesName field. |
 | } |  |  |  |
 
 ### 8.3.8 LoadRestriction
@@ -368,7 +368,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | Object Structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | vehicleTypeEdgeProperty { |  | JSON-object |  |
-| vehicleTypes |  | array of JSON-object | Holds vehicle types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per vehicle type per edge. |
+| mobileRobotTypes |  | array of JSON-object | Holds mobile robot types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per mobile robot type per edge. |
 | *orientationType* |  | string | Enum {GLOBAL, TANGENTIAL}:  "GLOBAL": relative to the global project specific map coordinate system.  "TANGENTIAL": tangential to the edge.  Note: If not defined, the default value is "TANGENTIAL". |
 | *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional vehicles. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Vehicle can rotate into the desired orientation on the edge. The (third-party) master control system must assume that the vehicle will rotate in any direction along the edge at any point. The (third-party) master control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other vehicles also under its control (e.g., deadlocks, potential collisions).<br><br>Optional:<br>Default: "true". |
 | *vehicleOrientations* | rad | array of float64 | All possible orientations the vehicle can take while traversing the edge. The master control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the vehicle starts in different orientation, rotate the vehicle on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) master control system must assume the vehicle traversing the edge could be in any orientation at any time. |
