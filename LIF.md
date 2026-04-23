@@ -312,7 +312,7 @@ The objects contained in this structure are described in more detail below.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| robotType { |  | JSON-object |  |
+| mobileRobotType { |  | JSON-object |  |
 | manufacturer |  | string | Name of the manufacturer of the mobile robot. This should correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level. |
 | seriesName |  | string | Unique name of the mobile robot series in the context of the manufacturer. This should correspond to the robot's factsheet.typeSpecification.seriesName field. |
 | } |  |  |  |
