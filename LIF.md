@@ -310,6 +310,7 @@ The objects contained in this structure are described in more detail below.
 
 ### 8.3.7 VehicleType
 
+| Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | vehicleType { |  | JSON-object |  |
 | manufacturer |  | string | Name of the manufacturer. This shall correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level. |
