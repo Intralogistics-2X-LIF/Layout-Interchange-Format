@@ -300,14 +300,22 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | vehicleTypeNodeProperty { |  | JSON-object |  |
-| vehicleTypeIds |  | array of string | Unique IDs for vehicle types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per vehicle type per node.  Note: It is suggested that a vehicle type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
+| vehicleTypes |  | array of JSON-object | Holds vehicle types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per vehicle type per node. |
 | *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the vehicle on the node in reference to the origin’s rotation. |
 | *maximumAllowedDeviation* | meter | float64 | Maximum *maximumAllowedDeviation* |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each vehicle type ID in vehicleTypeIds.  Note: If not defined, the node can be used by both unloaded vehicles and loaded vehicles carrying any load set. |
 | *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into an order by the third-party master control system can send for the given vehicle types on this node.  The selection of which action to integrate is determined by the third-party master control system. If no actions are applicable, this attribute may be omitted. |
 | } |  |  |  |
 
-### 8.3.7 LoadRestriction
+### 8.3.7 VehicleType
+
+| --- | --- | --- | --- |
+| vehicleType { |  | JSON-object |  |
+| manufacturer |  | string | Name of the manufacturer. This shall correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level. |
+| seriesName |  | string | Unique name of the robot series in the context of the manufacturer. This shall correspond to the robot's factsheet.typeSpecification.seriesName field. |
+| } |  |  |  |
+
+### 8.3.8 LoadRestriction
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -317,7 +325,7 @@ The objects contained in this structure are described in more detail below.
 | *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the vehicle type on this node or edge. The (third-party) master control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective vehicle type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the vehicle type are allowed. |
 | } |  |  |  |
 
-### 8.3.8 Action
+### 8.3.9 Action
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -331,7 +339,7 @@ The objects contained in this structure are described in more detail below.
 
 The mobile robot's factsheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the vehicle. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the vehicle integrator and the (third-party) master control system.
 
-### 8.3.9 ActionParameter
+### 8.3.10 ActionParameter
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -340,7 +348,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | value |  | One of: array, boolean, number, string, object | The value of the parameter that belongs to the key.  Note: The data type is defined in the mobile robot VDA5050 factsheet. |
 | } |  |  |  |
 
-### 8.3.10 Edge
+### 8.3.11 Edge
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -353,12 +361,12 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | vehicleTypeEdgeProperties [vehicleTypeEdgeProperty] |  | array of JSON-object | Vehicle type specific properties for this edge.  Note: This attribute must not be empty. For each allowed vehicle type there must be an element. |
 | } |  |  |  |
 
-### 8.3.11 VehicleTypeEdgeProperty
+### 8.3.12 VehicleTypeEdgeProperty
 
 | Object Structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | vehicleTypeEdgeProperty { |  | JSON-object |  |
-| vehicleTypeIds |  | array of string | Unique IDs for vehicle types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per vehicle type per edge.  Note: It is suggested that a vehicle type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
+| vehicleTypes |  | array of JSON-object | Holds vehicle types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per vehicle type per edge. |
 | *orientationType* |  | string | Enum {GLOBAL, TANGENTIAL}:  "GLOBAL": relative to the global project specific map coordinate system.  "TANGENTIAL": tangential to the edge.  Note: If not defined, the default value is "TANGENTIAL". |
 | *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional vehicles. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Vehicle can rotate into the desired orientation on the edge. The (third-party) master control system must assume that the vehicle will rotate in any direction along the edge at any point. The (third-party) master control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other vehicles also under its control (e.g., deadlocks, potential collisions).<br><br>Optional:<br>Default: "true". |
 | *vehicleOrientations* | rad | array of float64 | All possible orientations the vehicle can take while traversing the edge. The master control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the vehicle starts in different orientation, rotate the vehicle on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) master control system must assume the vehicle traversing the edge could be in any orientation at any time. |
@@ -377,11 +385,11 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | *corridor* |  | JSON-object | Describes the options to set a corridor. Note: If not defined, no corridor shall be used. |
 | } |  |  |  |
 
-#### 8.3.11.1 Rotation Allowed at Start and End
+#### 8.3.12.1 Rotation Allowed at Start and End
 
 Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may contradict one another if they terminate and originate, respectively, at the same node. In such cases, these should be combined as per a boolean *and*. As an example, if the end node rotation is BOTH on the terminating edge, but NONE on the originating edge, this would be interpreted as NONE. For directional rotation values of CW or CCW, they must also align exactly, or value of CW or CCW on the terminating edge but BOTH on the originating edge would also only allow CW or CCW rotation, respectively. If these two attributes do not align at such a node, some edges of the layout may be unnavigable depending upon how the vehicle arrived at the node (which may or may not be intentional).
 
-### 8.3.12 Trajectory
+### 8.3.13 Trajectory
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -391,7 +399,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | controlPoints[controlPoint] |  | array of JSON-object | List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end point. |
 | } |  |  |  |
 
-### 8.3.13 ControlPoint
+### 8.3.14 ControlPoint
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -401,7 +409,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *weight* |  | float64 | Range: [0.0 ... float64.max]  The weight with which this control point pulls on the curve. When not defined, the default is 1.0. |
 | } |  |  |  |
 
-### 8.3.14 PhysicalLineGuidedProperty
+### 8.3.15 PhysicalLineGuidedProperty
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -410,7 +418,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *length* | meter | float64 | The length of this edge for vehicle types which require it but are unable to process or respect trajectories. |
 | } |  |  |  |
 
-### 8.3.15 Station
+### 8.3.16 Station
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -428,7 +436,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *}* |  |  |  |
 | } |  |  |  |
 
-#### 8.3.15.1 Best Practices for Defining a Station
+#### 8.3.16.1 Best Practices for Defining a Station
 
 A station could be a battery charting point where a vehicle must interface with a physical charging infrastructure. A station could be a place to drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
 
@@ -440,11 +448,11 @@ An additional example would be a last in first out (LIFO) 1xNx1 variable deep la
 
 The exact configuration of the above and other more complex situations must always be handled on a case-by-case basis between the (third-party) master control system and the vehicle integrator(s).
 
-#### 8.3.15.2 How the (Third-party) Master Control System Can Identify the Purpose of a Station
+#### 8.3.16.2 How the (Third-party) Master Control System Can Identify the Purpose of a Station
 
 If the (third-party) master control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, and so forth.
 
-### 8.3.16 AllowedDeviationXY
+### 8.3.17 AllowedDeviationXY
 
 Indicates how precisely a vehicle shall match the position of a node for it to be considered traversed.
 
