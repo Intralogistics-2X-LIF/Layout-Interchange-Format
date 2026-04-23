@@ -162,12 +162,15 @@
     "vehicleTypeNodeProperty":{
       "type": "object",
       "required": [
-        "vehicleTypeId"
+        "mobileRobotTypes"
       ],
       "properties": {
-        "vehicleTypeId": {
-            "type": "string",
-            "description": "Unique Id for type of vehicle to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per vehicle type per node. Note: It is suggested that this be a combination of [factsheet.manufacturer]. [factsheet.seriesName]"
+        "mobileRobotTypes": {
+            "type": "array",
+            "description": "Holds mobile robot types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per mobile robot type per node.",
+            "items": {
+              "$ref": "#/definitions/mobileRobotType"
+            }
         },
         "theta": {
             "type": "number",
@@ -179,6 +182,23 @@
           "items": {
             "$ref": "#/definitions/action"
           }
+        }
+      }
+    },
+   "mobileRobotType":{
+      "type": "object",
+      "required": [
+        "manufacturer",
+        "seriesName"
+      ],
+      "properties": {
+        "manufacturer": {
+            "type": "string",
+            "description": "Name of the manufacturer of the mobile robot. This shall correspond to the manufacturer field of the MQTT header and the corresponding MQTT topic level."
+        },
+        "seriesName": {
+            "type": "string",
+            "description":"Unique name of the mobile robot series in the context of the manufacturer. This shall correspond to the robot's factsheet.typeSpecification.seriesName field."
         }
       }
     },
@@ -277,12 +297,15 @@
     "vehicleTypeEdgeProperty":{
       "type": "object",
       "required": [
-        "vehicleTypeId",
+        "mobileRobotTypes",
       ],
       "properties": {
-        "vehicleTypeId": {
-            "type": "string",
-            "description": "Unique Id for the type of vehicle to which these properties apply on this edge. Only one vehicleTypeEdge Property can be declared per vehicle type per edge. Note: It is suggested that this be a combination of [factsheet.manufacturer]. [factsheet.seriesName]"
+        "mobileRobotTypes": {
+            "type": "array",
+            "description": "Holds mobile robot types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per mobile robot type per edge.",
+            "items": {
+              "$ref": "#/definitions/mobileRobotType"
+            }
         },
         "vehicleOrientations": {
             "type": "array",
