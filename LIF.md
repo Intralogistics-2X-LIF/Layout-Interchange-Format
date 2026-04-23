@@ -2,14 +2,14 @@
 
 # LIF - Layout Interchange Format
 
-## Definition of a format of track layouts for exchange between the integrator of the driverless transport vehicles and a (third-party) master control system.
+## Definition of a format of track layouts for exchange between the integrator of the mobile robots and a (third-party) fleet control system.
 
 
-## Version 2.x.x - September 2025
+## Version 2.0.0 - September 2026
 
 # Abstract
 
-The following embodiment describes an interchange format for a layout (e.g.: collection of edges, nodes and stations). By means of this interchange format, the integrator of the driverless transport vehicles will be able to initially transfer a layout to a central (third-party) master control system for use and integration.
+The following embodiment describes an interchange format for a layout (e.g.: collection of edges, nodes and stations). By means of this interchange format, the integrator of the mobile robots will be able to initially transfer a layout to a central (third-party) fleet control system for use and integration.
 
 This document represents a non-binding approach. Whoever uses it must ensure the correct application in the specific case. It is influenced by the state of the art at the time of the respective edition, in particular the VDA5050 interface definition. Ascribing to the suggestions described herein does not absolve parties of the responsibility for their own actions. No text in this document claims completeness nor provides exact interpretation of the existing legal provisions. The contents of this document must not replace the study of the relevant directives, laws and regulations. Furthermore, the special features of the respective products as well as their different possible applications must be considered. In this respect, all parties act at their own risk. Any liability of the VDMA and those involved in the development or application of the suggestions is excluded.
 
@@ -21,8 +21,8 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 |  | Lyoner Strasse 18, 60528 Frankfurt am Main| 
 | Copyright | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)| 
 |  | Reprinting and any other form of reproduction is permitted only if the source is acknowledged.| 
-| Status | September 2023| 
-| Version | 0.11.0|
+| Status | September 2026| 
+| Version | 2.0.0|
 
 ## Contents
 
@@ -35,10 +35,10 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
 [6 LIF Format](#6-lif-format)<br>
-[7 LIF Transfer and Responsibilities of Vehicle Integrator and (Third-party) Master Control System](#7-lif-transfer-and-responsibilities-of-vehicle-integrator-and-third-party-master-control-system)<br>
-[7.1 Export of the LIF File by the Integrator of the Driverless Transport Vehicles](#71-export-of-the-lif-file-by-the-integrator-of-the-driverless-transport-vehicles)<br>
-[7.2 Import and Processing of the LIF File by the (Third-party) Master Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-master-control-system)<br>
-[7.3 Further Exports of the LIF File and Imports into the (Third-party) Master Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-master-control-system)<br>
+[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and (Third-party) Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
+[7.1 Export of the LIF File by the Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-integrator-of-the-mobile-robots)<br>
+[7.2 Import and Processing of the LIF File by the (Third-party) Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
+[7.3 Further Exports of the LIF File and Imports into the (Third-party) Fleet Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-fleet-control-system)<br>
 [8 Specification of LIF](#8-specification-of-lif)<br>
 [8.1 Table Symbols and Meaning of Formatting](#81-table-symbols-and-meaning-of-formatting)<br>
 [8.1.1 Optional Variables](#811-optional-variables)<br>
@@ -49,12 +49,12 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [8.3.3 Origin](#833-origin)<br>
 [8.3.4 Layout](#834-layout)<br>
 [8.3.5 Node](#835-node)<br>
-[8.3.6 VehicleTypeNodeProperty](#836-vehicletype-nodeproperty)<br>
+[8.3.6 MobileRobotTypeNodeProperty](#836-mobilerobottypenodeproperty)<br>
 [8.3.7 LoadRestriction](#837-loadrestriction)<br>
 [8.3.8 Action](#838-action)<br>
 [8.3.9 ActionParameter](#839-actionparameter)<br>
 [8.3.10 Edge](#8310-edge)<br>
-[8.3.11 VehicleTypeEdgeProperty](#8311-vehicletypeedgeproperty)<br>
+[8.3.11 MobileRobotTypeEdgeProperty](#8311-mobilerobottypeedgeproperty)<br>
 [8.3.12 Trajectory](#8312-trajectory)<br>
 [8.3.13 ControlPoint](#8313-controlpoint)<br>
 [8.3.14 PhysicalLineGuidedProperty](#8314-physicallineguidedproperty)<br>
@@ -63,7 +63,7 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
 [10.1 Why aren't bi-directional edges supported in LIF?](#101-why-arent-bi-directional-edges-supported-in-lif)<br>
-[10.2 Why are vehicle integrator-specific extensions of the LIF not foreseen?](#102-why-are-vehicle-integrator-specific-extensions-of-the-lif-not-foreseen)<br>
+[10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?](#102-why-are-mobile-robot-integrator-specific-extensions-of-the-lif-not-foreseen)<br>
 [11 Examples](#11-examples)<br>
 [11.1 Forward Edge](#111-forward-edge)<br>
 [11.2 Bidirectional Edge](#112-bidirectional-edge)<br>
@@ -72,18 +72,18 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [11.5 Multiple Layouts in One LIF](#115-multiple-layouts-in-one-lif)<br>
 [11.6 Station with One Node](#116-station-with-one-node)<br>
 [11.7 Station with Two Nodes](#117-station-with-two-nodes)<br>
-[11.8 Station with Two Nodes, Restricted for Different Vehicle Types](#118-station-with-two-nodes-restricted-for-different-vehicle-types)<br>
+[11.8 Station with Two Nodes, Restricted for Different Mobile Robot Types](#118-station-with-two-nodes-restricted-for-different-mobile-robot-types)<br>
 [11.9 Rotation Station](#119-rotation-station)<br>
-[11.10 Station with Three Nodes, Restricted to Different Vehicle Types](#1110-station-with-three-nodes-restricted-to-different-vehicle-types)<br>
+[11.10 Station with Three Nodes, Restricted to Different Mobile Robot Types](#1110-station-with-three-nodes-restricted-to-different-mobile-robot-types)<br>
 [11.11 Multiple Edges with Load Restrictions](#1111-multiple-edges-with-load-restrictions)<br>
-[11.12 Multiple Edges Between Same Two Nodes for Different vehicleTypeEdgeProperty Constraints.](#1112-multiple-edges-between-same-two-nodes-for-different-vehicletypeedgeproperty-constraints)<br>
+[11.12 Multiple Edges Between Same Two Nodes for Different mobileRobotTypeEdgeProperty Constraints.](#1112-multiple-edges-between-same-two-nodes-for-different-mobilerobottypeedgeproperty-constraints)<br>
 [11.13 Battery Charging Station](#1113-battery-charging-station)<br>
 [11.14 Two Levels of a Facility in One LIF File](#1114-two-levels-of-a-facility-in-one-lif-file)<br>
 [11.15 Rack Station Modelled by Three Stations](#1115-rack-station-modelled-by-three-stations)<br>
 [11.16 Rack Station Modelled by Three Nodes](#1116-rack-station-modelled-by-three-nodes)<br>
 [11.17 Edge with Trajectory Definition](#1117-edge-with-trajectory-definition)<br>
 [11.18 Manufacturer Specific Action on an Edge](#1118-manufacturer-specific-action-on-an-edge)<br>
-[11.19 Forward Edge with Two Vehicle Types with Differing Orientation](#1119-forward-edge-with-two-vehicle-types-with-differing-orientation)<br>
+[11.19 Forward Edge with Two Mobile Robot Types with Differing Orientation](#1119-forward-edge-with-two-mobile-robot-types-with-differing-orientation)<br>
 
 # 1 Terms
 
@@ -93,22 +93,22 @@ The following table is intended to describe supplementary terms:
 
 | **Item** | **Description** |
 | --- | --- |
-| deadlock | A situation where two or more devices are awaiting one another in a circular fashion, resulting in a system that is unable to exit this state and continue regular operation. Example: Vehicle A is waiting on vehicle B to get out of the way, but vehicle B is also waiting on vehicle A to do the same. |
-| facility | The facility in which the driverless transport system is used. The facility can consist of several levels. The facility could be made up by several LIF files from multiple vehicle integrators. The facility is controlled by one (third-party) master control system. |
-| integrator | Integrator refers to the manufacturer of driverless transport vehicles or a vendor that integrates a manufacturer's driverless transport vehicles into the driverless transport system. |
+| deadlock | A situation where two or more devices are awaiting one another in a circular fashion, resulting in a system that is unable to exit this state and continue regular operation. Example: Mobile robot A is waiting on mobile robot B to get out of the way, but mobile robot B is also waiting on mobile robot A to do the same. |
+| facility | The facility in which the mobile robot system is used. The facility can consist of several levels. The facility could be made up by several LIF files from multiple mobile robot integrators. The facility is controlled by one (third-party) fleet control system. |
+| integrator | Integrator refers to the manufacturer of mobile robots or a vendor that integrates a manufacturer's mobile robots into the driverless transport system. |
 | layout | A collection of nodes, edges and stations. A layout represents a level of a facility or a part of a level of a facility. |
-| level | A level of a facility that is used by the driverless transport systems |
-| re-entry | The induction of a vehicle into automatic management under the (third-party) master control system, such as after having been taken under manual operation, or when the vehicle is first inducted into the system after having been switched off. |
-| station | Any point at which a vehicle can explicitly interact with the environment, including but not limited to physical interactions. |
+| level | A level of a facility that is used by the mobile robot systems |
+| re-entry | The induction of a mobile robot into automatic management under the (third-party) fleet control system, such as after having been taken under manual operation, or when the mobile robot is first inducted into the system after having been switched off. |
+| station | Any point at which a mobile robot can explicitly interact with the environment, including but not limited to physical interactions. |
 
 # 2 Applicable Documents
 
 | **DOCUMENT** | **DESCRIPTION** |
 | --- | --- |
-| VDI-Richtlinie 2510 | Driverless transport systems |
-| VDI-Richtlinie 4451 Blatt 7 | Compatibility of driverless transport systems – Master control for driverless transport systems |
-| DIN EN ISO 3691-4 | Industrial trucks - Safety requirements and verification - Part 4: Driverless trucks and their systems |
-| VDA 5050 | Interface for communication between automated guided vehicles (AGV) and a master control |
+| VDI-Richtlinie 2510 | Automated Guided Vehicle Systems (AGVS) |
+| VDI-Richtlinie 4451 Blatt 7 | Compatibility of Automated Guided Vehicle Systems (AGVS) - AGVS guidance control system |
+| DIN EN ISO 3691-4 | Industrial trucks - Safety requirements and verification - Part 4: Driverless industrial trucks and their systems |
+| VDA 5050 | Interface for the Communication between Mobile Robots and a Fleet Control |
 
 # 3 Foreword
 
@@ -116,35 +116,35 @@ The Layout Interchange Format (LIF) was defined at Verband Deutscher Maschinen- 
 
 # 4 Aim of the Document
 
-This document describes the LIF, its purpose and examples of how to use it. This document does not describe any logical processes that a (third-party) master control system must implement to interpret the data contained in the LIF.
+This document describes the LIF, its purpose and examples of how to use it. This document does not describe any logical processes that a (third-party) fleet control system must implement to interpret the data contained in the LIF.
 
 # 5 Aim of the LIF
 
-The objective of the Layout Interchange Format is to standardize a way for the definition of automated vehicle layouts to be presented toward (third-party) master control system providers.
+The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward (third-party) fleet control system providers.
 
-The first primary goal is to complement the VDA5050 interface’s goal of facilitating decoupling between a vehicle manufacturer and a (third-party) master control system provider. It uses the same terminology and much of the same structure as the VDA5050 interface.
+The first primary goal is to complement the VDA5050 interface’s goal of facilitating decoupling between a mobile robot manufacturer and a (third-party) fleet control system provider. It uses the same terminology and much of the same structure as the VDA5050 interface.
 
-The LIF described in this document is intended to map a common set of necessary information, as explicitly and unambiguously as possible, to enable a (third-party) master control system to steer/navigate a vehicle on a layout specified by the vehicle integrator. The LIF contains information on how the vehicle integrator’s vehicles can interact with its environment and navigate inside of a layout. This satisfies the LIF’s second primary goal to allow a clear separation of responsibility between a vehicle integrator and a (third-party) master control system.
+The LIF described in this document is intended to map a common set of necessary information, as explicitly and unambiguously as possible, to enable a (third-party) fleet control system to steer/navigate a mobile robot on a layout specified by the mobile robot integrator. The LIF contains information on how the integrator’s mobile robots can interact with its environment and navigate inside of a layout. This satisfies the LIF’s second primary goal to allow a clear separation of responsibility between a mobile robot integrator and a (third-party) fleet control system.
 
 ## 5.1 Requirements
 * The LIF concept, standard, and definition must always be compatible with the current status, terminology and developments of the VDA5050 interface.
-* A single LIF file may only contain layouts from one vehicle integrator.
-* A single LIF file may contain multiple layouts for multiple vehicle types of one vehicle integrator.
-* A (third-party) master control system must be able to accept multiple LIF files from multiple vehicle integrators for one facility.
-* The LIF must not preclude the inclusion of vehicles with different levels of autonomy.
+* A single LIF file may only contain layouts from one mobile robot integrator.
+* A single LIF file may contain multiple layouts for multiple mobile robot types of one mobile robot integrator.
+* A (third-party) fleet control system must be able to accept multiple LIF files from multiple mobile robot integrators for one facility.
+* The LIF must not preclude the inclusion of mobile robots with different levels of autonomy.
 
 ## 5.2 Further Assumptions
-* The communication between the (third-party) master control system and the vehicle corresponds to the VDA5050 interface definition.
-* The vehicle integrator will also provide the (third-party) master control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about vehicle geometry, kinematics and other "capabilities of the vehicle".
+* The communication between the (third-party) fleet control system and the mobile robot corresponds to the VDA5050 interface definition.
+* The mobile robot integrator will also provide the (third-party) fleet control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about mobile robot geometry, kinematics and other "capabilities of the mobile robot".
 
 ## 5.3 LIF Limitations
-The LIF does not describe any logical processes by which a (third-party) master control system must perform its tasks. This includes, but is not limited to the handling of, route planning, traffic management, intersections of multiple vehicles from the same of different vehicle integrators, interaction with stationary equipment and so forth. It is merely a definition of what a vehicle is capable of doing, and where, that a (third-party) master control system can use as input when determining these operations. Section 7.2, Import and Processing of the LIF File by the (Third-party) Master Control System, goes into further detail.
+The LIF does not describe any logical processes by which a (third-party) fleet control system must perform its tasks. This includes, but is not limited to the handling of, route planning, traffic management, intersections of multiple mobile robots from the same of different mobile robot integrators, interaction with stationary equipment and so forth. It is merely a definition of what a mobile robot is capable of doing, and where, that a (third-party) fleet control system can use as input when determining these operations. Section 7.2, Import and Processing of the LIF File by the (Third-party) Fleet Control System, goes into further detail.
 
-The LIF does not affect, and is not affected by, different localization technologies that vehicles may use, nor does it contain any information pertaining to localization methods.
+The LIF does not affect, and is not affected by, different localization technologies that mobile robots may use, nor does it contain any information pertaining to localization methods.
 
-The LIF is never intended to flow in the reverse direction of from a (third-party) master control system toward a vehicle or vehicles. If a vehicle integrator requires some information from a master control system or those responsible for it, it must be transferred outside of the context of the LIF.
+The LIF is never intended to flow in the reverse direction of from a (third-party) fleet control system toward a mobile robot or mobile robots. If a mobile robot integrator requires some information from a fleet control system or those responsible for it, it must be transferred outside of the context of the LIF.
 
-The LIF does not specify how a (third-party) master control system should accurately rotate, scale, or translate multiple LIF files from different vehicle integrators in the same facility. It is recommended that all parties agree on a standard coordinate origin in such cases.
+The LIF does not specify how a (third-party) fleet control system should accurately rotate, scale, or translate multiple LIF files from different mobile robot integrators in the same facility. It is recommended that all parties agree on a standard coordinate origin in such cases.
 
 # 6 LIF Format
 
@@ -152,55 +152,55 @@ A JSON structure is used for the exchange format. JSON strings must conform to t
 
 The JSON structure allows for future extension of LIF with additional parameters. The parameters are described in English to ensure that LIF is also readable, understandable and applicable to the broadest possible audience.
 
-# 7 LIF Transfer and Responsibilities of Vehicle Integrator and (Third-party) Master Control System
+# 7 LIF Transfer and Responsibilities of Mobile Robot Integrator and (Third-party) Fleet Control System
 
-The following section describes the exchange of a LIF file between the integrator of driverless transport vehicles and a (third-party) master control system, and includes:
+The following section describes the exchange of a LIF file between the integrator of mobile robots and a (third-party) fleet control system, and includes:
 
-1. Export of the LIF file by the integrator of the driverless transport vehicles.
-2. Import and processing of the LIF file by the (third-party) master control system.
-3. Further exports of the LIF file and imports into the (third-party) master control system, such as incremental updates or changes.
+1. Export of the LIF file by the integrator of the mobile robots.
+2. Import and processing of the LIF file by the (third-party) fleet control system.
+3. Further exports of the LIF file and imports into the (third-party) fleet control system, such as incremental updates or changes.
 
 ![](assets/fig7_1-1.png)
 
-## 7.1 Export of the LIF File by the Integrator of the Driverless Transport Vehicles
+## 7.1 Export of the LIF File by the Integrator of the Mobile Robots
 
-The planning and definition of the layout is done by the integrator of the driverless transport vehicles (e.g. by means of a planning or design tool). The vehicle integrator should plan the layout in compliance with safety relevant standards (e.g.: minimum distances, speed reduction on certain edges, etc.) and considering the analysis of the envelope of the vehicles.
+The planning and definition of the layout is done by the integrator of the mobile robots (e.g. by means of a planning or design tool). The mobile robot integrator should plan the layout in compliance with safety relevant standards (e.g.: minimum distances, speed reduction on certain edges, etc.) and considering the analysis of the envelope of the mobile robots.
 
-After the vehicle integrator has physically tested and verified that the layout can be followed by the vehicles in compliance with the safety-relevant standards, the vehicle integrator should present the layout to the (third-party) master control system by means of a LIF file via data transfer. The process of transfer can be agreed individually between the vehicle integrator and the (third-party) master control system.
+After the mobile robot integrator has physically tested and verified that the layout can be followed by the mobile robots in compliance with the safety-relevant standards, the mobile robot integrator should present the layout to the (third-party) fleet control system by means of a LIF file via data transfer. The process of transfer can be agreed individually between the mobile robot integrator and the (third-party) fleet control system.
 
 The elements that are exported into the LIF file must include:
 
 * The collection of all pathway nodes and any node-specific actions.
 * The collection of all edges between these nodes and any edge-specific actions.
-* The collection of stations on which the vehicle may perform actions.
+* The collection of stations on which the mobile robot may perform actions.
 
-## 7.2 Import and Processing of the LIF File by the (Third-party) Master Control System
+## 7.2 Import and Processing of the LIF File by the (Third-party) Fleet Control System
 
-The (third-party) master control system should import the LIF data to understand how a vehicle or vehicles can move on the given layout, as well as the actions that can be performed at the various places within it.
+The (third-party) fleet control system should import the LIF data to understand how a mobile robot or mobile robots can move on the given layout, as well as the actions that can be performed at the various places within it.
 
-The (third-party) master control system is responsible for the logic ensuring that all commands sent to a vehicle or vehicles based on information from a LIF file never result in conflicting commands with other vehicles also under its control, including but not limited to examples such as commanding two vehicles to drive through an intersection at the same time, creating deadlocks between multiple vehicles, and so forth. The (third-party) master control system is further responsible for ensuring that any actions it sends to vehicles that are not explicitly defined for a node or edge in the LIF are indeed valid—this may require further coordination and communication between the (third-party) master control system and the vehicle integrator. It is always the responsibility of the (third-party) master control system to ensure it has all of the information required to make such determinations.
+The (third-party) fleet control system is responsible for the logic ensuring that all commands sent to a mobile robot or mobile robots based on information from a LIF file never result in conflicting commands with other mobile robots also under its control, including but not limited to examples such as commanding two mobile robots to drive through an intersection at the same time, creating deadlocks between multiple mobile robots, and so forth. The (third-party) fleet control system is further responsible for ensuring that any actions it sends to mobile robots that are not explicitly defined for a node or edge in the LIF are indeed valid—this may require further coordination and communication between the (third-party) fleet control system and the mobile robot integrator. It is always the responsibility of the (third-party) fleet control system to ensure it has all of the information required to make such determinations.
 
-Based on the provided layout, the routes for the individual vehicles are to be calculated **dynamically** at runtime by the (third-party) master control system that has consumed one or more LIF files from one or more vehicle integrators and/or for one or more vehicle types.
+Based on the provided layout, the routes for the individual mobile robots are to be calculated **dynamically** at runtime by the (third-party) fleet control system that has consumed one or more LIF files from one or more mobile robot integrators and/or for one or more mobile robot types.
 
 Further information about the behaviour of a system must be obtained from outside of the definition of the LIF file. These things may include, but are not limited to:
 
-* Traffic control of the vehicles on the layout:
-  + Method of concurrent route calculation for the vehicles
+* Traffic control of the mobile robots on the layout:
+  + Method of concurrent route calculation for the mobile robots
   + Regulation of intersections
   + Regulation of right of way
   + Congestion avoidance
-* Attributes and parameters required for the management of the vehicles:
-  + Disposition of the vehicles
-  + Battery management of the vehicles
+* Attributes and parameters required for the management of the mobile robots:
+  + Disposition of the mobile robots
+  + Battery management of the mobile robots
 * Communication with the system periphery (e.g.: automatic stations, elevators, doors, etc.)
 * Connection to higher-level systems (e.g.: material flow computer, warehouse management systems, etc.)
-* Expansion to include specific elements of (third-party) master control system
+* Expansion to include specific elements of (third-party) fleet control system
 
-## 7.3 Further Exports of the LIF File and Imports into the (Third-party) Master Control System
+## 7.3 Further Exports of the LIF File and Imports into the (Third-party) Fleet Control System
 
-As soon as changes are to be made to the layout or vehicle behaviour, the vehicle integrator must provide the (third-party) master control system with an updated or adapted LIF file which reflects them. The vehicles utilizing the new information in the updated LIF file should not be used; the vehicle integrator then must await confirmation from the (third-party) master control system provider that this updated LIF file has been processed and its changes incorporated into the (third-party) master control system. It is the responsibility of the (third-party) master control system to re-process the new LIF file, incorporating any changes, and then to notify the vehicle integrator that this has been completed. Both parties then confirm that they are ready to use the updated system definition. Then and only then are the changes to the system complete and ready for use, and the vehicles should resume operation.
+As soon as changes are to be made to the layout or mobile robot behaviour, the mobile robot integrator must provide the (third-party) fleet control system with an updated or adapted LIF file which reflects them. The mobile robots utilizing the new information in the updated LIF file should not be used; the mobile robot integrator then must await confirmation from the (third-party) fleet control system provider that this updated LIF file has been processed and its changes incorporated into the (third-party) fleet control system. It is the responsibility of the (third-party) fleet control system to re-process the new LIF file, incorporating any changes, and then to notify the mobile robot integrator that this has been completed. Both parties then confirm that they are ready to use the updated system definition. Then and only then are the changes to the system complete and ready for use, and the mobile robots should resume operation.
 
-**Attention:** Changing a vehicle’s behaviour without also updating the LIF file possessed by the (third-party) master control system leads to inconsistencies—potentially harmful or destructive ones. Likewise, a (third-party) master control system that changes information gained from the LIF (e.g. change of layout) without asking the vehicle integrator to also implement these changes to supply a new LIF reflecting them, removes and adopts all liability from the vehicle integrator, and can lead to potentially harmful outcomes.
+**Attention:** Changing a mobile robot’s behaviour without also updating the LIF file possessed by the (third-party) fleet control system leads to inconsistencies—potentially harmful or destructive ones. Likewise, a (third-party) fleet control system that changes information gained from the LIF (e.g. change of layout) without asking the mobile robot integrator to also implement these changes to supply a new LIF reflecting them, removes and adopts all liability from the mobile robot integrator, and can lead to potentially harmful outcomes.
 
 # 8 Specification of LIF
 
@@ -219,11 +219,11 @@ Each table contains the name of the identifier, its data type, its unit if appli
 
 ### 8.1.1 Optional Variables
 
-If a variable is marked as optional, it is optional for the vehicle integrator’s vehicles. The (third-party) master control system must be able to handle optional variables being either specified or not.
+If a variable is marked as optional, it is optional for the mobile robot integrator’s mobile robots. The (third-party) fleet control system must be able to handle optional variables being either specified or not.
 
-If the LIF file contains an optional variable, the (third-party) master control system must not ignore the variable. If the (third-party) master control system cannot process the variable accordingly, it is expected that the (third-party) master control system will provide a warning or an error message when importing the LIF file.
+If the LIF file contains an optional variable, the (third-party) fleet control system must not ignore the variable. If the (third-party) fleet control system cannot process the variable accordingly, it is expected that the (third-party) fleet control system will provide a warning or an error message when importing the LIF file.
 
-Variables that are optional in the LIF, but are strictly required by the vehicle, must be clearly communicated toward the (third-party) master control system. The LIF does not denote such variables; this agreement must be made between the vehicle integrator and (third-party) master control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA5050 standard.
+Variables that are optional in the LIF, but are strictly required by the mobile robot, must be clearly communicated toward the (third-party) fleet control system. The LIF does not denote such variables; this agreement must be made between the mobile robot integrator and (third-party) fleet control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA5050 standard.
 
 ## 8.2 Element ID Uniqueness
 
@@ -268,7 +268,7 @@ The objects contained in this structure are described in more detail below.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| layout { |  | JSON-object | A layout for order generation and routing. This layout holds relevant information independently from possible vehicles or (third-party) master control systems. It is intended to hold the information for all different vehicle types.  Nodes and edges model a graph structure that is used as foundation for order generation and routing.  A layout holds information that can be topologically considered a "plane", i.e., multiple levels must be modelled in different layouts.  It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. |
+| layout { |  | JSON-object | A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or (third-party) fleet control systems. It is intended to hold the information for all different mobile robot types.  Nodes and edges model a graph structure that is used as foundation for order generation and routing.  A layout holds information that can be topologically considered a "plane", i.e., multiple levels must be modelled in different layouts.  It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. |
 | layoutId |  | string | Unique identifier for this layout. |
 | *layoutName* |  | string | Human-readable name of the layout (e.g., for displaying). |
 | layoutVersion |  | string | Version of the layout.  Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at "1". |
@@ -284,27 +284,27 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | node { |  | JSON-object | Refers to VDA5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
-| nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different vehicle integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) master control system to whichever internal unique nodeId it wishes to use, and to map this to a vehicle integrator's nodeId for its specific LIF. |
+| nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
 | *nodeName* |  | string | Name of the node.  This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. Therefore, this node name need not necessarily be unique. |
 | *nodeDescription* |  | string | Brief description of the node. This should only ever be for visualization or diagnostic purposes. |
-| mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a vehicle uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
+| mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
 | nodePosition { |  | JSON-object | Geometric location of the node. |
 | x | meter | float64 | X position on the layout in reference to the origin. |
 | y | meter | float64 | Y position on the layout in reference to the origin. |
 | } |  |  |  |
-| vehicleTypeNodeProperties [vehicleTypeNodeProperty] |  | array of JSON-object | Vehicle type specific properties for this node.  This attribute must not be empty. There must be an element for each vehicle type that may use this node. If no element exists for a particular vehicle type, the (third-party) master control system must consider that node invalid for use with that vehicle type. |
+| mobileRobotTypeNodeProperties [mobileRobotTypeNodeProperty] |  | array of JSON-object | Mobile robot type specific properties for this node.  This attribute must not be empty. There must be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the (third-party) fleet control system must consider that node invalid for use with that mobile robot type. |
 | } |  |  |  |
 
-### 8.3.6 VehicleTypeNodeProperty
+### 8.3.6 MobileRobotTypeNodeProperty
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| vehicleTypeNodeProperty { |  | JSON-object |  |
-| vehicleTypeIds |  | array of string | Unique IDs for vehicle types to which these properties apply on this node. Only one vehicleTypeNodeProperty can be declared per vehicle type per node.  Note: It is suggested that a vehicle type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
-| *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the vehicle on the node in reference to the origin’s rotation. |
+| mobileRobotTypeNodeProperty { |  | JSON-object |  |
+| mobileRobotTypeIds |  | array of string | Unique IDs for mobile robot types to which these properties apply on this node. Only one mobileRobotTypeNodeProperty can be declared per mobile robot type per node.  Note: It is suggested that a mobile robot type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
+| *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the mobile robot on the node in reference to the origin’s rotation. |
 | *maximumAllowedDeviation* | meter | float64 | Maximum *maximumAllowedDeviation* |
-| *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each vehicle type ID in vehicleTypeIds.  Note: If not defined, the node can be used by both unloaded vehicles and loaded vehicles carrying any load set. |
-| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into an order by the third-party master control system can send for the given vehicle types on this node.  The selection of which action to integrate is determined by the third-party master control system. If no actions are applicable, this attribute may be omitted. |
+| *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each mobile robot type ID in mobileRobotTypeIds.  Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
+| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into an order by the third-party fleet control system can send for the given mobile robot types on this node.  The selection of which action to integrate is determined by the third-party fleet control system. If no actions are applicable, this attribute may be omitted. |
 | } |  |  |  |
 
 ### 8.3.7 LoadRestriction
@@ -312,9 +312,9 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | loadRestriction { |  | JSON-object |  |
-| unloaded |  | boolean | "true": This node or edge may be used by an unloaded vehicle. "false": This node or edge must not be used by an unloaded vehicle. |
-| loaded |  | boolean | "true": This node or edge may be used by a loaded vehicle. "false": This node or edge must not be used by a loaded vehicle.  Note: If set to true, the attribute loadSetNames, if given, must be respected. |
-| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the vehicle type on this node or edge. The (third-party) master control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective vehicle type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the vehicle type are allowed. |
+| unloaded |  | boolean | "true": This node or edge may be used by an unloaded mobile robot. "false": This node or edge must not be used by an unloaded mobile robot. |
+| loaded |  | boolean | "true": This node or edge may be used by a loaded mobile robot. "false": This node or edge must not be used by a loaded mobile robot.  Note: If set to true, the attribute loadSetNames, if given, must be respected. |
+| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The (third-party) fleet control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
 | } |  |  |  |
 
 ### 8.3.8 Action
@@ -322,14 +322,14 @@ The objects contained in this structure are described in more detail below.
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
-| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) master control system such as via the interpretation of a mobile robot's factsheet. |
+| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system such as via the interpretation of a mobile robot's factsheet. |
 | *actionDescription* |  | string | Brief description of the action. |
-| requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) master control system must always communicate this action to the vehicle on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the vehicle integrator and the (third-party) master control system is required.  "OPTIONAL" - The action may or may not be communicated to the vehicle at the (third-party) master control system's discretion and responsibility. The vehicle must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behaviour for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the vehicle integrator to define the implications of this to the (third-party) master control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
+| requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) fleet control system must always communicate this action to the mobile robot on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the (third-party) fleet control system is required.  "OPTIONAL" - The action may or may not be communicated to the mobile robot at the (third-party) fleet control system's discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behaviour for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) fleet control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
 | blockingType |  | string | Enum {NONE, SOFT, HARD}  "NONE" - allows moving and other actions.  "SOFT" - allows other actions, but not moving.  "HARD" - is the only allowed action at this time. |
-| *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The master traffic control must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
+| *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
 | } |  |  |  |
 
-The mobile robot's factsheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the vehicle. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the vehicle integrator and the (third-party) master control system.
+The mobile robot's factsheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the mobile robot. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the mobile robot integrator and the (third-party) fleet control system.
 
 ### 8.3.9 ActionParameter
 
@@ -344,42 +344,42 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| edge { |  | JSON-object | Refers to VDA5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one vehicle type. Therefore, the LIF does not contain any edges that are blocked. |
-| edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different vehicle integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) master control system to whichever internal unique edgeId it wishes to use, and to map this to a vehicle integrator's edgeId for its specific LIF. |
+| edge { |  | JSON-object | Refers to VDA5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
+| edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
 | *edgeName* |  | string | Name of the edge.  This should only for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. |
 | *edgeDescription* |  | string | Brief description of the edge. This should only be used for visualization or diagnostic purposes. |
 | startNodeId |  | string | Id of the start node.  The start node must always be part of the current layout. |
 | endNodeId |  | string | Id of the end node.  The end node can be located in another layout. This models a transition from one layout to another. |
-| vehicleTypeEdgeProperties [vehicleTypeEdgeProperty] |  | array of JSON-object | Vehicle type specific properties for this edge.  Note: This attribute must not be empty. For each allowed vehicle type there must be an element. |
+| mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
 | } |  |  |  |
 
-### 8.3.11 VehicleTypeEdgeProperty
+### 8.3.11 MobileRobotTypeEdgeProperty
 
 | Object Structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| vehicleTypeEdgeProperty { |  | JSON-object |  |
-| vehicleTypeIds |  | array of string | Unique IDs for vehicle types to which these properties apply on this edge. Only one vehicleTypeEdgeProperty can be declared per vehicle type per edge.  Note: It is suggested that a vehicle type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
+| mobileRobotTypeEdgeProperty { |  | JSON-object |  |
+| mobileRobotTypeIds |  | array of string | Unique IDs for mobile robot types to which these properties apply on this edge. Only one mobileRobotTypeEdgeProperty can be declared per mobile robot type per edge.  Note: It is suggested that a mobile robot type ID be a combination of [factsheet.manufacturer]. [factsheet.seriesName]. |
 | *orientationType* |  | string | Enum {GLOBAL, TANGENTIAL}:  "GLOBAL": relative to the global project specific map coordinate system.  "TANGENTIAL": tangential to the edge.  Note: If not defined, the default value is "TANGENTIAL". |
-| *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional vehicles. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Vehicle can rotate into the desired orientation on the edge. The (third-party) master control system must assume that the vehicle will rotate in any direction along the edge at any point. The (third-party) master control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other vehicles also under its control (e.g., deadlocks, potential collisions).<br><br>Optional:<br>Default: "true". |
-| *vehicleOrientations* | rad | array of float64 | All possible orientations the vehicle can take while traversing the edge. The master control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the vehicle starts in different orientation, rotate the vehicle on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) master control system must assume the vehicle traversing the edge could be in any orientation at any time. |
-| *rotationAtStartNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the vehicle at the start node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
-| *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the vehicle at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
-| *maxSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the vehicle.  Note: If not defined, no limitation. |
+| *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional mobile robots. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Mobile robot can rotate into the desired orientation on the edge. The (third-party) fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The (third-party) fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control (e.g., deadlocks, potential collisions).<br><br>Optional:<br>Default: "true". |
+| *mobileRobotOrientations* | rad | array of float64 | All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in different orientation, rotate the mobile robot on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time. |
+| *rotationAtStartNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the start node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
+| *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
+| *maxSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot.  Note: If not defined, no limitation. |
 | *maxRotationSpeed* | rad/s | float64 | Maximum rotation speed  Note: If not defined, no limitation. |
 | *minimumLoadHandlingDeviceHeight* | meter | float64 | Permitted minimal height of the load handling device on the edge.  Note: If not defined, no limitation. |
-| *maximumMobileRobotHeight* | meter | float64 | Permitted maximum height of the vehicle, including the load, on edge.  Note: If not defined, no limitation. |
-| *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each vehicle type ID in vehicleTypeIds.  Note: If not defined, the edge can be used by both unloaded vehicles and loaded vehicles carrying any load set. |
-| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into the order by the (third-party) master control system each time any vehicle of a type listed in vehicleTypeIds is sent an order/order update that contains this edge.  Note: If no actions must be integrated, the attribute can be omitted. |
-| *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the vehicle should move between startNode and endNode. Can be omitted if the vehicle cannot process trajectories or if the vehicle plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) master control system may not have sufficient information to be responsible for determining whether different vehicles from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
-| *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited vehicle types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object must be used mutually exclusively with the trajectory object. |
-| *reentryAllowed* |  | boolean | "true": Vehicles of a type listed in vehicleTypeIds are allowed to enter automatic management by the third-party master control system while on this edge.  "false": Vehicles of a type listed in vehicleTypeIds are not allowed to enter into automatic management by the (third-party) master control system while on this edge.  Note: If not defined, the default is true. |
-| *allowedDeviationXY* |  | JSON-object | Indicates the distance a vehicle needs to deviate from a node to traverse it smoothly. |
+| *maximumMobileRobotHeight* | meter | float64 | Permitted maximum height of the mobile robot, including the load, on edge.  Note: If not defined, no limitation. |
+| *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each mobile robot type ID in mobileRobotTypeIds.  Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
+| *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into the order by the (third-party) fleet control system each time any mobile robot of a type listed in mobileRobotTypeIds is sent an order/order update that contains this edge.  Note: If no actions must be integrated, the attribute can be omitted. |
+| *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) fleet control system may not have sufficient information to be responsible for determining whether different mobile robots from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
+| *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited mobile robot types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object must be used mutually exclusively with the trajectory object. |
+| *reentryAllowed* |  | boolean | "true": Mobile robots of a type listed in mobileRobotTypeIds are allowed to enter automatic management by the third-party fleet control system while on this edge.  "false": Mobile robots of a type listed in mobileRobotTypeIds are not allowed to enter into automatic management by the (third-party) fleet control system while on this edge.  Note: If not defined, the default is true. |
+| *allowedDeviationXY* |  | JSON-object | Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly. |
 | *corridor* |  | JSON-object | Describes the options to set a corridor. Note: If not defined, no corridor shall be used. |
 | } |  |  |  |
 
 #### 8.3.11.1 Rotation Allowed at Start and End
 
-Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may contradict one another if they terminate and originate, respectively, at the same node. In such cases, these should be combined as per a boolean *and*. As an example, if the end node rotation is BOTH on the terminating edge, but NONE on the originating edge, this would be interpreted as NONE. For directional rotation values of CW or CCW, they must also align exactly, or value of CW or CCW on the terminating edge but BOTH on the originating edge would also only allow CW or CCW rotation, respectively. If these two attributes do not align at such a node, some edges of the layout may be unnavigable depending upon how the vehicle arrived at the node (which may or may not be intentional).
+Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may contradict one another if they terminate and originate, respectively, at the same node. In such cases, these should be combined as per a boolean *and*. As an example, if the end node rotation is BOTH on the terminating edge, but NONE on the originating edge, this would be interpreted as NONE. For directional rotation values of CW or CCW, they must also align exactly, or value of CW or CCW on the terminating edge but BOTH on the originating edge would also only allow CW or CCW rotation, respectively. If these two attributes do not align at such a node, some edges of the layout may be unnavigable depending upon how the mobile robot arrived at the node (which may or may not be intentional).
 
 ### 8.3.12 Trajectory
 
@@ -406,21 +406,21 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | *physicalLineGuidedProperty* { |  | JSON-object |  |
-| *direction* |  | string | Defines the direction identifier of this edge at junctions for line-guided or wire-guided vehicles.  See the related VDA5050 attributes for more information. |
-| *length* | meter | float64 | The length of this edge for vehicle types which require it but are unable to process or respect trajectories. |
+| *direction* |  | string | Defines the direction identifier of this edge at junctions for line-guided or wire-guided mobile robots.  See the related VDA5050 attributes for more information. |
+| *length* | meter | float64 | The length of this edge for mobile robot types which require it but are unable to process or respect trajectories. |
 | } |  |  |  |
 
 ### 8.3.15 Station
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| station { |  | JSON-object | A station represents any logical place where a vehicle can explicitly interact with the environment, including but not limited to physical interactions. |
-| stationId |  | string | Unique identifier of the station across all layouts within this LIF file.  Note: It is recommended that stationIds match and align between all LIFs from all vehicle integrators and other load handling systems such as WMSs, as well as physical visual labelling and the like. |
-| interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the (third-party) master control system. Choosing the correct interaction node may require that the (third-party) master control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
-| *stationName* |  | string | Name of the station. May be used and forwarded to the vehicle as part of a VDA5050 order, such as a pick or drop action. |
-| *stationType* |  | string | Type of the station. May be used and forwarded to the vehicle as part of a VDA5050 order, such as a pick or drop action. |
+| station { |  | JSON-object | A station represents any logical place where a mobile robot can explicitly interact with the environment, including but not limited to physical interactions. |
+| stationId |  | string | Unique identifier of the station across all layouts within this LIF file.  Note: It is recommended that stationIds match and align between all LIFs from all mobile robot integrators and other load handling systems such as WMSs, as well as physical visual labelling and the like. |
+| interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the (third-party) fleet control system. Choosing the correct interaction node may require that the (third-party) fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
+| *stationName* |  | string | Name of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
+| *stationType* |  | string | Type of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
 | *stationDescription* |  | string | Brief description of the station. |
-| *stationHeight* | meter | float64 | Range: [0 ... float64.max]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off.  For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the master control system and the vehicle integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
+| *stationHeight* | meter | float64 | Range: [0 ... float64.max]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off.  For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
 | *stationPosition {* |  |  | Centre point and orientation of the station.  Note: Only for visualization purposes, to assist how to represent this station in any user interface. This position is commonly the center point of the physical station or the center point of a load on the station but may not always be. |
 | x | meter | float64 | X position of the station in the layout in reference to the origin. |
 | y | meter | float64 | Y position of the station in the layout in reference to the origin. |
@@ -430,27 +430,27 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 
 #### 8.3.15.1 Best Practices for Defining a Station
 
-A station could be a battery charting point where a vehicle must interface with a physical charging infrastructure. A station could be a place to drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
+A station could be a battery charting point where a mobile robot must interface with a physical charging infrastructure. A station could be a place to drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
 
 It is possible to have different configurations for stations that accomplish the same thing. It is considered best practice to have stations be as atomic as possible. For example, while a 1 wide, 1 deep, 5 tall (1x1x5) vertical column of load storage positions on a tall rack might be able to be represented by a single station, it is likely better to have five stations, one per level for each discrete position, even if they would share the same interaction node or nodes.
 
 For stations where a variable number of loads might be kept, such as in the example given above for a racking bay which could, for example, hold either two wider loads or three thinner ones, it is suggested to make this a single station, and to utilize action parameters for where and how exactly to pick and drop from the bay. This contrasts with alternative options, such as where there might be a total of five stations for the bay, three for individual thin loads, and two for individual wide loads.
 
-An additional example would be a last in first out (LIFO) 1xNx1 variable deep lane, where N is variable at runtime depending on the dimensions of the loads being stored. Accurately representing all possible combinations of where loads of varying dimensions may be stored may become impractical. It again is likely best to have the entire variable deep lane be a single station, ideally with a single interaction node of where to begin entering the deep lane and using an action parameter for the depth offset into the deep lane if the traffic controller decides or allowing the vehicle to report the depth at which it dropped if the vehicle decides. Conversely, if a 1xNx1 deep lane would contain loads of all the same dimensions, but there is some other reason to vary the number of loads stored in it, and therefore depth, at runtime, treating each individual position in the deep lane as its own station returns to being the explicit, more atomic representation.
+An additional example would be a last in first out (LIFO) 1xNx1 variable deep lane, where N is variable at runtime depending on the dimensions of the loads being stored. Accurately representing all possible combinations of where loads of varying dimensions may be stored may become impractical. It again is likely best to have the entire variable deep lane be a single station, ideally with a single interaction node of where to begin entering the deep lane and using an action parameter for the depth offset into the deep lane if the traffic controller decides or allowing the mobile robot to report the depth at which it dropped if the mobile robot decides. Conversely, if a 1xNx1 deep lane would contain loads of all the same dimensions, but there is some other reason to vary the number of loads stored in it, and therefore depth, at runtime, treating each individual position in the deep lane as its own station returns to being the explicit, more atomic representation.
 
-The exact configuration of the above and other more complex situations must always be handled on a case-by-case basis between the (third-party) master control system and the vehicle integrator(s).
+The exact configuration of the above and other more complex situations must always be handled on a case-by-case basis between the (third-party) fleet control system and the mobile robot integrator(s).
 
-#### 8.3.15.2 How the (Third-party) Master Control System Can Identify the Purpose of a Station
+#### 8.3.15.2 How the (Third-party) Fleet Control System Can Identify the Purpose of a Station
 
-If the (third-party) master control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, and so forth.
+If the (third-party) fleet control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, and so forth.
 
 ### 8.3.16 AllowedDeviationXY
 
-Indicates how precisely a vehicle shall match the position of a node for it to be considered traversed.
+Indicates how precisely a mobile robot shall match the position of a node for it to be considered traversed.
 
-If a = b = 0.0: no deviation is allowed, which means the vehicle shall reach or pass the node position with the vehicle control point as precisely as is technically possible for the vehicle. This applies also if allowedDeviationXY is smaller than what is technically viable for the vehicle. If the vehicle supports this attribute, but it is not defined for this node by Master Control the vehicle shall assume the value of a and b as 0.0.
+If a = b = 0.0: no deviation is allowed, which means the mobile robot shall reach or pass the node position with the mobile robot control point as precisely as is technically possible for the mobile robot. This applies also if allowedDeviationXY is smaller than what is technically viable for the mobile robot. If the mobile robot supports this attribute, but it is not defined for this node by the fleet control system the mobile robot shall assume the value of a and b as 0.0.
 
-In the case that an ellipse is not supported by either the vehicle or by VDA5050 version (e.g., 2.1 or prior), it should be defined such that a = b and theta = 0.0 in order to define a circle.
+In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), it should be defined such that a = b and theta = 0.0 in order to define a circle.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -468,7 +468,7 @@ In the case that an ellipse is not supported by either the vehicle or by VDA5050
 | corridor { |  | JSON-object |  |
 | maximumLeftWidth | meter | float64 | Maximum corridor margin possible to the left of the edge. |
 | maximumRightWidth | meter | float64 | Maximum corridor margin possible to the right of the edge. |
-| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the vehicle. If not specified the boundaries are valid to the vehicles kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'} |
+| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robots kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'} |
 | } |  |  |  |
 
 ## 8.4 Complete Data Structure of LIF
@@ -500,9 +500,9 @@ The complete data structure of LIF is shown below:
                         "x": "number",
                         "y": "number"
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "string",
+                            "mobileRobotTypeId": "string",
                             "theta": "number",
                             "actions": [
                                 {
@@ -529,10 +529,10 @@ The complete data structure of LIF is shown below:
                     "edgeDescription": "string",
                     "startNodeId": "string",
                     "endNodeId": "string",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "string",
-                            "vehicleOrientations": [ "number" ],
+                            "mobileRobotTypeId": "string",
+                            "mobileRobotOrientations": [ "number" ],
                             "orientationType": "string",
                             "reachOrientationBeforeEntering": "boolean",
                             "rotationAtStartNodeAllowed": "string",
@@ -603,7 +603,7 @@ The complete data structure of LIF is shown below:
 
 # 9 Additional Information that Should Be Exchanged Uniformly
 
-In addition to the reference to the VDA5050 interface definition, information about geometry, kinematics, lifting systems, "capabilities of the vehicle", and so forth are included in the mobile robot's factsheet.
+In addition to the reference to the VDA5050 interface definition, information about geometry, kinematics, lifting systems, "capabilities of the mobile robot", and so forth are included in the mobile robot's factsheet.
 
 # 10 Frequently Asked Questions (FAQ)
 
@@ -611,9 +611,9 @@ In addition to the reference to the VDA5050 interface definition, information ab
 
 This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different rotationAllowed values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also judged that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
 
-## 10.2 Why are vehicle integrator-specific extensions of the LIF not foreseen?
+## 10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?
 
-The LIF's intention is to be parsed as automatically as possible while being consistent across all vehicle integrators. No vehicle integrator-specific fields should be added, and there are no poorly defined "magic fields" in which to place information to achieve this purpose.
+The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot integrator-specific fields should be added, and there are no poorly defined "magic fields" in which to place information to achieve this purpose.
 
 If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version.
 
@@ -623,7 +623,7 @@ If your use case is not supported by the LIF, contact the VDMA for it to be cons
 
 ## 11.1 Forward Edge
 
-One Edge (straight line) between two nodes. The vehicle may only move forward oriented on this edge.
+One Edge (straight line) between two nodes. The mobile robot may only move forward oriented on this edge.
 
 ![](assets/fig11_1-1.png)
 
@@ -650,9 +650,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1"
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -663,9 +663,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1"
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -675,10 +675,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -692,7 +692,7 @@ LIF-File:
 
 ## 11.2 Bidirectional Edge
 
-Two Edges (straight line) between two nodes. The vehicle may only move forward oriented on one edge and backward oriented on the other edge.
+Two Edges (straight line) between two nodes. The mobile robot may only move forward oriented on one edge and backward oriented on the other edge.
 
 ![](assets/fig11_2-1.png)
 
@@ -719,9 +719,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1"
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -732,9 +732,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1"
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -744,10 +744,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -757,10 +757,10 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -773,7 +773,7 @@ LIF-File:
 ```
 ## 11.3 Counter-clockwise Rotation on Node
 
-Two Edges (straight line) between two nodes. The vehicle may only move forward oriented on both edge, rotation counter-clockwise allowed at node N1.
+Two Edges (straight line) between two nodes. The mobile robot may only move forward oriented on both edge, rotation counter-clockwise allowed at node N1.
 
 ![](assets/fig11_3-1.png)
 
@@ -800,9 +800,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -813,9 +813,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -825,10 +825,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
@@ -840,10 +840,10 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientation": 0.0,
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientation": 0.0,
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "CCW",
@@ -858,7 +858,7 @@ LIF-File:
 ```
 ## 11.4 Omnidirectional Edge
 
-Two Edges (straight line) between two nodes. The vehicle moves omnidirectionally to 90° on the edge from N1 to N2 and the vehicle moves omnidirectionally back to -90° on the edge from N2 back to N1.
+Two Edges (straight line) between two nodes. The mobile robot moves omnidirectionally to 90° on the edge from N1 to N2 and the mobile robot moves omnidirectionally back to -90° on the edge from N2 back to N1.
 
 ![](assets/fig11_4-1.png)
 
@@ -885,9 +885,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -898,9 +898,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -910,10 +910,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [1.5707963267948966],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [1.5707963267948966],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": false,
                             "rotationAtStartNodeAllowed": "NONE",
@@ -925,10 +925,10 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientation": -1.5707963267948966,
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientation": -1.5707963267948966,
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": false,
                             "rotationAtStartNodeAllowed": "NONE",
@@ -972,9 +972,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -985,9 +985,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -997,10 +997,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1022,9 +1022,9 @@ LIF-File:
                         "x": 12.4,
                         "y": 3.4
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1035,9 +1035,9 @@ LIF-File:
                         "x": 12.0,
                         "y": 3.4
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -1047,10 +1047,10 @@ LIF-File:
                     "edgeId": "N101-N102",
                     "startNodeId": "N101",
                     "endNodeId": "N102",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1064,7 +1064,7 @@ LIF-File:
 
 ## 11.6 Station with One Node
 
-Two Edges (straight line) between two nodes. At one node there is a station for picking up pallets. The vehicle may only move forward oriented on one edge and backward oriented on the other edge.
+Two Edges (straight line) between two nodes. At one node there is a station for picking up pallets. The mobile robot may only move forward oriented on one edge and backward oriented on the other edge.
 
 ![](fig11_6-1.png)
 
@@ -1091,9 +1091,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1104,9 +1104,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -1129,10 +1129,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1142,10 +1142,10 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1197,9 +1197,9 @@ LIF-File:
                         "x": 9.2,
                         "y": 3.4
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -1234,9 +1234,9 @@ LIF-File:
                         "x": 9.4,
                         "y": 3.2
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -1259,9 +1259,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1"
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1272,9 +1272,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 3.4
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1"
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1285,9 +1285,9 @@ LIF-File:
                         "x": 9.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1"
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -1297,10 +1297,10 @@ LIF-File:
                     "edgeId": "N11-N1",
                     "startNodeId": "N11",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1310,10 +1310,10 @@ LIF-File:
                     "edgeId": "N3-N11",
                     "startNodeId": "N3",
                     "endNodeId": "N11",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1323,10 +1323,10 @@ LIF-File:
                     "edgeId": "N1-N3",
                     "startNodeId": "N1",
                     "endNodeId": "N3",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1336,10 +1336,10 @@ LIF-File:
                     "edgeId": "N3-N21",
                     "startNodeId": "N3",
                     "endNodeId": "N21",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1349,10 +1349,10 @@ LIF-File:
                     "edgeId": "N21-N2",
                     "startNodeId": "N21",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1362,10 +1362,10 @@ LIF-File:
                     "edgeId": "N2-N3",
                     "startNodeId": "N2",
                     "endNodeId": "N3",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId":"Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId":"Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1389,9 +1389,9 @@ LIF-File:
 }
 ```
 
-## 11.8 Station with Two Nodes, Restricted for Different Vehicle Types
+## 11.8 Station with Two Nodes, Restricted for Different Mobile Robot Types
 
-Station with tow Nodes but restricted for different vehicle types.
+Station with tow Nodes but restricted for different mobile robot types.
 
 ![](assets/fig11_8-1.png)
 
@@ -1418,9 +1418,9 @@ LIF-File:
                         "x": 7.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1431,9 +1431,9 @@ LIF-File:
                         "x": 9.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "drop",
@@ -1457,9 +1457,9 @@ LIF-File:
                         "x": 9.6,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -1483,9 +1483,9 @@ LIF-File:
                         "x": 14.8,
                         "y": 3.4
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2"
                         }
                     ]
                 }
@@ -1495,10 +1495,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1508,10 +1508,10 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1521,10 +1521,10 @@ LIF-File:
                     "edgeId": "N4-N3",
                     "startNodeId": "N4",
                     "endNodeId": "N3",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1534,10 +1534,10 @@ LIF-File:
                     "edgeId": "N3-N4",
                     "startNodeId": "N3",
                     "endNodeId": "N4",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1590,9 +1590,9 @@ LIF-File:
                         "x": 7.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1603,9 +1603,9 @@ LIF-File:
                         "x": 9.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "drop",
@@ -1623,9 +1623,9 @@ LIF-File:
                         "x": 9.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "theta": -1.5707963268,
                             "actions": [
                                 {
@@ -1650,9 +1650,9 @@ LIF-File:
                         "x": 9.2,
                         "y": -5.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -1662,10 +1662,10 @@ LIF-File:
                     "edgeId": "N1-N11",
                     "startNodeId": "N1",
                     "endNodeId": "N11",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1675,9 +1675,9 @@ LIF-File:
                     "edgeId": "N11-N21",
                     "startNodeId": "N11",
                     "endNodeId": "N21",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "CW"
                         }
@@ -1687,10 +1687,10 @@ LIF-File:
                     "edgeId": "N21-N2",
                     "startNodeId": "N21",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1714,23 +1714,23 @@ LIF-File:
 }
 ```
 
-## 11.10 Station with Three Nodes, Restricted to Different Vehicle Types
+## 11.10 Station with Three Nodes, Restricted to Different Mobile Robot Types
 
-One station with three nodes, but restricted to different vehicle types.
+One station with three nodes, but restricted to different mobile robot types.
 
 Restriction on edges:
 
-* Vehicle Type 1 Forward
-* Vehicle Type 2 Backward
-* Vehicle Type 2 & 3 Forward
-* Vehicle Type 2 & 3 Backward
+* Mobile Robot Type 1 Forward
+* Mobile Robot Type 2 Backward
+* Mobile Robot Type 2 & 3 Forward
+* Mobile Robot Type 2 & 3 Backward
 
 Explanation:
 
-* NSL: Vehicle Type 1 pick and drop
-* NSB: Vehicle Type 1 pick
-* NSR: Vehicle Type 2 drop
-* NSR: Vehicle Type 3 pick and drop
+* NSL: Mobile Robot Type 1 pick and drop
+* NSB: Mobile Robot Type 1 pick
+* NSR: Mobile Robot Type 2 drop
+* NSR: Mobile Robot Type 3 pick and drop
 
 ![](assets/fig11_10-1.png)
 
@@ -1757,9 +1757,9 @@ LIF-File:
                         "x": 7.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1770,9 +1770,9 @@ LIF-File:
                         "x": 9.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -1795,9 +1795,9 @@ LIF-File:
                         "x": 10.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2",
                             "actions": [
                                 {
                                     "actionType": "drop",
@@ -1807,7 +1807,7 @@ LIF-File:
                             ]
                         },
                         {
-                            "vehicleTypeId": "Vehicle_Type_3",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_3",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -1830,9 +1830,9 @@ LIF-File:
                         "x": 9.7,
                         "y": -0.5
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -1850,9 +1850,9 @@ LIF-File:
                         "x": 9.7,
                         "y": -5.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -1863,12 +1863,12 @@ LIF-File:
                         "x": 13.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2"
                         },
                         {
-                            "vehicleTypeId": "Vehicle_Type_3"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_3"
                         }
                     ]
                 }
@@ -1878,10 +1878,10 @@ LIF-File:
                     "edgeId": "N1-NSL",
                     "startNodeId": "N1",
                     "endNodeId": "NSL",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1891,10 +1891,10 @@ LIF-File:
                     "edgeId": "NSL-N1",
                     "startNodeId": "NSL",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1904,10 +1904,10 @@ LIF-File:
                     "edgeId": "N2-NSB",
                     "startNodeId": "N2",
                     "endNodeId": "NSB",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1917,10 +1917,10 @@ LIF-File:
                     "edgeId": "NSB-N2",
                     "startNodeId": "NSB",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1930,16 +1930,16 @@ LIF-File:
                     "edgeId": "N3-NSR",
                     "startNodeId": "N3",
                     "endNodeId": "NSR",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         },
                         {
-                            "vehicleTypeId": "Vehicle_Type_3",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_3",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1949,16 +1949,16 @@ LIF-File:
                     "edgeId": "NSR-N3",
                     "startNodeId": "NSR",
                     "endNodeId": "N3",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_2",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         },
                         {
-                            "vehicleTypeId": "Vehicle_Type_3",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_3",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -1974,7 +1974,7 @@ LIF-File:
                         "NSR"
                     ],
                     "stationName": "Complicated handover station",
-                    "stationDescription": "Handover station for multiple vehicle types with different allowed actions",
+                    "stationDescription": "Handover station for multiple mobile robot types with different allowed actions",
                     "stationHeight": "0.5"
                 }
             ]
@@ -2012,9 +2012,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "startCharging",
@@ -2037,9 +2037,9 @@ LIF-File:
                         "x": 5.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -2050,9 +2050,9 @@ LIF-File:
                         "x": 15.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -2063,9 +2063,9 @@ LIF-File:
                         "x": 25.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -2076,9 +2076,9 @@ LIF-File:
                         "x": 35.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -2088,10 +2088,10 @@ LIF-File:
                     "edgeId": "N0-N1",
                     "startNodeId": "N0",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
@@ -2107,10 +2107,10 @@ LIF-File:
                     "edgeId": "N1-N0",
                     "startNodeId": "N1",
                     "endNodeId": "N0",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
@@ -2126,9 +2126,9 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH"
@@ -2139,9 +2139,9 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH"
@@ -2152,9 +2152,9 @@ LIF-File:
                     "edgeId": "N2-N3",
                     "startNodeId": "N2",
                     "endNodeId": "N3",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
@@ -2172,9 +2172,9 @@ LIF-File:
                     "edgeId": "N3-N2",
                     "startNodeId": "N3",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
@@ -2192,9 +2192,9 @@ LIF-File:
                     "edgeId": "N3-N4",
                     "startNodeId": "N3",
                     "endNodeId": "N4",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
@@ -2212,9 +2212,9 @@ LIF-File:
                     "edgeId": "N4-N3",
                     "startNodeId": "N4",
                     "endNodeId": "N3",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "BOTH",
@@ -2234,9 +2234,9 @@ LIF-File:
 }
 ```
 
-## 11.12 Multiple Edges Between Same Two Nodes for Different vehicleTypeEdgeProperty Constraints.
+## 11.12 Multiple Edges Between Same Two Nodes for Different mobileRobotTypeEdgeProperty Constraints.
 
-If, for example, a vehicle would be incapable of remembering the properties of the load it is carrying, and/or the traffic controller would be asked to manage the vehicles' maxSpeed or other behaviour, multiple overlapping edges (or in other cases nodes) can accomplish this.
+If, for example, a mobile robot would be incapable of remembering the properties of the load it is carrying, and/or the traffic controller would be asked to manage the mobile robots' maxSpeed or other behaviour, multiple overlapping edges (or in other cases nodes) can accomplish this.
 
 ![](assets/fig11_12-1.png)
 
@@ -2263,9 +2263,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "startCharging",
@@ -2288,9 +2288,9 @@ LIF-File:
                         "x": 5.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -2301,9 +2301,9 @@ LIF-File:
                         "x": 15.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -2313,10 +2313,10 @@ LIF-File:
                     "edgeId": "N0-N1_Unloaded",
                     "startNodeId": "N0",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
@@ -2332,10 +2332,10 @@ LIF-File:
                     "edgeId": "N1-N0_Stable_Load",
                     "startNodeId": "N1",
                     "endNodeId": "N0",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
@@ -2355,10 +2355,10 @@ LIF-File:
                     "edgeId": "N1-N0_Unstable_Load",
                     "startNodeId": "N1",
                     "endNodeId": "N0",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
@@ -2409,9 +2409,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "startCharging",
@@ -2434,9 +2434,9 @@ LIF-File:
                         "x": 5.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -2446,10 +2446,10 @@ LIF-File:
                     "edgeId": "N_CHARGER-N1",
                     "startNodeId": "N_CHARGER",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
@@ -2465,10 +2465,10 @@ LIF-File:
                     "edgeId": "N1-N_CHARGER",
                     "startNodeId": "N1",
                     "endNodeId": "N_CHARGER",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
@@ -2488,7 +2488,7 @@ LIF-File:
                         "N_CHARGER"
                     ],
                     "stationName": "Battery Charging Station",
-                    "stationDescription": "Station to charge the battery or park the vehicle",
+                    "stationDescription": "Station to charge the battery or park the mobile robot",
                     "stationHeight": "0.0"
                 }
             ]
@@ -2527,9 +2527,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -2540,9 +2540,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -2552,10 +2552,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -2565,10 +2565,10 @@ LIF-File:
                     "edgeId": "N2-N102",
                     "startNodeId": "N2",
                     "endNodeId": "N102",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -2590,9 +2590,9 @@ LIF-File:
                         "x": 12.4,
                         "y": 3.4
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -2603,9 +2603,9 @@ LIF-File:
                         "x": 12.0,
                         "y": 3.4
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -2615,10 +2615,10 @@ LIF-File:
                     "edgeId": "N102-N101",
                     "startNodeId": "N102",
                     "endNodeId": "N101",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -2628,10 +2628,10 @@ LIF-File:
                     "edgeId": "N101-N102",
                     "startNodeId": "N101",
                     "endNodeId": "N102",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -2641,10 +2641,10 @@ LIF-File:
                     "edgeId": "N102-N2",
                     "startNodeId": "N102",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -2685,9 +2685,9 @@ LIF-File:
                         "x": 7.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
                             "actions": [
                                 {
                                     "actionType": "pick",
@@ -2710,9 +2710,9 @@ LIF-File:
                         "x": 9.2,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -2722,10 +2722,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -2735,10 +2735,10 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true
                         }
@@ -2811,9 +2811,9 @@ LIF-File:
                       "x": 7.2,
                       "y": 0.0
                   },
-                  "vehicleTypeNodeProperties": [
+                  "mobileRobotTypeNodeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
                           "actions": [
                               {
                                   "actionType": "pick",
@@ -2831,9 +2831,9 @@ LIF-File:
                       "x": 7.2,
                       "y": 0.0
                   },
-                  "vehicleTypeNodeProperties": [
+                  "mobileRobotTypeNodeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
                           "actions": [
                               {
                                   "actionType": "drop",
@@ -2851,9 +2851,9 @@ LIF-File:
                       "x": 7.2,
                       "y": 0.0
                   },
-                  "vehicleTypeNodeProperties": [
+                  "mobileRobotTypeNodeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
                           "actions": [
                               {
                                   "actionType": "pick",
@@ -2876,9 +2876,9 @@ LIF-File:
                       "x": 9.2,
                       "y": 0.0
                   },
-                  "vehicleTypeNodeProperties": [
+                  "mobileRobotTypeNodeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1"
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1"
                       }
                   ]
               }
@@ -2888,10 +2888,10 @@ LIF-File:
                   "edgeId": "NA-N2",
                   "startNodeId": "NA",
                   "endNodeId": "N2",
-                  "vehicleTypeEdgeProperties": [
+                  "mobileRobotTypeEdgeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
-                          "vehicleOrientations": [3.1415926535897931],
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                          "mobileRobotOrientations": [3.1415926535897931],
                           "orientationType": "TANGENTIAL",
                           "reachOrientationBeforeEntering": true
                       }
@@ -2901,10 +2901,10 @@ LIF-File:
                   "edgeId": "N2-NA",
                   "startNodeId": "N2",
                   "endNodeId": "NA",
-                  "vehicleTypeEdgeProperties": [
+                  "mobileRobotTypeEdgeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
-                          "vehicleOrientations": [0.0],
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                          "mobileRobotOrientations": [0.0],
                           "orientationType": "TANGENTIAL",
                           "reachOrientationBeforeEntering": true
                       }
@@ -2914,10 +2914,10 @@ LIF-File:
                   "edgeId": "NB-N2",
                   "startNodeId": "NA",
                   "endNodeId": "N2",
-                  "vehicleTypeEdgeProperties": [
+                  "mobileRobotTypeEdgeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
-                          "vehicleOrientations": [3.1415926535897931],
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                          "mobileRobotOrientations": [3.1415926535897931],
                           "orientationType": "TANGENTIAL",
                           "reachOrientationBeforeEntering": true
                       }
@@ -2927,10 +2927,10 @@ LIF-File:
                   "edgeId": "N2-NB",
                   "startNodeId": "N2",
                   "endNodeId": "NB",
-                  "vehicleTypeEdgeProperties": [
+                  "mobileRobotTypeEdgeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
-                          "vehicleOrientations": [0.0],
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                          "mobileRobotOrientations": [0.0],
                           "orientationType": "TANGENTIAL",
                           "reachOrientationBeforeEntering": true
                       }
@@ -2940,10 +2940,10 @@ LIF-File:
                   "edgeId": "NC-N2",
                   "startNodeId": "NC",
                   "endNodeId": "N2",
-                  "vehicleTypeEdgeProperties": [
+                  "mobileRobotTypeEdgeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
-                          "vehicleOrientations": [3.1415926535897931],
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                          "mobileRobotOrientations": [3.1415926535897931],
                           "orientationType": "TANGENTIAL",
                           "reachOrientationBeforeEntering": true
                       }
@@ -2953,10 +2953,10 @@ LIF-File:
                   "edgeId": "N2-NC",
                   "startNodeId": "N2",
                   "endNodeId": "NC",
-                  "vehicleTypeEdgeProperties": [
+                  "mobileRobotTypeEdgeProperties": [
                       {
-                          "vehicleTypeId": "Vehicle_Type_1",
-                          "vehicleOrientations": [0.0],
+                          "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                          "mobileRobotOrientations": [0.0],
                           "orientationType": "TANGENTIAL",
                           "reachOrientationBeforeEntering": true
                       }
@@ -2970,7 +2970,7 @@ LIF-File:
                       "NA"
                   ],
                   "stationName": "Shelf on Level A",
-                  "stationDescription": "Handover shelf from manual trucks. Inbound toward AGV system only.",
+                  "stationDescription": "Handover shelf from manual trucks (inbound).",
                   "stationHeight": "0.0"
               },
               {
@@ -2979,7 +2979,7 @@ LIF-File:
                       "NB"
                   ],
                   "stationName": "Shelf on Level B",
-                  "stationDescription": "Handover shelf toward manual trucks. Outbound away from AGV system only.",
+                  "stationDescription": "Handover shelf toward manual trucks (outbound).",
                   "stationHeight": "2.5"
               },
               {
@@ -2998,7 +2998,7 @@ LIF-File:
 ```
 ## 11.17 Edge with Trajectory Definition
 
-Two edges between node N1 and N2 with a half circle trajectory. Before entering the edge N1 to N2 the vehicle needs to rotate on N1 to -90°. The vehicle will maintain the -90° while moving on the edge. Before entering the edge N2 to N1 the vehicle needs to rotate to 90°. The vehicle will maintain the 90° while moving on the edge.
+Two edges between node N1 and N2 with a half circle trajectory. Before entering the edge N1 to N2 the mobile robot needs to rotate on N1 to -90°. The mobile robot will maintain the -90° while moving on the edge. Before entering the edge N2 to N1 the mobile robot needs to rotate to 90°. The mobile robot will maintain the 90° while moving on the edge.
 
 ![](assets/fig11_17-1.png)
 
@@ -3025,9 +3025,9 @@ LIF-File:
                         "x": 5.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -3038,9 +3038,9 @@ LIF-File:
                         "x": 15.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -3050,10 +3050,10 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [-1.5707963267948966],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [-1.5707963267948966],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
@@ -3095,10 +3095,10 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [1.5707963267948966],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [1.5707963267948966],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
@@ -3171,9 +3171,9 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 },
@@ -3184,9 +3184,9 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         }
                     ]
                 }
@@ -3196,16 +3196,16 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "actions": [
                                 {
                                     "actionType": "BEEP",
-                                    "actionDescription": "Section where the (third-party) master control system could instruct the vehicle to beep",
+                                    "actionDescription": "Section where the (third-party) fleet control system could instruct the mobile robot to beep",
                                     "requirementType": "OPTIONAL",
                                     "blockingType": "SOFT"
                                 }
@@ -3217,16 +3217,16 @@ LIF-File:
                     "edgeId": "N2-N1",
                     "startNodeId": "N2",
                     "endNodeId": "N1",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [3.1415926535897931],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [3.1415926535897931],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "actions": [
                                 {
                                     "actionType": "LOWER_FORK_AND_BEEP",
-                                    "actionDescription": "Section where the (third-party) master control system must tell the AGV to lower forks and beep",
+                                    "actionDescription": "Section where the (third-party) fleet control system must tell the mobile robot to lower forks and beep",
                                     "requirementType": "REQUIRED",
                                     "blockingType": "SOFT"
                                 }
@@ -3240,9 +3240,9 @@ LIF-File:
 }
 ```
 
-## 10.19 Forward Edge with Two Vehicle Types with Differing Orientation
+## 11.19 Forward Edge with Two Mobile Robot Types with Differing Orientation
 
-One edge (straight line) between two nodes, where two different vehicle types from the same vehicle integrator must adopt different orientations.
+One edge (straight line) between two nodes, where two different mobile robot types from the same mobile robot integrator must adopt different orientations.
 
 ![](assets/fig11_19-1.png)
 
@@ -3269,12 +3269,12 @@ LIF-File:
                         "x": 0.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         },
                         {
-                            "vehicleTypeId": "Vehicle_Type_2"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2"
                         }
                     ]
                 },
@@ -3285,12 +3285,12 @@ LIF-File:
                         "x": 11.0,
                         "y": 0.0
                     },
-                    "vehicleTypeNodeProperties": [
+                    "mobileRobotTypeNodeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1"
                         },
                         {
-                            "vehicleTypeId": "Vehicle_Type_2"
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2"
                         }
                     ]
                 }
@@ -3300,18 +3300,18 @@ LIF-File:
                     "edgeId": "N1-N2",
                     "startNodeId": "N1",
                     "endNodeId": "N2",
-                    "vehicleTypeEdgeProperties": [
+                    "mobileRobotTypeEdgeProperties": [
                         {
-                            "vehicleTypeId": "Vehicle_Type_1",
-                            "vehicleOrientations": [0.0],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_1",
+                            "mobileRobotOrientations": [0.0],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
                             "rotationAtEndNodeAllowed": "NONE"
                         },
                         {
-                            "vehicleTypeId": "Vehicle_Type_2",
-                            "vehicleOrientations": [1.5707963267948966],
+                            "mobileRobotTypeId": "Mobile_Robot_Type_2",
+                            "mobileRobotOrientations": [1.5707963267948966],
                             "orientationType": "TANGENTIAL",
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "NONE",
