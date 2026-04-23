@@ -50,15 +50,16 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA)|
 [8.3.4 Layout](#834-layout)<br>
 [8.3.5 Node](#835-node)<br>
 [8.3.6 VehicleTypeNodeProperty](#836-vehicletype-nodeproperty)<br>
-[8.3.7 LoadRestriction](#837-loadrestriction)<br>
-[8.3.8 Action](#838-action)<br>
-[8.3.9 ActionParameter](#839-actionparameter)<br>
-[8.3.10 Edge](#8310-edge)<br>
-[8.3.11 VehicleTypeEdgeProperty](#8311-vehicletypeedgeproperty)<br>
-[8.3.12 Trajectory](#8312-trajectory)<br>
-[8.3.13 ControlPoint](#8313-controlpoint)<br>
-[8.3.14 PhysicalLineGuidedProperty](#8314-physicallineguidedproperty)<br>
-[8.3.15 Station](#8315-station)<br>
+[8.3.7 VehicleType](#837-vehicletype)<br>
+[8.3.8 LoadRestriction](#838-loadrestriction)<br>
+[8.3.9 Action](#839-action)<br>
+[8.3.10 ActionParameter](#8310-actionparameter)<br>
+[8.3.11 Edge](#8311-edge)<br>
+[8.3.12 VehicleTypeEdgeProperty](#8312-vehicletypeedgeproperty)<br>
+[8.3.13 Trajectory](#8313-trajectory)<br>
+[8.3.14 ControlPoint](#8314-controlpoint)<br>
+[8.3.15 PhysicalLineGuidedProperty](#8315-physicallineguidedproperty)<br>
+[8.3.16 Station](#8316-station)<br>
 [8.4 Complete Data Structure of LIF](#84-complete-data-structure-of-lif)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
