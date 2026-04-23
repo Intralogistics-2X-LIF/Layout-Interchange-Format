@@ -1,0 +1,113 @@
+{
+  "metaInformation":{
+    "projectIdentification":"LIF Example 15",
+    "creator":"VDMA",
+    "exportTimestamp":"2025-07-02T10:00:00.00Z",
+    "lifVersion":"2.0.0"
+  },
+  "layouts":[
+    {
+      "layoutId":"Layout_Ground_Level",
+      "layoutName":"Name of Layout Ground Level",
+      "layoutVersion":"1",
+      "layoutDescription":"Ground level of Customer",
+      "nodes":[
+        {
+          "nodeId":"N1",
+          "mapId":"Map_Z-Level_1",
+          "nodePosition":{
+            "x":7.2,
+            "y":0.0
+          },
+          "mobileRobotTypeNodeProperties":[
+            {
+              "mobileRobotTypeId":"Mobile_Robot_Type_1",
+              "actions":[
+                {
+                  "actionType":"pick",
+                  "requirementType":"CONDITIONAL",
+                  "blockingType":"HARD"
+                },
+                {
+                  "actionType":"drop",
+                  "requirementType":"CONDITIONAL",
+                  "blockingType":"HARD"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeId":"N2",
+          "mapId":"Map_Z-Level_1",
+          "nodePosition":{
+            "x":9.2,
+            "y":0.0
+          },
+          "mobileRobotTypeNodeProperties":[
+            {
+              "mobileRobotTypeId":"Mobile_Robot_Type_1"
+            }
+          ]
+        }
+      ],
+      "edges":[
+        {
+          "edgeId":"N1-N2",
+          "startNodeId":"N1",
+          "endNodeId":"N2",
+          "mobileRobotTypeEdgeProperties":[
+            {
+              "mobileRobotTypeId":"Mobile_Robot_Type_1",
+              "mobileRobotOrientation":3.1415926535897931,
+              "orientationType":"TANGENTIAL",
+              "rotationAllowed":false
+            }
+          ]
+        },
+        {
+          "edgeId":"N2-N1",
+          "startNodeId":"N2",
+          "endNodeId":"N1",
+          "mobileRobotTypeEdgeProperties":[
+            {
+              "mobileRobotTypeId":"Mobile_Robot_Type_1",
+              "mobileRobotOrientation":0.0,
+              "orientationType":"TANGENTIAL",
+              "rotationAllowed":false
+            }
+          ]
+        }
+      ],
+      "stations":[
+        {
+          "stationId":"S01_Level_A",
+          "interactionNodeIds":[
+            "N1"
+          ],
+          "stationName":"Shelf on Level A",
+          "stationDescription":"Shelf on level A",
+          "stationHeight":"0.0"
+        },
+        {
+          "stationId":"S01_Level_B",
+          "interactionNodeIds":[
+            "N1"
+          ],
+          "stationName":"Shelf on Level B",
+          "stationDescription":"Shelf on level B",
+          "stationHeight":"2.5"
+        },
+        {
+          "stationId":"S01_Level_2",
+          "interactionNodeIds":[
+            "N1"
+          ],
+          "stationName":"Shelf on Level C",
+          "stationDescription":"Shelf on level C",
+          "stationHeight":"5.0"
+        }
+      ]
+    }
+  ]
+}
