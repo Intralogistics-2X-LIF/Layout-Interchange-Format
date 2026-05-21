@@ -287,7 +287,7 @@ The objects contained in this structure are described in more detail below.
 | node { |  | JSON-object | Refers to VDA5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
 | nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
 | *nodeName* |  | string | Name of the node.  This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. Therefore, this node name need not necessarily be unique. |
-| *nodeDescription* |  | string | Brief description of the node. This should only ever be for visualization or diagnostic purposes. |
+| *nodeDescriptor* |  | string | Brief description of the node. This should only ever be for visualization or diagnostic purposes. |
 | mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
 | nodePosition { |  | JSON-object | Geometric location of the node. |
 | x | meter | float64 | X position on the layout in reference to the origin. |
@@ -333,7 +333,7 @@ The objects contained in this structure are described in more detail below.
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
 | actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system such as via the interpretation of a mobile robot's factsheet. |
-| *actionDescription* |  | string | Brief description of the action. |
+| *actionDescriptor* |  | string | Brief description of the action. |
 | requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) fleet control system must always communicate this action to the mobile robot on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the (third-party) fleet control system is required.  "OPTIONAL" - The action may or may not be communicated to the mobile robot at the (third-party) fleet control system's discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behaviour for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) fleet control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
 | blockingType |  | string | Enum {NONE, SOFT, SINGLE, HARD} See VDA 5050 3.0.0 section 6.2.2 for the description and implication of each blockingType. |
 | *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
@@ -357,7 +357,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | edge { |  | JSON-object | Refers to VDA5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
 | edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
 | *edgeName* |  | string | Name of the edge.  This should only for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. |
-| *edgeDescription* |  | string | Brief description of the edge. This should only be used for visualization or diagnostic purposes. |
+| *edgeDescriptor* |  | string | Brief description of the edge. This should only be used for visualization or diagnostic purposes. |
 | startNodeId |  | string | Id of the start node.  The start node must always be part of the current layout. |
 | endNodeId |  | string | Id of the end node.  The end node can be located in another layout. This models a transition from one layout to another. |
 | mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
@@ -517,7 +517,7 @@ The complete data structure of LIF is shown below:
                             "actions": [
                                 {
                                     "actionType": "string",
-                                    "actionDescription": "string",
+                                    "actionDescriptor": "string",
                                     "required": "boolean",
                                     "blockingType": "string",
                                     "actionParameters": [
@@ -561,7 +561,7 @@ The complete data structure of LIF is shown below:
                             "actions": [
                                 {
                                     "actionType": "string",
-                                    "actionDescription": "string",
+                                    "actionDescriptor": "string",
                                     "requirementType": "string",
                                     "blockingType": "string",
                                     "actionParameters": [
@@ -3215,7 +3215,7 @@ LIF-File:
                             "actions": [
                                 {
                                     "actionType": "BEEP",
-                                    "actionDescription": "Section where the (third-party) fleet control system could instruct the mobile robot to beep",
+                                    "actionDescriptor": "Section where the (third-party) fleet control system could instruct the mobile robot to beep",
                                     "requirementType": "OPTIONAL",
                                     "blockingType": "SOFT"
                                 }
@@ -3236,7 +3236,7 @@ LIF-File:
                             "actions": [
                                 {
                                     "actionType": "LOWER_FORK_AND_BEEP",
-                                    "actionDescription": "Section where the (third-party) fleet control system must tell the mobile robot to lower forks and beep",
+                                    "actionDescriptor": "Section where the (third-party) fleet control system must tell the mobile robot to lower forks and beep",
                                     "requirementType": "REQUIRED",
                                     "blockingType": "SOFT"
                                 }
