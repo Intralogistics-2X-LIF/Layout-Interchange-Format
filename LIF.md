@@ -303,7 +303,7 @@ The objects contained in this structure are described in more detail below.
 | mobileRobotTypeNodeProperty { |  | JSON-object |  |
 | *mobileRobotTypes[mobileRobotType]* |  | array of JSON-object | Holds mobile robot types to which these properties apply on this node. Only one mobileRobotTypeNodeProperty can be declared per mobile robot type per node. |
 | *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the mobile robot on the node in reference to the origin’s rotation. |
-| *maximumAllowedDeviation* | meter | float64 | Maximum *maximumAllowedDeviation* |
+| *allowedDeviationXY* |  | JSON-object | Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each mobile robot type ID in mobileRobotTypeIds.  Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | *actions[action]* |  | array of JSON-object | Holds actions that can be integrated into an order by the third-party fleet control system can send for the given mobile robot types on this node.  The selection of which action to integrate is determined by the third-party fleet control system. If no actions are applicable, this attribute may be omitted. |
 | } |  |  |  |
@@ -384,7 +384,6 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the (third-party) fleet control system may not have sufficient information to be responsible for determining whether different mobile robots from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
 | *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited mobile robot types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object must be used mutually exclusively with the trajectory object. |
 | *reentryAllowed* |  | boolean | "true": Mobile robots of a type listed in mobileRobotTypeIds are allowed to enter automatic management by the third-party fleet control system while on this edge.  "false": Mobile robots of a type listed in mobileRobotTypeIds are not allowed to enter into automatic management by the (third-party) fleet control system while on this edge.  Note: If not defined, the default is true. |
-| *allowedDeviationXY* |  | JSON-object | Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly. |
 | *corridor* |  | JSON-object | Describes the options to set a corridor. Note: If not defined, no corridor shall be used. |
 | } |  |  |  |
 
