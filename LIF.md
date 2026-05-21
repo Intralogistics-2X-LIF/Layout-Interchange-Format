@@ -375,8 +375,8 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | *mobileRobotOrientations* | rad | array of float64 | All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in different orientation, rotate the mobile robot on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time. |
 | *rotationAtStartNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the start node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
 | *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
-| *maxSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot.  Note: If not defined, no limitation. |
-| *maxRotationSpeed* | rad/s | float64 | Maximum rotation speed  Note: If not defined, no limitation. |
+| *maximumSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot.  Note: If not defined, no limitation. |
+| *maximumRotationSpeed* | rad/s | float64 | Maximum rotation speed  Note: If not defined, no limitation. |
 | *minimumLoadHandlingDeviceHeight* | meter | float64 | Permitted minimal height of the load handling device on the edge.  Note: If not defined, no limitation. |
 | *maximumMobileRobotHeight* | meter | float64 | Permitted maximum height of the mobile robot, including the load, on edge.  Note: If not defined, no limitation. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each mobile robot type ID in mobileRobotTypeIds.  Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
@@ -397,7 +397,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | trajectory { |  | JSON-object |  |
-| *degree* |  | integer | Range: [1.0 ... integer.max]  Defines the number of control points that influence any given point on the curve. Increasing the degree increases continuity.  If not defined, the default value is 1. |
+| *degree* |  | integer | Range: [1.0 ... integer.maximum]  Defines the number of control points that influence any given point on the curve. Increasing the degree increases continuity.  If not defined, the default value is 1. |
 | knotVector[float64] |  | array of float64 | Range: [0.0 ... 1.0]  Sequence of parameter values that determines where and how the control points affect the NURBS curve.  knotVector has size of number of control points + degree + 1. |
 | controlPoints[controlPoint] |  | array of JSON-object | List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end point. |
 | } |  |  |  |
@@ -409,7 +409,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | controlPoint { |  | JSON-object |  |
 | x | meter | float64 | X position on the layout in reference to the origin. |
 | y | meter | float64 | Y position on the layout in reference to the origin. |
-| *weight* |  | float64 | Range: [0.0 ... float64.max]  The weight with which this control point pulls on the curve. When not defined, the default is 1.0. |
+| *weight* |  | float64 | Range: [0.0 ... float64.maximum]  The weight with which this control point pulls on the curve. When not defined, the default is 1.0. |
 | } |  |  |  |
 
 ### 8.3.15 PhysicalLineGuidedProperty
@@ -431,7 +431,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *stationName* |  | string | Name of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
 | *stationType* |  | string | Type of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
 | *stationDescription* |  | string | Brief description of the station. |
-| *stationHeight* | meter | float64 | Range: [0 ... float64.max]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off.  For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
+| *stationHeight* | meter | float64 | Range: [0 ... float64.maximum]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off.  For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
 | *stationPosition {* |  |  | Centre point and orientation of the station.  Note: Only for visualization purposes, to assist how to represent this station in any user interface. This position is commonly the center point of the physical station or the center point of a load on the station but may not always be. |
 | x | meter | float64 | X position of the station in the layout in reference to the origin. |
 | y | meter | float64 | Y position of the station in the layout in reference to the origin. |
@@ -548,8 +548,8 @@ The complete data structure of LIF is shown below:
                             "reachOrientationBeforeEntering": "boolean",
                             "rotationAtStartNodeAllowed": "string",
                             "rotationAtEndNodeAllowed": "string",
-                            "maxSpeed": "number",
-                            "maxRotationSpeed": "number",
+                            "maximumSpeed": "number",
+                            "maximumRotationSpeed": "number",
                             "minimumLoadHandlingDeviceHeight": "number",
                             "maximumMobileRobotHeight": "number",
                             "loadRestriction": {
@@ -2247,7 +2247,7 @@ LIF-File:
 
 ## 11.12 Multiple Edges Between Same Two Nodes for Different mobileRobotTypeEdgeProperty Constraints.
 
-If, for example, a mobile robot would be incapable of remembering the properties of the load it is carrying, and/or the traffic controller would be asked to manage the mobile robots' maxSpeed or other behaviour, multiple overlapping edges (or in other cases nodes) can accomplish this.
+If, for example, a mobile robot would be incapable of remembering the properties of the load it is carrying, and/or the traffic controller would be asked to manage the mobile robots' maximumSpeed or other behaviour, multiple overlapping edges (or in other cases nodes) can accomplish this.
 
 ![](assets/fig11_12-1.png)
 
@@ -2351,7 +2351,7 @@ LIF-File:
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "NONE",
-                            "maxSpeed": 0.8,
+                            "maximumSpeed": 0.8,
                             "loadRestriction": {
                                 "unloaded": false,
                                 "loaded": true,
@@ -2374,7 +2374,7 @@ LIF-File:
                             "reachOrientationBeforeEntering": true,
                             "rotationAtStartNodeAllowed": "BOTH",
                             "rotationAtEndNodeAllowed": "NONE",
-                            "maxSpeed": 0.3,
+                            "maximumSpeed": 0.3,
                             "loadRestriction": {
                                 "unloaded": false,
                                 "loaded": true,
