@@ -261,7 +261,7 @@ The objects contained in this structure are described in more detail below.
 | --- | --- | --- | --- |
 | { |  |  |  |
 | originId |  | string | Unique identifier for this origin. |
-| originDescription |  | string | Brief description of the origin (e.g. "Hall B, Floors 1, 2, & 3"). |
+| originDescriptor |  | string | Brief description of the origin (e.g., "Hall B, Floors 1, 2, & 3"). |
 | layouts[layout] |  | array of JSON-object | A collection of layouts within the facility, all sharing the same origin used by the driverless transport system.  Note: The LIF does not specify how two layouts from different origins may overlap or relate to one another; any layouts which may overlap or interact with one another should always belong to the same origin. |
 | } |  |  |  |
 
