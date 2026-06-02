@@ -1,0 +1,8 @@
+# History / Context
+VDA5050 3.0 added the concept of [zones](https://github.com/VDA5050/VDA5050/blob/release/3.0.0/VDA5050_EN.md#64-zones), two dimensional polygons which can have specific behavior tied to them. These zones are defined as runtime dependent, and can change, with an expected frequency of change higher than that of the navigation graphs currently defined by the LIF.
+
+# Decision Options
+1. Attempt to include zones in the LIF itself.
+2. Attempt to include zones in a separate, similar-to-LIF definition file which explicitly shares origin/spatial information with a LIF.
+3. Don't attempt to incorporate the zone concept at all into LIF.
+
