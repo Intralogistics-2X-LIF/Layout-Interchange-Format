@@ -1,7 +1,7 @@
 # Situation
 LIF v1's goal is to provide all the information necessary to a traffic controller in order to send valid VDA5050 orders to vehicles under its control. The LIF is centered around defining navigation graphs in the context of a specific vehicle type. Station definitions may not be strictly requried to do this, since VDA5050 orders only contain `node` and `edge` objects.
 
-# Rationale of LIF v1 Stations
+# Rationale of LIF 1.0 Stations
 There were three motivations behind including a `station` collection in the LIF.
 
 ## StationType
@@ -16,10 +16,10 @@ This hard link between nodes and stations could have been done in other ways, su
 Finally, the strongest point: There are further, more complicated cases that simply necessitate stations' inclusion to avoid ambiguity, and to where a parallel configuration layer might be flatly impractical. While not expected to be super common, nodes and stations may be located on top of one another in various ways. Imagine a rotation point, where loads can be dropped and picked either short side leading or long side leading, potentially by different vehicle types with different `interactionNodeId`s for the same `station`, and the LIF team's argument was that there was no way to practically achieve this without including a `station` definition in the LIF itself.
 
 # Stations in LIF v2
-With LIF v2, one of the explicit goals is to remove the unidirecitonal nature of LIF transfers. (See Issue [#15](https://github.com/Intralogistics-2X-LIF/Layout-Interchange-Format/issues/15).) It still is the explicit goal of the LIF to restrict the scope only to what is necessary to exchange VDA5050 orders between vehicles and a master control system from different vendors. The newly proposed (and likely to be implemented) omnidirectionality is a superset of previous unidirectional functionality. This means the same rationale for `station` definitions in LIF v1 is equally valid in LIV v2 (and presumably future versions). Basic [set theory](https://en.wikipedia.org/wiki/Set_theory) being a thing and all that...
+With LIF 2.0, one of the explicit goals is to remove the unidirecitonal nature of LIF transfers. (See Issue [#15](https://github.com/Intralogistics-2X-LIF/Layout-Interchange-Format/issues/15).) It still is the explicit goal of the LIF to restrict the scope only to what is necessary to exchange VDA5050 orders between vehicles and a master control system from different vendors. The newly proposed (and likely to be implemented) omnidirectionality is a superset of previous unidirectional functionality. This means the same rationale for `station` definitions in LIF v1 is equally valid in LIV v2 (and presumably future versions). Basic [set theory](https://en.wikipedia.org/wiki/Set_theory) being a thing and all that...
 
 It is not currently the intention to expand upon stations any further, other than the current explanatory power to link nodes to stations. The LIF's goal is to be universally adopted, and keep its scope as limited as it can while still containing everything required to send valid VDA5050 orders. While there may be more information tied to station objects that might be useful to define in some particular mapping/design tool which goes on to export a LIF, these will vary from vendor to vendor. Attempting to include some of these additional things and not others is _likely_ a classic example of "feature creep", likely implies some logical implementations are more valid than others, and **definitely** introduces aspects of vendor-favoritism, which is rightfully forbidden by the VDMA organization.
 
-# Expanded Definitions of a Station or Other Objects in Versions of the LIF after 2.0
+# Expanded Definitions of a Station or Other Objects in Future Versions of LIF
 
-This decision record pertains to LIV v2, and does not preclude discussing this topic in any future version of LIF, or companion standard.
+This decision record pertains to LIF 2.0, and does not preclude discussing this topic in any future version of LIF, or companion standard.
