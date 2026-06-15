@@ -487,127 +487,167 @@ The complete data structure of LIF is shown below:
 
 ```json
 {
-    "metaInformation": {
-        "projectIdentification": "string",
-        "creator": "string",
-        "exportTimestamp": "string",
-        "lifVersion": "string"
-    },
-    "layouts": [
-        {
-            "layoutId": "string",
-            "layoutName": "string",
-            "layoutVersion": "string",
-            "layoutLevelId": "string",
-            "layoutDescription": "string",
-            "nodes": [
-                {
-                    "nodeId": "string",
-                    "nodeName": "string",
-                    "nodeDescription": "string",
-                    "mapId": "string",
-                    "nodePosition": {
-                        "x": "number",
-                        "y": "number"
-                    },
-                    "mobileRobotTypeNodeProperties": [
+   "metaInformation":{
+      "lifId":"string",
+      "creator":"string",
+      "exportTimestamp":"string",
+      "lifVersion":"string"
+   },
+   "origins":[
+      {
+         "originId":"string",
+         "originDescription":"string",
+         "layouts":[
+            {
+               "layoutId":"string",
+               "layoutName":"string",
+               "layoutVersion":"string",
+               "layoutLevelId":"string",
+               "layoutDescription":"string",
+               "nodes":[
+                  {
+                     "nodeId":"string",
+                     "nodeName":"string",
+                     "nodeDescription":"string",
+                     "mapId":"string",
+                     "nodePosition":{
+                        "x":"number",
+                        "y":"number"
+                     },
+                     "mobileRobotTypeNodeProperties":[
                         {
-                            "mobileRobotTypeId": "string",
-                            "theta": "number",
-                            "actions": [
-                                {
-                                    "actionType": "string",
-                                    "actionDescription": "string",
-                                    "required": "boolean",
-                                    "blockingType": "string",
-                                    "actionParameters": [
-                                        {
-                                            "key": "string",
-                                            "value": "string"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "edges": [
-                {
-                    "edgeId": "string",
-                    "edgeName": "string",
-                    "edgeDescription": "string",
-                    "startNodeId": "string",
-                    "endNodeId": "string",
-                    "mobileRobotTypeEdgeProperties": [
-                        {
-                            "mobileRobotTypeId": "string",
-                            "mobileRobotOrientations": [ "number" ],
-                            "orientationType": "string",
-                            "reachOrientationBeforeEntering": "boolean",
-                            "rotationAtStartNodeAllowed": "string",
-                            "rotationAtEndNodeAllowed": "string",
-                            "maximumSpeed": "number",
-                            "maximumRotationSpeed": "number",
-                            "minimumLoadHandlingDeviceHeight": "number",
-                            "maximumMobileRobotHeight": "number",
-                            "loadRestriction": {
-                                "unloaded": "boolean",
-                                "loaded": "boolean",
-                                "loadSetNames": [
-                                    "string"
-                                ]
-                            },
-                            "actions": [
-                                {
-                                    "actionType": "string",
-                                    "actionDescription": "string",
-                                    "requirementType": "string",
-                                    "blockingType": "string",
-                                    "actionParameters": [
-                                        {
-                                            "key": "string",
-                                            "value": "string"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "trajectory": {
-                                "degree": "number",
-                                "knotVector": [
-                                    "number"
-                                ],
-                                "controlPoints": [
+                           "mobileRobotTypes":[
+                              {
+                                 "manufacturer":"string",
+                                 "seriesName":"string"
+                              }
+                           ],
+                           "theta":"number",
+                           "allowedDeviationXY":{
+                              "a":"number",
+                              "b":"number",
+                              "theta":"number"
+                           },
+                           "loadRestriction":{
+                              "unloaded":"boolean",
+                              "loaded":"boolean",
+                              "loadSetNames":[
+                                 "string"
+                              ]
+                           },
+                           "actions":[
+                              {
+                                 "actionType":"string",
+                                 "actionDescription":"string",
+                                 "requirementType":"REQUIRED | CONDITIONAL | OPTIONAL",
+                                 "blockingType":"NONE | SOFT | SINGLE | HARD",
+                                 "actionParameters":[
                                     {
-                                        "x": "number",
-                                        "y": "number",
-                                        "weight": "number"
+                                       "key":"string",
+                                       "value":"array | boolean | number | string | object"
                                     }
-                                ]
-                            },
-                            "reentryAllowed": "boolean"
+                                 ]
+                              }
+                           ]
                         }
-                    ]
-                }
-            ],
-            "stations": [
-                {
-                    "stationId": "string",
-                    "interactionNodeIds": [
+                     ]
+                  }
+               ],
+               "edges":[
+                  {
+                     "edgeId":"string",
+                     "edgeName":"string",
+                     "edgeDescription":"string",
+                     "startNodeId":"string",
+                     "endNodeId":"string",
+                     "mobileRobotTypeEdgeProperties":[
+                        {
+                           "mobileRobotTypes":[
+                              {
+                                 "manufacturer":"string",
+                                 "seriesName":"string"
+                              }
+                           ],
+                           "orientationType":"GLOBAL | TANGENTIAL",
+                           "reachOrientationBeforeEntering":"boolean",
+                           "mobileRobotOrientations":[
+                              "number"
+                           ],
+                           "rotationAtStartNodeAllowed":"NONE | CCW | CW | BOTH",
+                           "rotationAtEndNodeAllowed":"NONE | CCW | CW | BOTH",
+                           "maximumSpeed":"number",
+                           "maximumRotationSpeed":"number",
+                           "minimumLoadHandlingDeviceHeight":"number",
+                           "maximumMobileRobotHeight":"number",
+                           "loadRestriction":{
+                              "unloaded":"boolean",
+                              "loaded":"boolean",
+                              "loadSetNames":[
+                                 "string"
+                              ]
+                           },
+                           "actions":[
+                              {
+                                 "actionType":"string",
+                                 "actionDescription":"string",
+                                 "requirementType":"REQUIRED | CONDITIONAL | OPTIONAL",
+                                 "blockingType":"NONE | SOFT | SINGLE | HARD",
+                                 "actionParameters":[
+                                    {
+                                       "key":"string",
+                                       "value":"any"
+                                    }
+                                 ]
+                              }
+                           ],
+                           "trajectory":{
+                              "degree":"number",
+                              "knotVector":[
+                                 "number"
+                              ],
+                              "controlPoints":[
+                                 {
+                                    "x":"number",
+                                    "y":"number",
+                                    "weight":"number"
+                                 }
+                              ]
+                           },
+                           "physicalLineGuidedProperty":{
+                              "direction":"string",
+                              "length":"number"
+                           },
+                           "reentryAllowed":"boolean",
+                           "corridor":{
+                              "maximumLeftWidth":"number",
+                              "maximumRightWidth":"number",
+                              "corridorReferencePoint":"KINEMATIC_CENTER | CONTOUR"
+                           }
+                        }
+                     ]
+                  }
+               ],
+               "stations":[
+                  {
+                     "stationId":"string",
+                     "interactionNodeIds":[
                         "string"
-                    ],
-                    "stationName": "string",
-                    "stationDescription": "string",
-                    "stationHeight": "number",
-                    "stationPosition ": {
-                        "x": "number",
-                        "y": "number",
-                        "theta": "number"
-                    }
-                }
-            ]
-        }
-    ]
+                     ],
+                     "stationName":"string",
+                     "stationType":"string",
+                     "stationDescription":"string",
+                     "stationHeight":"number",
+                     "stationPosition":{
+                        "x":"number",
+                        "y":"number",
+                        "theta":"number"
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ]
 }
 ```
 
