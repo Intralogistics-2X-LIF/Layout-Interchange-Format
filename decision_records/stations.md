@@ -24,7 +24,7 @@ Becuase `station`s had position information in v1, and we didn't wish to remove 
 
 For similar reasons, `station`s' `stationHeight` was kept. This was _not_ a unanimous decision.
 
-Because `stationType` is mentioned in VDA5050, it, too, was added to LIF v2 on the `station` object. This was a reluctant yet necessary unanimous decision.
+Because `stationType` is mentioned in VDA5050 as an `action` parameter expected for certain predefined `action`s (namely pick and drop), it, too, was added to LIF v2 on the `station` object. This was a reluctant yet necessary unanimous decision.
 
 # Expanded Definitions of a Station or Other Objects in Versions of the LIF after 2.0
 
