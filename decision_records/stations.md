@@ -20,6 +20,8 @@ With LIF v2, one of the explicit goals is to remove the unidirecitonal nature of
 
 It is not currently the intention to expand upon stations any further, other than the current explanatory power to link nodes to stations. The LIF's goal is to be universally adopted, and keep its scope as limited as it can while still containing everything required to send valid VDA5050 orders. While there may be more information tied to station objects that might be useful to define in some particular mapping/design tool which goes on to export a LIF, these will vary from vendor to vendor. Attempting to include some of these additional things and not others is _likely_ a classic example of "feature creep", likely implies some logical implementations are more valid than others, and **definitely** introduces aspects of vendor-favoritism, which is rightfully forbidden by the VDMA organization.
 
+Becuase Stations had position information in v1, and we don't wish to remove features that some providers already began to rely upon, despite it not technically being required information, it was kept in LIF v2.
+
 # Expanded Definitions of a Station or Other Objects in Versions of the LIF after 2.0
 
-This decision record pertains to LIV v2, and does not preclude discussing this topic in any future version of LIF, or companion standard.
+This decision record pertains to LIV v2, and does not preclude discussing this topic in any future version of LIF or a companion standard (such as VDA5050).
