@@ -261,7 +261,7 @@ The objects contained in this structure are described in more detail below.
 | --- | --- | --- | --- |
 | { |  |  |  |
 | originId |  | string | Unique identifier for this origin. |
-| originDescription |  | string | Brief description of the origin (e.g. "Hall B, Floors 1, 2, & 3"). |
+| originDescriptor |  | string | A user-defined, human-readable name or descriptor. (e.g., "Hall B: Floors 1, 2, & 3"). This shall not be used for logical purposes. |
 | layouts[layout] |  | array of JSON-object | A collection of layouts within the facility, all sharing the same origin used by the driverless transport system.  Note: The LIF does not specify how two layouts from different origins may overlap or relate to one another; any layouts which may overlap or interact with one another should always belong to the same origin. |
 | } |  |  |  |
 
@@ -274,7 +274,7 @@ The objects contained in this structure are described in more detail below.
 | *layoutName* |  | string | Human-readable name of the layout (e.g., for displaying). |
 | layoutVersion |  | string | Version of the layout.  Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at "1". |
 | *layoutLevelId* |  | string | This attribute can be used to explicitly indicate which level or floor within a building or buildings a layout represents in a situation where there are multiple, such as multiple levels in the same facility, or two disconnected areas in the same facility. |
-| *layoutDescription* |  | string | Brief description of the layout. |
+| *layoutDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
 | nodes[node] |  | array of JSON-object | Collection of all nodes in the layout. |
 | edges[edge] |  | array of JSON-object | Collection of all edges in the layout. |
 | *stations[station]* |  | array of JSON-object | Collection of all stations in the layout. |
@@ -286,8 +286,7 @@ The objects contained in this structure are described in more detail below.
 | --- | --- | --- | --- |
 | node { |  | JSON-object | Refers to VDA5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
 | nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
-| *nodeName* |  | string | Name of the node.  This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. Therefore, this node name need not necessarily be unique. |
-| *nodeDescription* |  | string | Brief description of the node. This should only ever be for visualization or diagnostic purposes. |
+| *nodeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
 | mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
 | nodePosition { |  | JSON-object | Geometric location of the node. |
 | x | meter | float64 | X position on the layout in reference to the origin. |
@@ -333,7 +332,7 @@ The objects contained in this structure are described in more detail below.
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
 | actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system such as via the interpretation of a mobile robot's factsheet. |
-| *actionDescription* |  | string | Brief description of the action. |
+| *actionDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
 | requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) fleet control system must always communicate this action to the mobile robot on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the (third-party) fleet control system is required.  "OPTIONAL" - The action may or may not be communicated to the mobile robot at the (third-party) fleet control system's discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behaviour for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) fleet control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
 | blockingType |  | string | Enum {NONE, SOFT, SINGLE, HARD} See VDA 5050 3.0.0 section 6.2.2 for the description and implication of each blockingType. |
 | *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
@@ -357,7 +356,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | edge { |  | JSON-object | Refers to VDA5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
 | edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
 | *edgeName* |  | string | Name of the edge.  This should only for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. |
-| *edgeDescription* |  | string | Brief description of the edge. This should only be used for visualization or diagnostic purposes. |
+| *edgeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
 | startNodeId |  | string | Id of the start node.  The start node must always be part of the current layout. |
 | endNodeId |  | string | Id of the end node.  The end node can be located in another layout. This models a transition from one layout to another. |
 | mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
@@ -691,7 +690,7 @@ LIF-File:
             "layoutId":"Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -760,7 +759,7 @@ LIF-File:
             "layoutId":"Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -841,7 +840,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -926,7 +925,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -1013,7 +1012,7 @@ LIF-File:
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
             "layoutLevelId": "0",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -1063,7 +1062,7 @@ LIF-File:
             "layoutName": "Name of Layout Upper Level",
             "layoutVersion": "1",
             "layoutLevelId": "1",
-            "layoutDescription": "Upper level of Customer",
+            "layoutdescriptor": "Upper level of Customer",
             "nodes": [
                 {
                     "nodeId": "N101",
@@ -1132,7 +1131,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -1238,7 +1237,7 @@ LIF-File:
             "layoutId":"Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -1459,7 +1458,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -1631,7 +1630,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -1798,7 +1797,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -2053,7 +2052,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N0",
@@ -2304,7 +2303,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N0",
@@ -2450,7 +2449,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N_CHARGER",
@@ -2568,7 +2567,7 @@ LIF-File:
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
             "layoutLevelId": "0",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -2631,7 +2630,7 @@ LIF-File:
             "layoutName": "Name of Layout Upper Level",
             "layoutVersion": "1",
             "layoutLevelId": "1",
-            "layoutDescription": "Upper level of Customer",
+            "layoutdescriptor": "Upper level of Customer",
             "nodes": [
                 {
                     "nodeId": "N102",
@@ -2726,7 +2725,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -2852,7 +2851,7 @@ LIF-File:
           "layoutId": "Layout_Ground_Level",
           "layoutName": "Name of Layout Ground Level",
           "layoutVersion": "1",
-          "layoutDescription": "Ground level of Customer",
+          "layoutdescriptor": "Ground level of Customer",
           "nodes": [
               {
                   "nodeId": "NA",
@@ -3066,7 +3065,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -3212,7 +3211,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
@@ -3255,7 +3254,7 @@ LIF-File:
                             "actions": [
                                 {
                                     "actionType": "BEEP",
-                                    "actionDescription": "Section where the (third-party) fleet control system could instruct the mobile robot to beep",
+                                    "actionDescriptor": "Section where the (third-party) fleet control system could instruct the mobile robot to beep",
                                     "requirementType": "OPTIONAL",
                                     "blockingType": "SOFT"
                                 }
@@ -3276,7 +3275,7 @@ LIF-File:
                             "actions": [
                                 {
                                     "actionType": "LOWER_FORK_AND_BEEP",
-                                    "actionDescription": "Section where the (third-party) fleet control system must tell the mobile robot to lower forks and beep",
+                                    "actionDescriptor": "Section where the (third-party) fleet control system must tell the mobile robot to lower forks and beep",
                                     "requirementType": "REQUIRED",
                                     "blockingType": "SOFT"
                                 }
@@ -3310,7 +3309,7 @@ LIF-File:
             "layoutId": "Layout_Ground_Level",
             "layoutName": "Name of Layout Ground Level",
             "layoutVersion": "1",
-            "layoutDescription": "Ground level of Customer",
+            "layoutdescriptor": "Ground level of Customer",
             "nodes": [
                 {
                     "nodeId": "N1",
