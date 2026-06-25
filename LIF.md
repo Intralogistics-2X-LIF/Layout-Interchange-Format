@@ -506,8 +506,7 @@ The complete data structure of LIF is shown below:
                "nodes":[
                   {
                      "nodeId":"string",
-                     "nodeName":"string",
-                     "nodeDescription":"string",
+                     "nodeDescriptor":"string",
                      "mapId":"string",
                      "nodePosition":{
                         "x":"number",
