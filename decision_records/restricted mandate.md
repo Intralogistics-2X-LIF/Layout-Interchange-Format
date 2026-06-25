@@ -43,7 +43,7 @@ As a deployment engineer, I want to have a single format where I export from my 
 On 2026/02/27, the VDMA TAC (Technical Advisory Council) voted on which of the two options that LIF would pursue for Version 2.0 after having the implications of both options explained to them. The result: **Restricted**.
 
 The immediate implications of this are as follows:
-1. No new objects will be added to LIF Version 2.0 or subsequent minor releases unless they facilitate a more powerful description of `Nodes`, `Edges`, `Stations` or their subcomponents or associated concepts such as VDA5050 `Actions`.
+1. No new objects will be added to LIF Version 2.0 or subsequent minor releases unless they facilitate a more powerful description of `node`s, `edges`s, `station`s or their subcomponents or associated concepts such as VDA5050 `action`s.
 2. No further expansions to the basic concept of Stations shall be made as part of the LIF 2.0 or subsequent minor releases. However, some legacy information concerning stations must be re-evaluated before the release of LIF 2.0. (E.g., stationHeight) Search the github issue history for any issues mentioning stations in their title for more information.
 
 # Future Decisions
