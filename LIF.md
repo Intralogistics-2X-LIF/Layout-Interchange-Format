@@ -308,6 +308,7 @@ The objects contained in this structure are described in more detail below.
 | *optionalActions[action]* | | array of JSON-object | Actions on this node which are always valid for the mobile robot and may or may not be sent by the third-party fleet control system at its discretion. E.g., the pick and drop actions on a node that is an `interactionNode` of a load handling `station`, or the startCharging action on a node which may be useful for other other actions or simply driving past it. |
 | *conditionalActions[action]* | array of JSON-object | Actions on this node whose validity is contingent upon outside factors. Further definition of timing and behavior is required between the mobile robot provider and fleet control system provider outside of the scope of the LIF. E.g., an action which must be taken if an action on the preceding edge was taken, but otherwise must not. |
 | *forbiddenActionTypes[string]* | | array of string | `actionType`s on this node which are strictly forbidden from ever being sent by the third party fleet control system, and will result in an error state or other negative or undefined consequences. |
+| } |  |  |  |
 
 ### 8.3.7 MobileRobotType
 
