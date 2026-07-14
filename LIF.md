@@ -458,9 +458,9 @@ If the (third-party) fleet control system would need to graphically identify cer
 allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates. The coordinates of the node define the center of the ellipse. 
 
 - If aMin = aMax and bMin = bMax, the provided allowedDeviationXY must be sent for this node with every order.
-- If aMin/bMin is defined but aMax/bMax is not, aMax >= aMin / bMax >= bMin is assumed.
-- If aMax/bMax is defined but aMin/bMin is not, aMin <= aMax / bMin <= bMax is assumed.
-- If neither aMin/aMax nor bMin/bMax is defined at all, the fleet control may send any value when compiling an order.
+- If aMin/bMin are defined but aMax/bMax are not, aMax >= aMin / bMax >= bMin is assumed.
+- If aMax/bMax are defined but aMin/bMin are not, aMin <= aMax / bMin <= bMax is assumed.
+- If neither aMin/aMax nor bMin/bMax are defined at all, the fleet control may send any value when compiling an order.
 
 In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), allowedDeviationXY should be defined such that aMin = aMax, bMin = bMax, and theta = 0.0 in order to define a circle.
 
@@ -474,7 +474,7 @@ In the case that an ellipse is not supported by either the mobile robot or by VD
 | *theta* | rad | float64 | Rotation angle from the positive horizontal axis to the ellipse's major axis in the project-specific coordinate system. |
 | } |  |  |  |
 
-### 8.3.16 Corridor
+### 8.3.18 Corridor
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
