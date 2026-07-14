@@ -455,20 +455,24 @@ If the (third-party) fleet control system would need to graphically identify cer
 
 ### 8.3.17 AllowedDeviationXY
 
-Indicates how precisely a mobile robot shall match the position of a node for it to be considered traversed.
+allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates. The coordinates of the node define the center of the ellipse. 
 
-If a = b = 0.0: no deviation is allowed, which means the mobile robot shall reach or pass the node position with the mobile robot control point as precisely as is technically possible for the mobile robot. This applies also if allowedDeviationXY is smaller than what is technically viable for the mobile robot. If the mobile robot supports this attribute, but it is not defined for this node by the fleet control system the mobile robot shall assume the value of a and b as 0.0.
+- If aMin = aMax and bMin = bMax, the provided allowedDeviationXY must be sent for this node with every order.
+- If aMin/bMin is defined but aMax/bMax is not, aMax >= aMin / bMax >= bMin is assumed.
+- If aMax/bMax is defined but aMin/bMin is not, aMin <= aMax / bMin <= bMax is assumed.
+- If neither aMin/aMax nor bMin/bMax is defined at all, the fleet control may send any value when compiling an order.
 
-In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), it should be defined such that a = b and theta = 0.0 in order to define a circle.
+In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), allowedDeviationXY should be defined such that aMin = aMax, bMin = bMax, and theta = 0.0 in order to define a circle.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | allowedDeviationXY { |  | JSON-object |  |
-| a | meter | float64 | length of the ellipse semi-major axis in meters. |
-| b | meter | float64 | length of the ellipse semi-minor axis in meters. |
-| theta |  | float64 | rotation angle (the angle from the positive horizontal axis to the ellipse's major axis inside the project-specific coordinate system). |
+| *aMin* | meter | float64 | Minimum length of the ellipse semi-major axis in meters. |
+| *aMax* | meter | float64 | Maximum length of the ellipse semi-major axis in meters. |
+| *bMin* | meter | float64 | Minimum length of the ellipse semi-minor axis in meters. |
+| *bMax* | meter | float64 | Maximum length of the ellipse semi-minor axis in meters. |
+| *theta* | rad | float64 | Rotation angle from the positive horizontal axis to the ellipse's major axis in the project-specific coordinate system. |
 | } |  |  |  |
-*The coordinates of the node defines the center of the ellipse.*
 
 ### 8.3.16 Corridor
 
@@ -522,8 +526,10 @@ The complete data structure of LIF is shown below:
                            ],
                            "theta":"number",
                            "allowedDeviationXY":{
-                              "a":"number",
-                              "b":"number",
+                              "aMin":"number",
+                              "aMax":"number",
+                              "bMin":"number",
+                              "bMax":"number",
                               "theta":"number"
                            },
                            "loadRestriction":{
