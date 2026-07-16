@@ -6,7 +6,7 @@
 
 One Edge (straight line) between two nodes. The mobile robot may only move forward oriented on this edge.
 
-![](../assets/fig11_1-1.png)
+![](assets/fig11_1-1.png)
 
 LIF-File:
 ```json
