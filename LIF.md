@@ -137,7 +137,7 @@ The LIF described in this document is intended to map a common set of necessary 
 
 ## 5.2 Further Assumptions
 * The communication between the fleet control system and the mobile robot corresponds to the latest VDA5050 interface definition at the time of the LIF's publication. Best efforts are made to preserve backwards compatibility between versions of VDA5050 where able.
-* The mobile robot provider or system integrator will also provide the fleet control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about mobile robot geometry, kinematics, and other "capabilities of the mobile robot" such as which actions it may perform.
+* The mobile robot provider or integrator will also provide the fleet control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about mobile robot geometry, kinematics, and other "capabilities of the mobile robot" such as which actions it may perform.
 
 ## 5.3 LIF Limitations
 The LIF does not describe any specific logical processes by which a mobile robot or fleet control system must perform its tasks. This includes, but is not limited to, the handling of route planning, traffic management, intersections of multiple mobile robots from the same of different mobile robot providers or integrators, interaction with stationary equipment, and so forth. The LIF is merely a definition of a layout, and what and where a fleet controller may instruct a mobile robot to do within the facility.
