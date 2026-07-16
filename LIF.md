@@ -462,7 +462,7 @@ allowedDeviationXY defines an ellipse around the node position within which the 
 - If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, aMinimum <= aMaximum / bMinimum <= bMaximum is assumed.
 - If neither aMinimum/aMaximum nor bMinimum/bMaximum are defined at all, the fleet control may send any value when compiling an order.
 
-In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), allowedDeviationXY should be defined such that aMin = aMax, bMin = bMax, and theta = 0.0 in order to define a circle.
+In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), allowedDeviationXY should be defined such that aMinimum = aMaximum, bMinimum = bMaximum, and theta = 0.0 in order to define a circle.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
