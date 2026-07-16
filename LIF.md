@@ -460,7 +460,7 @@ allowedDeviationXY defines an ellipse around the node position within which the 
 - If aMinimum = aMaximum and bMinimum = bMaximum, the provided allowedDeviationXY must be sent for this node with every order.
 - If aMinimum/bMinimum are defined but aMaximum/bMaximum are not, any value of the maximum equal to or greater than the corresponding minimum is assumed to be valid.
 - If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, any value of the minimum equal to or less than the corresponding maximum is assumed to be valid.
-- If neither aMinimum/aMaximum nor bMinimum/bMaximum are defined at all, the fleet control may send any value when compiling an order.
+- If neither pair of aMinimum/aMaximum or bMinimum/bMaximum are defined, the fleet control may send any value when compiling an order.
 
 In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order.
 
