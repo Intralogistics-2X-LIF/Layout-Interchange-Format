@@ -464,7 +464,6 @@ allowedDeviationXY defines an ellipse around the node position within which the 
 
 In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), allowedDeviationXY should be defined such that aMinimum = aMaximum, bMinimum = bMaximum, and theta = 0.0 in order to define a circle.
 
-Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
 
 Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
 
