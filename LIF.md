@@ -466,6 +466,8 @@ In the case that an ellipse is not supported by either the mobile robot or by VD
 
 Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
 
+Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
+
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | allowedDeviationXY { |  | JSON-object |  |
