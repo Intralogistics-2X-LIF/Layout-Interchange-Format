@@ -467,7 +467,7 @@ In the case that an ellipse is not supported by either the mobile robot or by VD
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | allowedDeviationXY { |  | JSON-object |  |
-| *aMin* | meter | float64 | Minimum length of the ellipse semi-major axis in meters. |
+| *aMinimum* | meter | float64 | Minimum length of the ellipse semi-major axis in meters. |
 | *aMax* | meter | float64 | Maximum length of the ellipse semi-major axis in meters. |
 | *bMin* | meter | float64 | Minimum length of the ellipse semi-minor axis in meters. |
 | *bMax* | meter | float64 | Maximum length of the ellipse semi-minor axis in meters. |
