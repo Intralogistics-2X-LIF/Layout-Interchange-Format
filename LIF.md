@@ -465,22 +465,28 @@ If the (third-party) fleet control system would need to graphically identify cer
 
 ### 8.3.17 AllowedDeviationXY
 
-Indicates how precisely a mobile robot shall match the position of a node for it to be considered traversed.
+allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates while still considering the node traversed. The coordinates of the node define the center of the ellipse. 
 
-If a = b = 0.0: no deviation is allowed, which means the mobile robot shall reach or pass the node position with the mobile robot control point as precisely as is technically possible for the mobile robot. This applies also if allowedDeviationXY is smaller than what is technically viable for the mobile robot. If the mobile robot supports this attribute, but it is not defined for this node by the fleet control system the mobile robot shall assume the value of a and b as 0.0.
+- If aMinimum = aMaximum and bMinimum = bMaximum, the provided allowedDeviationXY must be sent for this node with every order.
+- If aMinimum/bMinimum are defined but aMaximum/bMaximum are not, any value of the maximum equal to or greater than the corresponding minimum is assumed to be valid.
+- If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, any value of the minimum equal to or less than the corresponding maximum is assumed to be valid.
+- If neither pair of aMinimum/aMaximum or bMinimum/bMaximum are defined, the fleet control may send any value when compiling an order.
 
-In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), it should be defined such that a = b and theta = 0.0 in order to define a circle.
+In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order.
+
+Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | allowedDeviationXY { |  | JSON-object |  |
-| a | meter | float64 | length of the ellipse semi-major axis in meters. |
-| b | meter | float64 | length of the ellipse semi-minor axis in meters. |
-| theta |  | float64 | rotation angle (the angle from the positive horizontal axis to the ellipse's major axis inside the project-specific coordinate system). |
+| *aMinimum* | meter | float64 | Minimum length of the ellipse semi-major axis in meters. |
+| *aMaximum* | meter | float64 | Maximum length of the ellipse semi-major axis in meters. |
+| *bMinimum* | meter | float64 | Minimum length of the ellipse semi-minor axis in meters. |
+| *bMaximum* | meter | float64 | Maximum length of the ellipse semi-minor axis in meters. |
+| *theta* | rad | float64 | Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system. |
 | } |  |  |  |
-*The coordinates of the node defines the center of the ellipse.*
 
-### 8.3.16 Corridor
+### 8.3.18 Corridor
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -532,8 +538,10 @@ The complete data structure of LIF is shown below:
                            ],
                            "theta":"number",
                            "allowedDeviationXY":{
-                              "a":"number",
-                              "b":"number",
+                              "aMinimum":"number",
+                              "aMaximum":"number",
+                              "bMinimum":"number",
+                              "bMaximum":"number",
                               "theta":"number"
                            },
                            "loadRestriction":{
