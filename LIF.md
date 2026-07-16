@@ -272,7 +272,7 @@ The objects contained in this structure are described in more detail below.
 
 #### 8.3.3.1 Best Practices for Defining an Origin
 
-The origin object is meant to be coordinated and consistently applied across all LIFs of a facility by the responsible integrator and all parties which consume the LIF. Sharing an originId implies that the origin's coordinate system, including its rotation and scale, matches others with the same originId. If this is not the case different originIds should be utilized. Any layouts which may overlap or interact with one another should always belong to the same origin wherever possible.
+The origin object is meant to be coordinated and consistently applied across all LIFs of a facility by the responsible integrator and all parties which consume the LIF. Sharing an `originId` implies that the origin's coordinate system, including its rotation and scale, matches others with the same `originId`. If this is not the case, different `originId`s should be utilized. Any layouts which may overlap or interact with one another should always belong to the same origin wherever possible.
 
 The LIF does not specify how two layouts from different origins, whether defined in the same LIF file or from multiple LIF files, may overlap or relate to one another.
 
