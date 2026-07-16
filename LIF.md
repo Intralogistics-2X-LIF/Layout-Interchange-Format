@@ -455,7 +455,7 @@ If the (third-party) fleet control system would need to graphically identify cer
 
 ### 8.3.17 AllowedDeviationXY
 
-allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates. The coordinates of the node define the center of the ellipse. 
+allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates while still considering the node traversed. The coordinates of the node define the center of the ellipse. 
 
 - If aMin = aMax and bMin = bMax, the provided allowedDeviationXY must be sent for this node with every order.
 - If aMin/bMin are defined but aMax/bMax are not, aMax >= aMin / bMax >= bMin is assumed.
