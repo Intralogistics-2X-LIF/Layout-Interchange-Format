@@ -473,7 +473,7 @@ Regardless of the values defined for the ellipse, due to the fact that the fleet
 | *aMaximum* | meter | float64 | Maximum length of the ellipse semi-major axis in meters. |
 | *bMinimum* | meter | float64 | Minimum length of the ellipse semi-minor axis in meters. |
 | *bMaximum* | meter | float64 | Maximum length of the ellipse semi-minor axis in meters. |
-| *theta* | rad | float64 | Rotation angle from the positive horizontal axis to the ellipse's major axis in the project-specific coordinate system. |
+| *theta* | rad | float64 | Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system. |
 | } |  |  |  |
 
 ### 8.3.18 Corridor
