@@ -458,7 +458,7 @@ If the (third-party) fleet control system would need to graphically identify cer
 allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates while still considering the node traversed. The coordinates of the node define the center of the ellipse. 
 
 - If aMinimum = aMaximum and bMinimum = bMaximum, the provided allowedDeviationXY must be sent for this node with every order.
-- If aMinimum/bMinimum are defined but aMaximum/bMaximum are not, aMaximum >= aMinimum / bMaximum >= bMinimum is assumed.
+- If aMinimum/bMinimum are defined but aMaximum/bMaximum are not, any value of the maximum equal to or greater than the corresponding minimum is assumed to be valid.
 - If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, aMinimum <= aMaximum / bMinimum <= bMaximum is assumed.
 - If neither aMinimum/aMaximum nor bMinimum/bMaximum are defined at all, the fleet control may send any value when compiling an order.
 
