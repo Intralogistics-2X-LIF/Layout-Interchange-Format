@@ -129,7 +129,7 @@ The first primary goal is to complement the VDA5050 interface’s goal of facili
 The LIF described in this document is intended to map a common set of necessary information, as explicitly and unambiguously as possible, to enable a fleet control system to steer/navigate one or more mobile robots. The LIF contains information on how mobile robots can interact with their environment and navigate inside of a layout.
 
 ## 5.1 Requirements
-* The LIF concept, standard, and definition must always be compatible with the current status, terminology, and developments of the latest VDA5050 interface definition existing at the time of the LIF's release.
+* The LIF concept and definition must always be compatible with the current status, terminology, and developments of the latest VDA5050 interface definition existing at the time of the LIF's release.
 * A single LIF file may only contain layouts from one mobile robot provider.
 * A single LIF file may contain multiple layouts for multiple mobile robot types of one mobile robot provider.
 * A fleet control system must be able to accept multiple LIF files from multiple mobile robot providers for one facility.
