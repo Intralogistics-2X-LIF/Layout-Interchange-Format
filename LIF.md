@@ -147,7 +147,7 @@ The LIF is never intended to flow in the reverse direction of from a (third-part
 
 The LIF does not specify how a (third-party) fleet control system should accurately rotate, scale, or translate multiple LIF files from different mobile robot integrators in the same facility. It is recommended that all parties agree on a standard coordinate origin in such cases.
 
-# 6 LIF Format
+# 6 LIF's Format
 
 A JSON structure is used for the exchange format. JSON strings must conform to the RFC 8259 description for object notation. Keys must be strings and values must be a valid JSON data type (string, integer, float, object, array, boolean or null). The data is case sensitive.
 
