@@ -95,7 +95,7 @@ The following table is intended to describe supplementary terms:
 | --- | --- |
 | deadlock | A situation where two or more devices are awaiting one another in a circular fashion, resulting in a system that is unable to exit this state and continue regular operation. Example: Mobile robot A is waiting on mobile robot B to get out of the way, but mobile robot B is also waiting on mobile robot A to do the same. |
 | facility | The facility in which the mobile robot system is used. The facility can consist of several levels. The facility could be made up by several LIF files from multiple mobile robot integrators. The facility is controlled by one (third-party) fleet control system. |
-| fleet control provider | The provider of a fleet control system which must respect at minimum the capabilities, limitations, and requirements defined in the LIF.
+| fleet control provider | The provider of a fleet control system which must respect at minimum the capabilities, limitations, and requirements defined in the LIF. |
 | integrator | An integrator is the party responsible for supplying an integrated solution of mobile robots and fleet control software to a customer. The integrator may or may not be the manufacturer or supplier of the mobile robots and/or the fleet control software. |
 | layout | A collection of nodes, edges, and stations. A layout represents a level of a facility or a part of a level of a facility. |
 | level | A level of a facility that is used by the mobile robot systems. |
