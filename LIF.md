@@ -34,10 +34,10 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) |
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
 [6 LIF Format](#6-lif-format)<br>
-[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and (Third-party) Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
+[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
 [7.1 Export of the LIF File by the Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-integrator-of-the-mobile-robots)<br>
-[7.2 Import and Processing of the LIF File by the (Third-party) Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
-[7.3 Further Exports of the LIF File and Imports into the (Third-party) Fleet Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-fleet-control-system)<br>
+[7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
+[7.3 Further Exports of the LIF File and Imports into the Fleet Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-fleet-control-system)<br>
 [8 Specification of LIF](#8-specification-of-lif)<br>
 [8.1 Table Symbols and Meaning of Formatting](#81-table-symbols-and-meaning-of-formatting)<br>
 [8.1.1 Optional Variables](#811-optional-variables)<br>
@@ -94,7 +94,7 @@ The following table is intended to describe supplementary terms:
 | **Item** | **Description** |
 | --- | --- |
 | deadlock | A situation where two or more devices are awaiting one another in a circular fashion, resulting in a system that is unable to exit this state and continue regular operation. Example: Mobile robot A is waiting on mobile robot B to get out of the way, but mobile robot B is also waiting on mobile robot A to do the same. |
-| facility | The facility in which the mobile robot system is used. The facility can consist of several levels. The facility could be made up by several LIF files from multiple mobile robot integrators. The facility is controlled by one (third-party) fleet control system. |
+| facility | The facility in which the mobile robot system is used. The facility can consist of several levels. The facility could be made up by several LIF files from multiple mobile robot integrators. The facility is controlled by one fleet control system. |
 | fleet control provider | The provider of a fleet control system which must respect at minimum the capabilities, limitations, and requirements defined in the LIF. |
 | integrator | An integrator is the party responsible for supplying an integrated solution of mobile robots and fleet control software to a customer. The integrator may or may not be the manufacturer or supplier of the mobile robots and/or the fleet control software. |
 | layout | A collection of nodes, edges, and stations. A layout represents a level of a facility or a part of a level of a facility. |
@@ -225,11 +225,11 @@ Each table contains the name of the identifier, its data type, its unit if appli
 
 ### 8.1.1 Optional Variables
 
-If a variable is marked as optional, it is optional for the mobile robot integrator’s mobile robots. The (third-party) fleet control system must be able to handle optional variables being either specified or not.
+If a variable is marked as optional, it is optional for the mobile robot integrator’s mobile robots. The fleet control system must be able to handle optional variables being either specified or not.
 
-If the LIF file contains an optional variable, the (third-party) fleet control system must not ignore the variable. If the (third-party) fleet control system cannot process the variable accordingly, it is expected that the (third-party) fleet control system will provide a warning or an error message when importing the LIF file.
+If the LIF file contains an optional variable, the fleet control system must not ignore the variable. If the fleet control system cannot process the variable accordingly, it is expected that the fleet control system will provide a warning or an error message when importing the LIF file.
 
-Variables that are optional in the LIF, but are strictly required by the mobile robot, must be clearly communicated toward the (third-party) fleet control system. The LIF does not denote such variables; this agreement must be made between the mobile robot integrator and (third-party) fleet control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA5050 standard.
+Variables that are optional in the LIF, but are strictly required by the mobile robot, must be clearly communicated toward the fleet control system. The LIF does not denote such variables; this agreement must be made between the mobile robot integrator and fleet control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA5050 standard.
 
 ## 8.2 Element ID Uniqueness
 
@@ -280,7 +280,7 @@ The LIF does not specify how two layouts from different origins, whether defined
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| layout { |  | JSON-object | A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or (third-party) fleet control systems. It is intended to hold the information for all different mobile robot types.  Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a "plane", i.e., multiple levels must be modelled in different layouts.  It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. |
+| layout { |  | JSON-object | A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or fleet control systems. It is intended to hold the information for all different mobile robot types.  Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a "plane", i.e., multiple levels must be modelled in different layouts.  It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. |
 | layoutId |  | string | Unique identifier for this layout. |
 | *layoutName* |  | string | Human-readable name of the layout (e.g., for displaying). |
 | layoutVersion |  | string | Version of the layout.  Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at "1". |
@@ -296,14 +296,14 @@ The LIF does not specify how two layouts from different origins, whether defined
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | node { |  | JSON-object | Refers to VDA5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
-| nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
+| nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
 | *nodeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
 | mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
 | nodePosition { |  | JSON-object | Geometric location of the node. |
 | x | meter | float64 | X position on the layout in reference to the origin. |
 | y | meter | float64 | Y position on the layout in reference to the origin. |
 | } |  |  |  |
-| mobileRobotTypeNodeProperties [mobileRobotTypeNodeProperty] |  | array of JSON-object | Mobile robot type specific properties for this node.  This attribute must not be empty. There must be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the (third-party) fleet control system must consider that node invalid for use with that mobile robot type. |
+| mobileRobotTypeNodeProperties [mobileRobotTypeNodeProperty] |  | array of JSON-object | Mobile robot type specific properties for this node.  This attribute must not be empty. There must be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the fleet control system must consider that node invalid for use with that mobile robot type. |
 | } |  |  |  |
 
 ### 8.3.6 MobileRobotTypeNodeProperty
@@ -334,7 +334,7 @@ The LIF does not specify how two layouts from different origins, whether defined
 | loadRestriction { |  | JSON-object |  |
 | unloaded |  | boolean | "true": This node or edge may be used by an unloaded mobile robot. "false": This node or edge must not be used by an unloaded mobile robot. |
 | loaded |  | boolean | "true": This node or edge may be used by a loaded mobile robot. "false": This node or edge must not be used by a loaded mobile robot.  Note: If set to true, the attribute loadSetNames, if given, must be respected. |
-| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The (third-party) fleet control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
+| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
 | } |  |  |  |
 
 ### 8.3.9 Action
@@ -342,9 +342,9 @@ The LIF does not specify how two layouts from different origins, whether defined
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
-| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system such as via the interpretation of a mobile robot's factsheet. |
+| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the fleet control system such as via the interpretation of a mobile robot's factsheet. |
 | *actionDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
-| requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The (third-party) fleet control system must always communicate this action to the mobile robot on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the (third-party) fleet control system is required.  "OPTIONAL" - The action may or may not be communicated to the mobile robot at the (third-party) fleet control system's discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behavior for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) fleet control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
+| requirementType |  | string | Enum {REQUIRED, CONDITIONAL, OPTIONAL}  "REQUIRED" – The fleet control system must always communicate this action to the mobile robot on this node or edge.  "CONDITIONAL" – The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the fleet control system is required.  "OPTIONAL" - The action may or may not be communicated to the mobile robot at the fleet control system's discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it.  Note: The LIF does not specify a rigid definition of behavior for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) fleet control system, either be it that *all* of the required actions are always required, or that *one* of the actions are always required, or some other combination thereof. |
 | blockingType |  | string | Enum {NONE, SOFT, SINGLE, HARD} See VDA 5050 3.0.0 section 6.2.2 for the description and implication of each blockingType. |
 | *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
 | } |  |  |  |
