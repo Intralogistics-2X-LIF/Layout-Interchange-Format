@@ -146,7 +146,7 @@ The LIF does not affect, nor is it affected by, different localization technolog
 
 The LIF does not define by what means or at which points in time it is to be communicated between involved parties.
 
-# 6 LIF Format
+# 6 Format of the LIF
 
 A JSON structure is used for the exchange format. JSON strings must conform to the RFC 8259 description for object notation. Keys must be strings and values must be a valid JSON data type (string, integer, float, object, array, boolean, or null). The data is case sensitive.
 
