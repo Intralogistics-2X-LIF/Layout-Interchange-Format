@@ -1,3 +1,6 @@
+**TO BE DELETED once all atomic example files are created.**
+
+
 # 11 Examples
 
 **Note:** The examples are kept simple, thus optional attributes (e.g. trajectory) are not defined for most.
