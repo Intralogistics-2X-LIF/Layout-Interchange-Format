@@ -297,7 +297,7 @@ The LIF does not specify how two layouts from different origins, whether defined
 | --- | --- | --- | --- |
 | node { |  | JSON-object | Refers to VDA5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
 | nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
-| *nodeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as nodeDescription. |
+| *nodeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as *nodeDescription*. |
 | mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
 | nodePosition { |  | JSON-object | Geometric location of the node. |
 | x | meter | float64 | X position on the layout in reference to the origin. |
@@ -345,7 +345,7 @@ The LIF does not specify how two layouts from different origins, whether defined
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
 | actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the fleet control system such as via the interpretation of a mobile robot's factsheet. |
-| *actionDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as actionDescription. |
+| *actionDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as *actionDescription*. |
 | blockingType |  | string | Enum {NONE, SOFT, SINGLE, HARD} See VDA 5050 3.0.0 section 6.2.2 for the description and implication of each blockingType. <br><br>Backwards compatibility: for VDA 2.1 or prior, use "HARD" instead of "SINGLE". |
 | *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
 | } |  |  |  |
@@ -368,7 +368,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | edge { |  | JSON-object | Refers to VDA5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
 | edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the fleet control system to whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
 | *edgeName* |  | string | Name of the edge.  This should only for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. |
-| *edgeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as edgeDescription. |
+| *edgeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as *edgeDescription*. |
 | startNodeId |  | string | Id of the start node.  The start node must always be part of the current layout. |
 | endNodeId |  | string | Id of the end node.  The end node can be located in another layout. This models a transition from one layout to another. |
 | mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
@@ -499,7 +499,7 @@ Regardless of the values defined for the ellipse, due to the fact that the fleet
 | corridor { |  | JSON-object |  |
 | maximumLeftWidth | meter | float64 | Maximum corridor margin possible to the left of the edge. |
 | maximumRightWidth | meter | float64 | Maximum corridor margin possible to the right of the edge. |
-| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robots kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as corridorRefPoint and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'. |
+| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robots kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as *corridorRefPoint* and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'. |
 | } |  |  |  |
 
 ## 8.4 Complete Data Structure of LIF
