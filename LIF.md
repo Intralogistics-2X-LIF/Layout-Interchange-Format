@@ -496,7 +496,7 @@ Regardless of the values defined for the ellipse, due to the fact that the fleet
 | corridor { |  | JSON-object |  |
 | maximumLeftWidth | meter | float64 | Maximum corridor margin possible to the left of the edge. |
 | maximumRightWidth | meter | float64 | Maximum corridor margin possible to the right of the edge. |
-| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robots kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'} |
+| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robots kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 2.1 or prior, use as corridorRefPoint and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'.  |
 | } |  |  |  |
 
 ## 8.4 Complete Data Structure of LIF
