@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Layout Interchange Format",
-    "description": "The objective of the Layout Interchange Format is to standardize a way for the definition of automated mobile robot track layouts to be presented toward (third-party) fleet control system providers.",
+    "description": "The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward (third-party) fleet control system providers.",
     "type": "object",
     "required": [
         "metaInformation",
@@ -9,17 +9,18 @@
     ],
     "properties": {
         "metaInformation": {
-            "$ref": "#/definitions/metaInformation"
+            "$ref": "#/$defs/metaInformation"
         },
         "origins": {
             "type": "array",
             "description": "Collection where each origin serves as a reference for multiple associated layouts.",
             "items": {
-                "$ref": "#/definitions/origin"
-            }
+                "$ref": "#/$defs/origin"
+            },
+            "minItems": 1
         }
     },
-    "definitions": {
+    "$defs": {
         "metaInformation": {
             "type": "object",
             "description": "Contains meta information.",
@@ -36,19 +37,19 @@
                 },
                 "creator": {
                     "type": "string",
-                    "description": "Creator of the LIF file (e.g., name of company, or name of person)."
+                    "description": "Creator of the LIF file."
                 },
                 "exportTimestamp": {
                     "type": "string",
 					"format": "date-time",
-                    "description": "The timestamp at which this LIF file was created/ updated/modified. Used to distinguish LIF file versions over time. Timestamp format is ISO8601 in UTC (YYYY-MM-DDTHH:mm:ss.ssZ).",
+                    "description": "The timestamp at which this LIF file was created/updated/modified. Used to distinguish LIF file versions over time. Timestamp format is ISO8601 in UTC (YYYY-MM-DDTHH:mm:ss.ssZ).",
                     "examples": ["2017-04-15T11:40:03.12Z"]
                 },
                 "lifVersion": {
                     "type": "string",
 					"pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
                     "description": "Version of LIF: [Major].[Minor].[Patch]. Note: This is the semantic version of the LIF format, as defined at the beginning of this document.",
-                    "examples": ["1.0.0"]
+                    "examples": ["2.0.0"]
                 }
             }
         },
@@ -57,7 +58,6 @@
             "description": "An Origin serves as a reference for multiple associated layouts.",
             "required": [
                 "originId",
-                "originDescription",
                 "layouts"
             ],
             "properties": {
@@ -65,22 +65,23 @@
                     "type": "string",
                     "description": "Unique identifier for this origin."
                 },
-                "originDescription": {
+                "originDescriptor": {
                     "type": "string",
-                    "description": "Brief description of the origin (e.g. 'Hall B, Floors 1, 2, & 3')."
+                    "description": "A user-defined, human-readable name or descriptor. This shall not be used for logical purposes."
                 },
                 "layouts": {
                     "type": "array",
-                    "description": "Collection of layouts within the facility, all sharing the same origin used by the driverless transport system",
+                    "description": "A collection of layouts within the facility, all sharing the same origin.",
                     "items": {
-                        "$ref": "#/definitions/layout"
-                    }
+                        "$ref": "#/$defs/layout"
+                    },
+                    "minItems": 1
                 }
             }
         },
         "layout": {
             "type": "object",
-            "description": "A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or (third-party) fleet control systems. It is intended to hold the information for all different mobile robot types. Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a „plane“, i.e., multiple levels must be modelled in different layouts. It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. Each layout has the same origin of coordinates.",
+            "description": "A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or (third-party) fleet control systems. It is intended to hold the information for all different mobile robot types. Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a 'plane', i.e., multiple levels must be modelled in different layouts. It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level.",
             "required": [
                 "layoutId",
                 "layoutVersion",
@@ -94,46 +95,46 @@
                 },
                 "layoutName": {
                     "type": "string",
-                    "description": "Human-readable name of the layout (e.g., for displaying)."
+                    "description": "Human-readable name of the layout."
                 },
                 "layoutVersion": {
                     "type": "string",
-                    "description": "Version of the layout. Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at „1“."
+                    "description": "Version of the layout. Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at '1'."
                 },
                 "layoutLevelId": {
                     "type": "string",
                     "description": "This attribute can be used to explicitly indicate which level or floor within a building or buildings a layout represents in a situation where there are multiple, such as multiple levels in the same facility, or two disconnected areas in the same facility."
                 },
-                "layoutDescription": {
+                "layoutDescriptor": {
                     "type": "string",
-                    "description": "Brief description of the layout."
+                    "description": "A user-defined, human-readable name or descriptor. This shall not be used for logical purposes."
                 },
                 "nodes": {
                     "type": "array",
                     "description": "Collection of all nodes in the layout.",
                     "items": {
-                        "$ref": "#/definitions/node"
+                        "$ref": "#/$defs/node"
                     }
                 },
                 "edges": {
                     "type": "array",
                     "description": "Collection of all edges in the layout.",
                     "items": {
-                        "$ref": "#/definitions/edge"
+                        "$ref": "#/$defs/edge"
                     }
                 },
                 "stations": {
                     "type": "array",
                     "description": "Collection of all stations in the layout.",
                     "items": {
-                        "$ref": "#/definitions/station"
+                        "$ref": "#/$defs/station"
                     }
                 }
             }
         },
         "node": {
             "type": "object",
-            "description": "Refers to VDA 5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA 5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself.",
+            "description": "Refers to VDA 5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA 5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation itself.",
             "required": [
                 "nodeId",
                 "mapId",
@@ -143,28 +144,24 @@
             "properties": {
                 "nodeId": {
                     "type": "string",
-                    "description": "Unique identifier of the node across all layouts contained in this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third- party) fleet control system to track whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrators nodeId for its specific LIF."
+                    "description": "Unique identifier of the node across all layouts contained in this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to track whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF."
                 },
-                "nodeName": {
+                "nodeDescriptor": {
                     "type": "string",
-                    "description": "Name of the node. This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. Therefore, this node name need not necessarily be unique."
-                },
-                "nodeDescription": {
-                    "type": "string",
-                    "description": "Brief description of the node. This should only ever be for visualization or diagnostic purposes."
+                    "description": "A user-defined, human-readable name or descriptor. This shall not be used for logical purposes."
                 },
                 "mapId": {
                     "type": "string",
-                    "description": "Unique identification of the map in which the node oder nodes position is referenced. Each map has the same project specific global origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will disappear off the map of the departure floor and spawn in the related lift node on the map of the target floor."
+                    "description": "Unique identification of the map in which the node or node's position is referenced. Each map has the same origin of coordinates."
                 },
                 "nodePosition": {
-                    "$ref": "#/definitions/nodePosition"
+                    "$ref": "#/$defs/nodePosition"
                 },
                 "mobileRobotTypeNodeProperties": {
                     "type": "array",
-                    "description": "Mobile robot type specific properties for this node. This attribute must not be empty. There must be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the (third-party) master control sys- tem must consider that node invalid for use with that mobile robot type.",
+                    "description": "Mobile robot type specific properties for this node. This attribute must not be empty. There must be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the fleet control system must consider that node invalid for use with that mobile robot type.",
                     "items": {
-                        "$ref": "#/definitions/mobileRobotTypeNodeProperty"
+                        "$ref": "#/$defs/mobileRobotTypeNodeProperty"
                     },
 					"minItems": 1
                 }
@@ -180,11 +177,13 @@
             "properties": {
                 "x": {
                     "type": "number",
-                    "description": "X position on the layout in reference to the global origin."
+                    "unit": "m",
+                    "description": "X position on the layout in reference to the origin."
                 },
                 "y": {
                     "type": "number",
-                    "description": "Y position on the layout in reference to the global origin."
+                    "unit": "m",
+                    "description": "Y position on the layout in reference to the origin."
                 }
             }
         },
@@ -198,29 +197,46 @@
                     "type": "array",
                     "description": "Holds mobile robot types to which these properties apply on this node. Only one mobileRobotTypeNodeProperty can be declared per mobile robot type per node.",
                     "items": {
-                        "$ref": "#/definitions/mobileRobotType"
+                        "$ref": "#/$defs/mobileRobotType"
                     },
                     "minItems": 1
                 },
                 "theta": {
                     "type": "number",
-                    "description": "Range: [-Pi ... Pi]. Absolute orientation of the mobile robot on the node in reference to the global origins rotation."
+                    "unit": "rad",
+                    "description": "Range: [-Pi ... Pi]. Absolute orientation of the mobile robot on the node in reference to the origin's rotation.",
+                    "minimum": -3.1416,
+                    "maximum": 3.1416
                 },
                 "allowedDeviationXY": {
                     "type": "object",
                     "description": "Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly.",
-                    "$ref": "#/definitions/allowedDeviationXY"
+                    "$ref": "#/$defs/allowedDeviationXY"
                 },
                 "loadRestriction": {
                     "type": "object",
-                    "description": "Describes the load restriction on this node for each mobile robot type ID in mobileRobotTypeIds. Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set.",
-                    "$ref": "#/definitions/loadRestriction"
+                    "description": "Describes the load restriction on this node for the mobile robot types listed in mobileRobotTypes. Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set.",
+                    "$ref": "#/$defs/loadRestriction"
                 },
-                "actions": {
+                "requiredActions": {
                     "type": "array",
-                    "description": "Holds actions that can be integrated into the order by the (third-party) fleet control system each time any mobile robot with the corresponding mobile robot TypeId is sent an order/order update that contains this node. The decision of which action is integrated into the order is the responsibility of the (third- party) fleet control system. If no actions can be integrated, the attribute may be omitted.",
+                    "description": "Actions on this node which must always be included when sent by the (third-party) fleet control system.",
                     "items": {
-                        "$ref": "#/definitions/action"
+                        "$ref": "#/$defs/action"
+                    }
+                },
+                "feasibleActions": {
+                    "type": "array",
+                    "description": "Actions on this node with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and (third-party) fleet control system outside of the scope of the LIF.",
+                    "items": {
+                        "$ref": "#/$defs/action"
+                    }
+                },
+                "forbiddenActionTypes": {
+                    "type": "array",
+                    "description": "actionTypes on this node which are strictly forbidden from ever being sent by the (third-party) fleet control system, and may result in an error state or other negative or undefined consequences.",
+                    "items": {
+                        "type": "string"
                     }
                 }
             }
@@ -244,29 +260,37 @@
         },
         "allowedDeviationXY": {
             "type": "object",
-            "required": [
-                "a",
-                "b",
-                "theta"
-            ],
             "properties": {
-                "a": {
+                "aMinimum": {
                     "type": "number",
-                    "description": "Length of the ellipse semi-major axis in meters"
+                    "unit": "m",
+                    "description": "Minimum length of the ellipse semi-major axis in meters."
                 },
-                "b": {
+                "aMaximum": {
                     "type": "number",
-                    "description": "Length of the ellipse semi-minor axis in meters"
+                    "unit": "m",
+                    "description": "Maximum length of the ellipse semi-major axis in meters."
+                },
+                "bMinimum": {
+                    "type": "number",
+                    "unit": "m",
+                    "description": "Minimum length of the ellipse semi-minor axis in meters."
+                },
+                "bMaximum": {
+                    "type": "number",
+                    "unit": "m",
+                    "description": "Maximum length of the ellipse semi-minor axis in meters."
                 },
                 "theta": {
                     "type": "number",
-                    "description": "Rotation angle"
+                    "unit": "rad",
+                    "description": "Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system."
                 }
             }
         },
         "loadRestriction": {
             "type": "object",
-            "description": "Describes the load restriction on this node or edge for a mobile robot of the corresponding mobileRobotTypeId. Note: If not defined, the edge can be used by both an unloaded and loaded mobile robot with the corresponding mobileRobotTypeId.",
+            "description": "Describes the load restriction on this node or edge for the mobile robot types listed in mobileRobotTypes. Note: If not defined, the node or edge can be used by both an unloaded and loaded mobile robot carrying any load set.",
             "required": [
                 "unloaded",
                 "loaded"
@@ -274,15 +298,15 @@
             "properties": {
                 "unloaded": {
                     "type": "boolean",
-                    "description": "true: This edge may be used by an unloaded mobile robot with the corresponding mobileRobotTypeId. false: This edge must not be used by an unloaded mobile robot with the corresponding mobileRobotTypeId."
+                    "description": "true: This node or edge may be used by an unloaded mobile robot. false: This node or edge must not be used by an unloaded mobile robot."
                 },
                 "loaded": {
                     "type": "boolean",
-                    "description": "true: This edge may be used by a loaded mobile robot with the corresponding mobileRobotTypeId. false: This edge must not be used by a loaded mobile robot with the corresponding mobileRobotTypeId."
+                    "description": "true: This node or edge may be used by a loaded mobile robot. false: This node or edge must not be used by a loaded mobile robot. Note: If set to true, the attribute loadSetNames, if given, must be respected."
                 },
                 "loadSetNames": {
                     "type": "array",
-                    "description": "List of load sets that may be transported by the mobile robot on this edge. The (third-party) fleet control system must evaluate this attribute only if the attribute loaded is set to true.Note: If not defined or the attribute is empty, it means that all load sets supported by the mobile robot loadSets are allowed.The same names for the load sets must be used here as are given in the factsheet of the respective mobile robot (Factsheet attribute: [loadSets.setName]).",
+                    "description": "List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system must evaluate this attribute only if the attribute loaded is set to true. Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed.",
                     "items": {
                         "type": "string"
                     }
@@ -294,22 +318,16 @@
             "type": "object",
             "required": [
                 "actionType",
-                "requirementType",
                 "blockingType"
             ],
             "properties": {
                 "actionType": {
                     "type": "string",
-                    "description": "Name of the action same as described in the VDA 5050 specification document (section 6.8.2 in VDA 5050 2.0 specification document). Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third- party) fleet control system."
+                    "description": "Name of the action as described in the VDA 5050 specification document. Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system."
                 },
-                "actionDescription": {
+                "actionDescriptor": {
                     "type": "string",
-                    "description": "Brief description of the action."
-                },
-                "requirementType": {
-                    "type": "string",
-                    "description": "REQUIRED: The (third-party) fleet control system must always communicate this action to the mobile robot on this node or edge. CONDITIONAL: The action may or may not be required contingent upon various factors. Discussion between the mobile robot integrator and the (third-party) fleet control system is required. OPTIONAL: The action may or may not be communicated to the mobile robot at the (third-party) mas- ter control systems discretion and responsibility. The mobile robot must be able to execute without issue if OPTIONAL actions are never, sometimes, or always sent to it. Note: The LIF does not specify a rigid definition of behavior for anything other than at most one required action. If more than one action is marked as required on a node or edge, it is the responsibility of the mobile robot integrator to define the implications of this to the (third-party) fleet control system, either be it that all of the required actions are always required, or that one of the actions is always required, or some other combination thereof.",
-                    "enum": ["REQUIRED", "CONDITIONAL", "OPTIONAL"]
+                    "description": "A user-defined, human-readable name or descriptor. This shall not be used for logical purposes."
                 },
                 "blockingType": {
                     "type": "string",
@@ -320,7 +338,7 @@
                     "type": "array",
                     "description": "Exact list of parameters and their statically defined values which must be sent along with this action. Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The (third-party) fleet control system must still determine and send these actionParameters. Refer to the AGV Fact Sheet.",
                     "items": {
-                        "$ref": "#/definitions/actionParameter"
+                        "$ref": "#/$defs/actionParameter"
                     }
                 }
             }
@@ -344,7 +362,7 @@
             }
         },
         "edge": {
-            "description": "Geometric location of the node.",
+            "description": "Refers to VDA 5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type; therefore, the LIF does not contain any edges that are blocked.",
             "type": "object",
             "required": [
                 "edgeId",
@@ -355,15 +373,15 @@
             "properties": {
                 "edgeId": {
                     "type": "string",
-                    "description": "Unique identifier of the edge across all layouts within this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to track whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrators edgeId for its specific LIF."
+                    "description": "Unique identifier of the edge across all layouts within this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to track whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF."
                 },
                 "edgeName": {
                     "type": "string",
                     "description": "Name of the edge. This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose."
                 },
-                "edgeDescription": {
+                "edgeDescriptor": {
                     "type": "string",
-                    "description": "Brief description of the edge. This should only be used for visualization or diagnostic purposes."
+                    "description": "A user-defined, human-readable name or descriptor. This shall not be used for logical purposes."
                 },
                 "startNodeId": {
                     "type": "string",
@@ -375,9 +393,9 @@
                 },
                 "mobileRobotTypeEdgeProperties": {
                     "type": "array",
-                    "description": "Mobile Robot type specific properties for this edge. Note: This attribute must not be empty. For each allowed mobile robot type there must be an element.",
+                    "description": "Mobile robot type specific properties for this edge. Note: This attribute must not be empty. For each allowed mobile robot type there must be an element.",
                     "items": {
-                        "$ref": "#/definitions/mobileRobotTypeEdgeProperty"
+                        "$ref": "#/$defs/mobileRobotTypeEdgeProperty"
                     },
 					"minItems": 1
                 }
@@ -393,81 +411,103 @@
                     "type": "array",
                     "description": "Holds mobile robot types to which these properties apply on this edge. Only one mobileRobotTypeEdgeProperty can be declared per mobile robot type per edge.",
                     "items": {
-                        "$ref": "#/definitions/mobileRobotType"
+                        "$ref": "#/$defs/mobileRobotType"
                     },
                     "minItems": 1
                 },
                 "orientationType": {
                     "type": "string",
-                    "description": "GLOBAL: relative to the global project specific map coordinate system. TANGENTIAL: tangential to the edge. Note: If not defined, the default value is TANGENTIAL",
+                    "description": "GLOBAL: relative to the global project specific map coordinate system. TANGENTIAL: tangential to the edge. Note: If not defined, the default value is TANGENTIAL.",
                     "enum": ["GLOBAL", "TANGENTIAL"]
                 },
                 "reachOrientationBeforeEntering": {
                     "type": "boolean",
-                    "description": "This parameter is only valid for omni-directional mobile robots. true: Desired edge orientation shall be reached before entering the edge. false: mobile robot can rotate into the desired orientation on the edge. The (third-party) fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The (third-party) fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control (e.g. deadlocks, potential collision).<br><br>Optional:<br>Default: true."
+                    "description": "This parameter is only valid for omni-directional mobile robots. true: Desired edge orientation shall be reached before entering the edge. false: mobile robot can rotate into the desired orientation on the edge. The (third-party) fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The (third-party) fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control. Note: If not defined, the default value is true."
                 },
                 "mobileRobotOrientations": {
                     "type": "array",
-                    "description": "All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in different orientation, rotate the mobile robot on the edge to the desired orientations if *rotationAllowed* is set to true.  If *rotationAllowed* is false, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time.",
+                    "unit": "rad",
+                    "description": "All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value orientationType defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards. If the mobile robot starts in a different orientation, rotate the mobile robot on the edge to the desired orientation if reachOrientationBeforeEntering is set to false. If reachOrientationBeforeEntering is true, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory. Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time.",
                     "items": {
                         "type": "number"
                     }
                 },
                 "rotationAtStartNodeAllowed": {
                     "type": "string",
-                    "description": "Allowed directions of rotation for the mobile robot at the start node. NONE: Rotation not allowed. CCW: Counter-clockwise(positive).CW: Clockwise(negative). BOTH: Both directions.Note: If not defined, the default value is BOTH. See section 8.3.9.1 for detailed description.",
+                    "description": "Allowed directions of rotation for the mobile robot at the start node. NONE: Rotation not allowed. CCW: Counter-clockwise (positive). CW: Clockwise (negative). BOTH: Both directions. Note: If not defined, the default value is BOTH.",
                     "enum": ["NONE", "CCW", "CW", "BOTH"]
                 },
                 "rotationAtEndNodeAllowed": {
                     "type": "string",
-                    "description": "Allowed directions of rotation for the mobile robot at the end node. NONE: Rotation not allowed. CCW: Counter-clockwise(positive).CW: Clockwise(negative). BOTH: Both directions.Note: If not defined, the default value is BOTH. See section 8.3.9.1 for detailed description.",
+                    "description": "Allowed directions of rotation for the mobile robot at the end node. NONE: Rotation not allowed. CCW: Counter-clockwise (positive). CW: Clockwise (negative). BOTH: Both directions. Note: If not defined, the default value is BOTH.",
                     "enum": ["NONE", "CCW", "CW", "BOTH"]
                 },
                 "maximumSpeed": {
                     "type": "number",
+                    "unit": "m/s",
                     "description": "Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot. Note: If not defined, no limitation."
                 },
                 "maximumRotationSpeed": {
                     "type": "number",
+                    "unit": "rad/s",
                     "description": "Maximum rotation speed. Note: If not defined, no limitation."
                 },
                 "minimumLoadHandlingDeviceHeight": {
                     "type": "number",
+                    "unit": "m",
                     "description": "Permitted minimal height of the load handling device on the edge. Note: If not defined, no limitation."
                 },
                 "maximumMobileRobotHeight": {
                     "type": "number",
+                    "unit": "m",
                     "description": "Permitted maximum height of the mobile robot, including the load, on edge. Note: If not defined, no limitation."
                 },
                 "loadRestriction": {
-                    "$ref": "#/definitions/loadRestriction"
+                    "$ref": "#/$defs/loadRestriction"
                 },
-                "actions": {
+                "requiredActions": {
                     "type": "array",
-                    "description": "Holds actions that can be integrated into the order by the (third-party) fleet control system each time any mobile robot with the corresponding mobileRobotTypeId is sent an order / order update that contains this edge.Note: If no actions can be integrated, the attribute may be omitted.",
+                    "description": "Actions on this edge which must always be included when sent by the (third-party) fleet control system.",
                     "items": {
-                        "$ref": "#/definitions/action"
+                        "$ref": "#/$defs/action"
+                    }
+                },
+                "feasibleActions": {
+                    "type": "array",
+                    "description": "Actions on this edge with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and (third-party) fleet control system outside of the scope of the LIF.",
+                    "items": {
+                        "$ref": "#/$defs/action"
+                    }
+                },
+                "forbiddenActionTypes": {
+                    "type": "array",
+                    "description": "actionTypes on this edge which are strictly forbidden from ever being sent by the (third-party) fleet control system, and will result in an error state or other negative or undefined consequences.",
+                    "items": {
+                        "type": "string"
                     }
                 },
                 "trajectory": {
                     "type": "object",
-                    "description": "Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory.Note: The trajectory is not required, but if it is not provided, the (third-party) fleet control system may not be able to determine whether different mobile robots from the same or a different manufacturer are colliding.",
-                    "$ref": "#/definitions/trajectory"
+                    "description": "Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory. Note: The trajectory is not required, but if it is not provided, the fleet control system may not have sufficient information to be responsible for determining whether different mobile robots from the same or different manufacturers would collide. Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object.",
+                    "$ref": "#/$defs/trajectory"
                 },
                 "physicalLineGuidedProperty": {
                     "type": "object",
                     "description": "JSON-object for simple or limited mobile robot types which are unable to process or respect trajectories and are dependent upon the information defined within this object. Note: This object must be used mutually exclusively with the trajectory object.",
-                    "$ref": "#/definitions/physicalLineGuidedProperty"
+                    "$ref": "#/$defs/physicalLineGuidedProperty"
                 },
                 "reentryAllowed": {
                     "type": "boolean",
-                    "description": "true: mobile robots of the corresponding mobileRobotTypeId are allowed to enter into automatic management by the (third-party) fleet control system while on this edge.false: mobile robots of the corresponding mobileRobotTypeId are not allowed to enter into automatic management by the (third-party) fleet control system while on this edge.Note: If not defined, the default is true."
+                    "description": "true: Mobile robots of a type listed in mobileRobotTypes are allowed to enter into automatic management by the (third-party) fleet control system while on this edge. false: Mobile robots of a type listed in mobileRobotTypes are not allowed to enter into automatic management by the (third-party) fleet control system while on this edge. Note: If not defined, the default is true."
                 },
                 "corridor": {
                     "type": "object",
-                    "description": "Describes the options to set a corridor.",
-                    "$ref": "#/definitions/corridor"
+                    "description": "Describes the options to set a corridor. Note: If not defined, no corridor shall be used.",
+                    "$ref": "#/$defs/corridor"
                 }
+            },
+            "not": {
+                "required": ["trajectory", "physicalLineGuidedProperty"]
             }
         },
         "trajectory": {
@@ -478,8 +518,8 @@
             ],
             "properties": {
                 "degree": {
-                    "type": "number",
-                    "description": "Range: [1 ... integer.maximum] Defines the number of control points that influence any given point on the curve. Increasing the degree increases continuity.If not defined, the default value is 1.",
+                    "type": "integer",
+                    "description": "Range: [1 ... integer.maximum] Defines the number of control points that influence any given point on the curve. Increasing the degree increases continuity. If not defined, the default value is 1.",
                     "minimum": 1
                 },
                 "knotVector": {
@@ -495,7 +535,7 @@
                     "type": "array",
                     "description": "List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end points.",
                     "items": {
-                        "$ref": "#/definitions/controlPoint"
+                        "$ref": "#/$defs/controlPoint"
                     }
                 }
             }
@@ -509,16 +549,18 @@
             "properties": {
                 "x": {
                     "type": "number",
-                    "description": "X position on the layout in reference to the global origin."
+                    "unit": "m",
+                    "description": "X position on the layout in reference to the origin."
                 },
                 "y": {
                     "type": "number",
-                    "description": "Y position on the layout in reference to the global origin."
+                    "unit": "m",
+                    "description": "Y position on the layout in reference to the origin."
                 },
                 "weight": {
                     "type": "number",
-                    "description": "Range: [0.0...float64.maximum] The weight with which this control point pulls on the curve. When not defined, the default is 1.0.",
-                    "minimum": 1.0
+                    "description": "Range: ]0.0...float64.maximum] The weight with which this control point pulls on the curve. When not defined, the default is 1.0.",
+                    "exclusiveMinimum": 0
                 }
             }
         },
@@ -532,12 +574,13 @@
                 },
                 "length": {
                     "type": "number",
+                    "unit": "m",
                     "description": "The length of this edge for mobile robot types which require it but are unable to process or respect trajectories."
                 }
             }
         },
         "station": {
-            "description": "Every point where a mobile robot can explicitly interact with the environment, including but not limited to physical interactions.",
+            "description": "A station represents any logical place where a mobile robot can explicitly interact with the environment, including but not limited to physical interactions.",
             "type": "object",
             "required": [
                 "stationId",
@@ -550,7 +593,7 @@
                 },
                 "interactionNodeIds": {
                     "type": "array",
-                    "description": "List of nodeIds for this station. These are the nodes that represent the position at which interaction with this station takes place.Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally).This attribute must not be empty; there must be at least one nodeId.Note: The decision of which nodeId is used is the responsibility of the (third-party) fleet control system.Choosing the correct interaction node may require that the (third-party) fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node.",
+                    "description": "List of nodeIds for this station. These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways. This attribute must not be empty; there must be at least one nodeId. Note: The decision of which nodeId is used is the responsibility of the (third-party) fleet control system. Choosing the correct interaction node may require that the (third-party) fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node.",
                     "items": {
                         "type": "string"
                     },
@@ -564,23 +607,24 @@
                     "type": "string",
                     "description": "Type of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action."
                 },
-                "stationDescription": {
+                "stationDescriptor": {
                     "type": "string",
                     "description": "Brief description of the station."
                 },
                 "stationHeight": {
                     "type": "number",
-                    "description": "Range: [0.0 ... float64.maximum] Absolute physical height of the station.",
+                    "unit": "m",
+                    "description": "Range: [0.0 ... float64.maximum] If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator. Note: If this value is not specified, the station height must not be assumed to be zero or any default value.",
                     "minimum": 0.0
                 },
                 "stationPosition": {
-                    "$ref": "#/definitions/stationPosition"
+                    "$ref": "#/$defs/stationPosition"
                 }
             }
         },
         "stationPosition": {
             "type": "object",
-            "description": "Centre point and orientation of the station. Note: Only for visualization purposes.",
+            "description": "Center point and orientation of the station. Note: Only for visualization purposes.",
             "required": [
                 "x",
                 "y"
@@ -588,15 +632,20 @@
             "properties": {
                 "x": {
                     "type": "number",
-                    "description": "X position of the station in the layout in reference to the global origin."
+                    "unit": "m",
+                    "description": "X position of the station in the layout in reference to the origin."
                 },
                 "y": {
                     "type": "number",
-                    "description": "Y position of the station in the layout in reference to the global origin."
+                    "unit": "m",
+                    "description": "Y position of the station in the layout in reference to the origin."
                 },
                 "theta": {
                     "type": "number",
-                    "description": "Range: [-Pi ... Pi] Absolute orientation of the station on the node."
+                    "unit": "rad",
+                    "description": "Range: [-Pi ... Pi] Absolute orientation of the station on the node.",
+                    "minimum": -3.1416,
+                    "maximum": 3.1416
                 }
             }
         },
@@ -609,16 +658,18 @@
             "properties": {
                 "maximumLeftWidth": {
                     "type": "number",
+                    "unit": "m",
                     "description": "Maximum corridor margin possible to the left of the edge."
                 },
                 "maximumRightWidth": {
                     "type": "number",
+                    "unit": "m",
                     "description": "Maximum corridor margin possible to the right of the edge."
                 },
                 "corridorReferencePoint": {
                     "type": "string",
 					"enum": ["KINEMATIC_CENTER", "CONTOUR"],
-                    "description": "Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robots kinematic center.Enum {'KINEMATIC_CENTER', 'CONTOUR'}"
+                    "description": "Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robot's kinematic center."
                 }
             }
         }
