@@ -33,7 +33,7 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) |
 [5.1 Requirements](#51-requirements)<br>
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
-[6 LIF Format](#6-lif-format)<br>
+[6 LIF Format](#6-format-of-the-lif)<br>
 [7 LIF Transfer and Responsibilities of Mobile Robot Integrator and Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
 [7.1 Export of the LIF File by the Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-integrator-of-the-mobile-robots)<br>
 [7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
