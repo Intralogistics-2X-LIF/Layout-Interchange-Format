@@ -10,13 +10,13 @@
 
 The following embodiment describes an interchange format for one or more layouts (e.g., collections of edges, nodes, and stations). By means of this interchange format, an integrator of mobile robots and fleet control systems will be able to define and transfer a layout (or layouts) definition.
 
-This document represents a non-binding approach. Whoever uses it must ensure the correct application in the specific case. It is influenced by the state of the art at the time of the respective edition, in particular the VDA5050 interface definition. Ascribing to the suggestions described herein does not absolve parties of the responsibility for their own actions. No text in this document claims completeness nor provides exact interpretation of the existing legal provisions. The contents of this document must not replace the study of the relevant directives, laws, and regulations. Furthermore, the special features of the respective products as well as their different possible applications must be considered. In this respect, all parties act at their own risk. Any liability of the VDMA and those involved in the development or application of the suggestions is excluded.
+This document represents a non-binding approach. Whoever uses it must ensure the correct application in the specific case. It is influenced by the state of the art at the time of the respective edition, in particular the VDA 5050 interface definition. Ascribing to the suggestions described herein does not absolve parties of the responsibility for their own actions. No text in this document claims completeness nor provides exact interpretation of the existing legal provisions. The contents of this document must not replace the study of the relevant directives, laws, and regulations. Furthermore, the special features of the respective products as well as their different possible applications must be considered. In this respect, all parties act at their own risk. Any liability of the VDMA and those involved in the development or application of the suggestions is excluded.
 
 Should you encounter any inaccuracies or the possibility of incorrect interpretation in the application of the proposals, please notify the VDMA immediately so that any deficiencies can be rectified.
 
 | | |
-|---|---|
-Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
+| --- | --- |
+| Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
 |  | Lyoner Strasse 18, 60528 Frankfurt am Main | 
 | Copyright | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
 |  | Reprinting and any other form of reproduction is permitted only if the source is acknowledged. | 
@@ -33,11 +33,11 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) |
 [5.1 Requirements](#51-requirements)<br>
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
-[6 LIF Format](#6-lif-format)<br>
-[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
-[7.1 Export of the LIF File by the Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-integrator-of-the-mobile-robots)<br>
-[7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
-[7.3 Further Exports of the LIF File and Imports into the Fleet Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-fleet-control-system)<br>
+[6 Format of the LIF](#6-format-of-the-lif)<br>
+[7 Responsibiliites of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
+[7.1 Export of the LIF File by the Provider or Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-provider-or-integrator-of-the-mobile-robots)<br>
+[7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-fleet-control-system)<br>
+[7.3 Further Updates and Exports of the LIF File](#73-further-updates-and-exports-of-the-lif-file)<br>
 [8 Specification of LIF](#8-specification-of-lif)<br>
 [8.1 Table Symbols and Meaning of Formatting](#81-table-symbols-and-meaning-of-formatting)<br>
 [8.1.1 Optional Variables](#811-optional-variables)<br>
@@ -59,35 +59,17 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) |
 [8.3.14 ControlPoint](#8314-controlpoint)<br>
 [8.3.15 PhysicalLineGuidedProperty](#8315-physicallineguidedproperty)<br>
 [8.3.16 Station](#8316-station)<br>
+[8.3.17 AllowedDeviationXY](#8317-alloweddeviationxy)<br>
+[8.3.18 Corridor](#8318-corridor)<br>
 [8.4 Complete Data Structure of LIF](#84-complete-data-structure-of-lif)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
 [10.1 Why aren't bi-directional edges supported in LIF?](#101-why-arent-bi-directional-edges-supported-in-lif)<br>
 [10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?](#102-why-are-mobile-robot-integrator-specific-extensions-of-the-lif-not-foreseen)<br>
-[11 Examples](#11-examples)<br>
-[11.1 Forward Edge](#111-forward-edge)<br>
-[11.2 Bidirectional Edge](#112-bidirectional-edge)<br>
-[11.3 Counter-clockwise Rotation on Node](#113-counter-clockwise-rotation-on-node)<br>
-[11.4 Omnidirectional Edge](#114-omnidirectional-edge)<br>
-[11.5 Multiple Layouts in One LIF](#115-multiple-layouts-in-one-lif)<br>
-[11.6 Station with One Node](#116-station-with-one-node)<br>
-[11.7 Station with Two Nodes](#117-station-with-two-nodes)<br>
-[11.8 Station with Two Nodes, Restricted for Different Mobile Robot Types](#118-station-with-two-nodes-restricted-for-different-mobile-robot-types)<br>
-[11.9 Rotation Station](#119-rotation-station)<br>
-[11.10 Station with Three Nodes, Restricted to Different Mobile Robot Types](#1110-station-with-three-nodes-restricted-to-different-mobile-robot-types)<br>
-[11.11 Multiple Edges with Load Restrictions](#1111-multiple-edges-with-load-restrictions)<br>
-[11.12 Multiple Edges Between Same Two Nodes for Different mobileRobotTypeEdgeProperty Constraints.](#1112-multiple-edges-between-same-two-nodes-for-different-mobilerobottypeedgeproperty-constraints)<br>
-[11.13 Battery Charging Station](#1113-battery-charging-station)<br>
-[11.14 Two Levels of a Facility in One LIF File](#1114-two-levels-of-a-facility-in-one-lif-file)<br>
-[11.15 Rack Station Modelled by Three Stations](#1115-rack-station-modelled-by-three-stations)<br>
-[11.16 Rack Station Modelled by Three Nodes](#1116-rack-station-modelled-by-three-nodes)<br>
-[11.17 Edge with Trajectory Definition](#1117-edge-with-trajectory-definition)<br>
-[11.18 Manufacturer Specific Action on an Edge](#1118-manufacturer-specific-action-on-an-edge)<br>
-[11.19 Forward Edge with Two Mobile Robot Types with Differing Orientation](#1119-forward-edge-with-two-mobile-robot-types-with-differing-orientation)<br>
 
 # 1 Terms
 
-Terms are generally used as they are in the VDA5050 interface.
+Terms are generally used as they are in the VDA 5050 interface.
 
 The following table is intended to describe supplementary terms:
 
@@ -124,20 +106,20 @@ This document describes the LIF, its purpose, and examples of how to use it. Thi
 
 The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward a fleet control system provider or other parties.
 
-The first primary goal is to complement the VDA5050 interface’s goal of facilitating decoupling between mobile robot manufacturers and fleet control system providers. It uses the same terminology and much of the same structure as the VDA5050 interface.
+The first primary goal is to complement the VDA 5050 interface’s goal of facilitating decoupling between mobile robot manufacturers and fleet control system providers. It uses the same terminology and much of the same structure as the VDA 5050 interface.
 
 The LIF described in this document is intended to map a common set of necessary information, as explicitly and unambiguously as possible, to enable a fleet control system to steer/navigate one or more mobile robots. The LIF contains information on how mobile robots can interact with their environment and navigate inside of a layout.
 
 ## 5.1 Requirements
-* The LIF concept and definition must always be compatible with the current status, terminology, and developments of the latest VDA5050 interface definition existing at the time of the LIF's release.
+* The LIF concept and definition must always be compatible with the current status, terminology, and developments of the latest VDA 5050 interface definition existing at the time of the LIF's release.
 * A single LIF file may only contain layouts from one mobile robot provider.
 * A single LIF file may contain multiple layouts for multiple mobile robot types of one mobile robot provider.
 * A fleet control system must be able to accept multiple LIF files from multiple mobile robot providers for one facility.
 * The LIF must not preclude the inclusion of mobile robots with different levels of autonomy.
 
 ## 5.2 Further Assumptions
-* The communication between the fleet control system and the mobile robot corresponds to the latest VDA5050 interface definition at the time of the LIF's publication. Best efforts are made to preserve backwards compatibility between versions of VDA5050 where able.
-* The mobile robot provider or integrator will also provide the fleet control system with the mobile robots' factsheet per the VDA5050 specification, which will contain information about mobile robot geometry, kinematics, and other "capabilities of the mobile robot" such as which actions it may perform.
+* The communication between the fleet control system and the mobile robot corresponds to the latest VDA 5050 interface definition at the time of the LIF's publication. Best efforts are made to preserve backwards compatibility between versions of VDA 5050 where able.
+* The mobile robot provider or integrator will also provide the fleet control system with the mobile robots' factsheet per the VDA 5050 specification, which will contain information about mobile robot geometry, kinematics, and other "capabilities of the mobile robot" such as which actions it may perform.
 
 ## 5.3 LIF Limitations
 The LIF does not describe any specific logical processes by which a mobile robot or fleet control system must perform its tasks. This includes, but is not limited to, the handling of route planning, traffic management, intersections of multiple mobile robots from the same of different mobile robot providers or integrators, interaction with stationary equipment, and so forth. The LIF is merely a definition of a layout, and what and where a fleet controller may instruct a mobile robot to do within the facility.
@@ -204,7 +186,7 @@ Further information about the behavior of a system must be obtained from outside
 
 ## 7.3 Further Updates and Exports of the LIF File
 
-When any changes are to be made to either a layout or mobile robot behavior which could be reflected in the LIF, a new LIF should be created and supplied to all consuming parties. It is the responsibility of the LIF creator to inform the fleet control system or provider that changes have been made. It is the responsibility of the fleet control integrator or provider to re-process the new LIF file, incorporating any changes, and then to notify mobile robot provider or integrator that this has been completed. Then and only then are the changes to the system complete and ready for use, and the affected mobile robots may resume operation. Some of these steps may or may not be automated, such as by a fleet control system triggering a vehicle to perform a map update via the means described in VDA5050.
+When any changes are to be made to either a layout or mobile robot behavior which could be reflected in the LIF, a new LIF should be created and supplied to all consuming parties. It is the responsibility of the LIF creator to inform the fleet control system or provider that changes have been made. It is the responsibility of the fleet control integrator or provider to re-process the new LIF file, incorporating any changes, and then to notify mobile robot provider or integrator that this has been completed. Then and only then are the changes to the system complete and ready for use, and the affected mobile robots may resume operation. Some of these steps may or may not be automated, such as by a fleet control system triggering a vehicle to perform a map update via the means described in VDA 5050.
 
 **Attention:** Changing a mobile robot’s behavior without also updating the LIF file consumed by the fleet control system leads to inconsistencies—potentially harmful or destructive ones. Likewise, a fleet control system provider or integrator that changes information gained from the LIF (e.g., change of layout) without confirming the mobile robot provider or integrator has also implemented these changes, removes and adopts all liability from the mobile robot provider and integrator, and can lead to potentially destructive or harmful outcomes.
 
@@ -229,11 +211,11 @@ If a variable is marked as optional, it is optional for the mobile robot integra
 
 If the LIF file contains an optional variable, the fleet control system must not ignore the variable. If the fleet control system cannot process the variable accordingly, it is expected that the fleet control system will provide a warning or an error message when importing the LIF file.
 
-Variables that are optional in the LIF, but are strictly required by the mobile robot, must be clearly communicated toward the fleet control system. The LIF does not denote such variables; this agreement must be made between the mobile robot integrator and fleet control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA5050 standard.
+Variables that are optional in the LIF, but are strictly required by the mobile robot, must be clearly communicated toward the fleet control system. The LIF does not denote such variables; this agreement must be made between the mobile robot integrator and fleet control system. It is suggested this is written in an agreement parallel to the mobile robot's factsheet as defined in the VDA 5050 standard.
 
 ## 8.2 Element ID Uniqueness
 
-Certain elements, namely: Layouts, Nodes, Edges and Stations have IDs associated with them. These IDs should be unique among their type.
+Certain elements, namely: Origins, Layouts, Nodes, Edges, and Stations, have IDs associated with them. These IDs should be unique among their type.
 
 ## 8.3 Elements of LIF
 ### 8.3.1 LIF Structure
@@ -256,7 +238,7 @@ The objects contained in this structure are described in more detail below.
 | metaInformation { |  | JSON-object | Contains meta information. |
 | lifId |  | string | Unique identifier for the LIF file describing a specific facility.  Note: Multiple exports of the same LIF file describing the same facility should have the same lifId. Differentiations can be made with exportTimestamp. |
 | creator |  | string | Creator of the LIF file (e.g., name of company, or name of person). |
-| exportTimestamp |  | string | The timestamp at which this LIF file was created/updated/modified. Used to distinguish LIF file versions over time. The timestamp format is ISO8601 in UTC (YYYY-MM-DDTHH:mm:ss.ssZ, e.g., "2017-04-15T11:40:03.12Z"). |
+| exportTimestamp |  | string | The timestamp at which this LIF file was created/updated/modified. Used to distinguish LIF file versions over time. The timestamp format is ISO 8601, UTC (YYYY-MM-DDTHH:mm:ss.fffZ, e.g., "2017-04-15T11:40:03.123Z"). |
 | lifVersion |  | string | Version of LIF: [Major].[Minor].[Patch] e.g., "2.0.0".  Note: This is the semantic version of the LIF format, as defined at the beginning of this document. |
 | } |  |  |  |
 
@@ -272,7 +254,7 @@ The objects contained in this structure are described in more detail below.
 
 #### 8.3.3.1 Best Practices for Defining an Origin
 
-The origin object is meant to be coordinated and consistently applied across all LIFs of a facility by the responsible integrator and all parties which consume the LIF. Sharing an `originId` implies that the origin's coordinate system, including its rotation and scale, matches others with the same `originId`. If this is not the case, different `originId`s should be utilized. Any layouts which may overlap or interact with one another should always belong to the same origin wherever possible.
+The origin object is meant to be coordinated and consistently applied across all LIFs of a facility by the responsible integrator and all parties which consume the LIF. Sharing an `originId` implies that the origin's coordinate system, including its rotation and scale, matches all others with the same `originId`. If this is not the case, different `originId`s should be utilized. Any layouts which may overlap or interact with one another should always belong to the same origin wherever possible.
 
 The LIF does not specify how two layouts from different origins, whether defined in the same LIF file or from multiple LIF files, may overlap or relate to one another.
 
@@ -295,10 +277,10 @@ The LIF does not specify how two layouts from different origins, whether defined
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| node { |  | JSON-object | Refers to VDA5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
+| node { |  | JSON-object | Refers to VDA 5050 node definition. All properties that have the same name are meant to be semantically identical. However, the number of properties differs from VDA 5050 specification. Some properties are only meaningful as soon as an order is generated. Others only provide information for order generation (e.g., routing) itself. |
 | nodeId |  | string | Unique identifier of the node across all layouts contained in this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the fleet control system to whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF. |
 | *nodeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use as *nodeDescription*. |
-| mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Each map has the same origin of coordinates. When a mobile robot uses an elevator, e.g., leading from a departure floor to a target floor, it will dis-appear off the map of the departure floor and spawn in the related lift node on the map of the target floor. |
+| mapId |  | string | Unique identification of the map in which the node or node’s position is referenced. Note: The LIF does not directly define what a VDA 5050 map is or is not. A map may be an alternate declaration of a shared coordinate origin, or may be the same as a layout, or a layout may comprise multiple maps. See the VDA 5050 specification for more information. |
 | nodePosition { |  | JSON-object | Geometric location of the node. |
 | x | meter | float64 | X position on the layout in reference to the origin. |
 | y | meter | float64 | Y position on the layout in reference to the origin. |
@@ -344,7 +326,7 @@ The LIF does not specify how two layouts from different origins, whether defined
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
-| actionType |  | string | Name of action as described in the VDA5050 specification document (section 6.8.2 in VDA5050 2.0 specification document).  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the fleet control system such as via the interpretation of a mobile robot's factsheet. |
+| actionType |  | string | Name of action as described in the VDA 5050 specification document (see VDA 5050 3.0.0 section 6.2.3). Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the fleet control system such as via the interpretation of a mobile robot's factsheet. |
 | *actionDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use as *actionDescription*. |
 | blockingType |  | string | Enum {NONE, SOFT, SINGLE, HARD} See VDA 5050 3.0.0 section 6.2.2 for the description and implication of each blockingType. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use "HARD" instead of "SINGLE". |
 | *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
@@ -358,14 +340,14 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | --- | --- | --- | --- |
 | actionParameter { |  | JSON-object | actionParameter for the indicated action, e.g., deviceId, loadId, external triggers. |
 | key |  | string | The key of the parameter. |
-| value |  | One of: array, boolean, number, string, object | The value of the parameter that belongs to the key.  Note: The data type is defined in the mobile robot VDA5050 factsheet. |
+| value |  | One of: array, boolean, number, string, object | The value of the parameter that belongs to the key.  Note: The data type is defined in the mobile robot VDA 5050 factsheet. |
 | } |  |  |  |
 
 ### 8.3.11 Edge
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| edge { |  | JSON-object | Refers to VDA5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
+| edge { |  | JSON-object | Refers to VDA 5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
 | edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the fleet control system to whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
 | *edgeName* |  | string | Name of the edge.  This should only for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. |
 | *edgeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use as *edgeDescription*. |
@@ -374,7 +356,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
 | } |  |  |  |
 
-### 8.3.11 MobileRobotTypeEdgeProperty
+### 8.3.12 MobileRobotTypeEdgeProperty
 
 | Object Structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -382,7 +364,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | mobileRobotTypes[mobileRobotType] |  | array of JSON-object | Holds mobile robot types to which these properties apply on this edge. Only one mobileRobotTypeEdgeProperty can be declared per mobile robot type per edge. |
 | *orientationType* |  | string | Enum {GLOBAL, TANGENTIAL}:  "GLOBAL": relative to the global project specific map coordinate system.  "TANGENTIAL": tangential to the edge.  Note: If not defined, the default value is "TANGENTIAL". |
 | *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional mobile robots. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Mobile robot can rotate into the desired orientation on the edge. The fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control (e.g., deadlocks, potential collisions).<br><br>Optional. Default: "true".<br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use as *rotationAllowed* with inverse boolean value. |
-| *mobileRobotOrientations* | rad | array of float64 | All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value *orientationType* defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in different orientation, rotate the mobile robot on the edge to the desired orientations if *rotationAllowed* is set to "true".  If *rotationAllowed* is "false", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time. |
+| *mobileRobotOrientations* | rad | array of float64 | All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value `orientationType` defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in different orientation, rotate the mobile robot on the edge to the desired orientations if `reachOrientationBeforeEntering` is set to "false". If `reachOrientationBeforeEntering` is "true", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time. |
 | *rotationAtStartNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the start node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
 | *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.11.1 for detailed description. |
 | *maximumSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use as *maxSpeed* |
@@ -428,7 +410,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | *physicalLineGuidedProperty* { |  | JSON-object |  |
-| *direction* |  | string | Defines the direction identifier of this edge at junctions for line-guided or wire-guided mobile robots.  See the related VDA5050 attributes for more information. |
+| *direction* |  | string | Defines the direction identifier of this edge at junctions for line-guided or wire-guided mobile robots.  See the related VDA 5050 attributes for more information. |
 | *length* | meter | float64 | The length of this edge for mobile robot types which require it but are unable to process or respect trajectories. |
 | } |  |  |  |
 
@@ -439,10 +421,10 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | station { |  | JSON-object | A station represents any logical place where a mobile robot can explicitly interact with the environment, including but not limited to physical interactions. |
 | stationId |  | string | Unique identifier of the station across all layouts within this LIF file.  Note: It is recommended that stationIds match and align between all LIFs from all mobile robot integrators and other load handling systems such as WMSs, as well as physical visual labelling and the like. |
 | interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the fleet control system. Choosing the correct interaction node may require that the fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
-| *stationName* |  | string | Name of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
-| *stationType* |  | string | Type of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. |
+| *stationName* |  | string | Name of the station. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. |
+| *stationType* |  | string | Type of the station. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. |
 | *stationDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
-| *stationHeight* | meter | float64 | Range: [0 ... float64.maximum]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
+| *stationHeight* | meter | float64 | Range: [0 ... float64.maximum]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
 | *stationPosition {* |  |  | Center point and orientation of the station.  Note: Only for visualization purposes, to assist how to represent this station in any user interface. This position is commonly the center point of the physical station or the center point of a load on the station but may not always be. |
 | x | meter | float64 | X position of the station in the layout in reference to the origin. |
 | y | meter | float64 | Y position of the station in the layout in reference to the origin. |
@@ -475,9 +457,9 @@ allowedDeviationXY defines an ellipse around the node position within which the 
 - If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, any value of the minimum equal to or less than the corresponding maximum is assumed to be valid.
 - If neither pair of aMinimum/aMaximum or bMinimum/bMaximum are defined, the fleet control may send any value when compiling an order.
 
-In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order, using aMinimum as the smallest possible radius and bMaximum as the largest possible radius.
+In the case that an ellipse is not supported by either the mobile robot or by VDA 5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order, using aMinimum as the smallest possible radius and bMaximum as the largest possible radius.
 
-Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
+Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA 5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -672,16 +654,18 @@ The complete data structure of LIF is shown below:
 
 # 9 Additional Information that Should Be Exchanged Uniformly
 
-In addition to the reference to the VDA5050 interface definition, information about geometry, kinematics, lifting systems, "capabilities of the mobile robot", and so forth are included in the mobile robot's factsheet.
+In addition to the reference to the VDA 5050 interface definition, information about geometry, kinematics, lifting systems, "capabilities of the mobile robot", and so forth are included in the mobile robot's factsheet.
 
 # 10 Frequently Asked Questions (FAQ)
 
+Note that on the LIF github repository you will find decision records for some topics. The most common questions are included here.
+
 ## 10.1 Why aren't bi-directional edges supported in LIF?
 
-This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different rotationAllowed values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also judged that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
+This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA 5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different `reachOrientationBeforeEntering` values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also assumed that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
 
 ## 10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?
 
-The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot integrator-specific fields should be added, and there are no poorly defined "magic fields" in which to place information to achieve this purpose.
+The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot suppler or integrator specific fields should be added, and there are no poorly defined "magic fields" in which to place arbitrary information to achieve this purpose. If any such information is required for a particular combination of mobile robot and fleet controller provider, a parallel document shall be required.
 
-If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version.
+If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version. You are always welcome to directly open an issue on the LIF github repository.
