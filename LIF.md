@@ -64,26 +64,6 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) |
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
 [10.1 Why aren't bi-directional edges supported in LIF?](#101-why-arent-bi-directional-edges-supported-in-lif)<br>
 [10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?](#102-why-are-mobile-robot-integrator-specific-extensions-of-the-lif-not-foreseen)<br>
-[11 Examples](#11-examples)<br>
-[11.1 Forward Edge](#111-forward-edge)<br>
-[11.2 Bidirectional Edge](#112-bidirectional-edge)<br>
-[11.3 Counter-clockwise Rotation on Node](#113-counter-clockwise-rotation-on-node)<br>
-[11.4 Omnidirectional Edge](#114-omnidirectional-edge)<br>
-[11.5 Multiple Layouts in One LIF](#115-multiple-layouts-in-one-lif)<br>
-[11.6 Station with One Node](#116-station-with-one-node)<br>
-[11.7 Station with Two Nodes](#117-station-with-two-nodes)<br>
-[11.8 Station with Two Nodes, Restricted for Different Mobile Robot Types](#118-station-with-two-nodes-restricted-for-different-mobile-robot-types)<br>
-[11.9 Rotation Station](#119-rotation-station)<br>
-[11.10 Station with Three Nodes, Restricted to Different Mobile Robot Types](#1110-station-with-three-nodes-restricted-to-different-mobile-robot-types)<br>
-[11.11 Multiple Edges with Load Restrictions](#1111-multiple-edges-with-load-restrictions)<br>
-[11.12 Multiple Edges Between Same Two Nodes for Different mobileRobotTypeEdgeProperty Constraints.](#1112-multiple-edges-between-same-two-nodes-for-different-mobilerobottypeedgeproperty-constraints)<br>
-[11.13 Battery Charging Station](#1113-battery-charging-station)<br>
-[11.14 Two Levels of a Facility in One LIF File](#1114-two-levels-of-a-facility-in-one-lif-file)<br>
-[11.15 Rack Station Modelled by Three Stations](#1115-rack-station-modelled-by-three-stations)<br>
-[11.16 Rack Station Modelled by Three Nodes](#1116-rack-station-modelled-by-three-nodes)<br>
-[11.17 Edge with Trajectory Definition](#1117-edge-with-trajectory-definition)<br>
-[11.18 Manufacturer Specific Action on an Edge](#1118-manufacturer-specific-action-on-an-edge)<br>
-[11.19 Forward Edge with Two Mobile Robot Types with Differing Orientation](#1119-forward-edge-with-two-mobile-robot-types-with-differing-orientation)<br>
 
 # 1 Terms
 
@@ -374,7 +354,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
 | } |  |  |  |
 
-### 8.3.11 MobileRobotTypeEdgeProperty
+### 8.3.12 MobileRobotTypeEdgeProperty
 
 | Object Structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -676,12 +656,14 @@ In addition to the reference to the VDA5050 interface definition, information ab
 
 # 10 Frequently Asked Questions (FAQ)
 
+Note that on the LIF github repository you will find decision records for some topics. The most common questions are included here.
+
 ## 10.1 Why aren't bi-directional edges supported in LIF?
 
-This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different rotationAllowed values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also judged that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
+This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different rotationAllowed values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also assumed that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
 
 ## 10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?
 
-The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot integrator-specific fields should be added, and there are no poorly defined "magic fields" in which to place information to achieve this purpose.
+The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot suppler or integrator specific fields should be added, and there are no poorly defined "magic fields" in which to place arbitrary information to achieve this purpose. If any such information is required for a particular combination of mobile robot and fleet controller provider, a parallel document shall be required.
 
-If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version.
+If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version. You are always welcome to directly open an issue on the LIF github repository.
