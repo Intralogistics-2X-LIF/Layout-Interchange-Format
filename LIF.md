@@ -15,7 +15,7 @@ This document represents a non-binding approach. Whoever uses it must ensure the
 Should you encounter any inaccuracies or the possibility of incorrect interpretation in the application of the proposals, please notify the VDMA immediately so that any deficiencies can be rectified.
 
 | | |
-Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
+| Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
 |  | Lyoner Strasse 18, 60528 Frankfurt am Main | 
 | Copyright | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
 |  | Reprinting and any other form of reproduction is permitted only if the source is acknowledged. | 
