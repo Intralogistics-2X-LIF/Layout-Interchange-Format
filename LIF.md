@@ -14,8 +14,8 @@ This document represents a non-binding approach. Whoever uses it must ensure the
 
 Should you encounter any inaccuracies or the possibility of incorrect interpretation in the application of the proposals, please notify the VDMA immediately so that any deficiencies can be rectified.
 
-| | | 
-|---|---|
+| | |
+| --- | --- |
 | Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
 |  | Lyoner Strasse 18, 60528 Frankfurt am Main | 
 | Copyright | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
@@ -33,11 +33,11 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [5.1 Requirements](#51-requirements)<br>
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
-[6 LIF Format](#6-lif-format)<br>
-[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
-[7.1 Export of the LIF File by the Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-integrator-of-the-mobile-robots)<br>
-[7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
-[7.3 Further Exports of the LIF File and Imports into the Fleet Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-fleet-control-system)<br>
+[6 Format of the LIF](#6-format-of-the-lif)<br>
+[7 Responsibiliites of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
+[7.1 Export of the LIF File by the Provider or Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-provider-or-integrator-of-the-mobile-robots)<br>
+[7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-fleet-control-system)<br>
+[7.3 Further Updates and Exports of the LIF File](#73-further-updates-and-exports-of-the-lif-file)<br>
 [8 Specification of LIF](#8-specification-of-lif)<br>
 [8.1 Table Symbols and Meaning of Formatting](#81-table-symbols-and-meaning-of-formatting)<br>
 [8.1.1 Optional Variables](#811-optional-variables)<br>
@@ -59,31 +59,13 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [8.3.14 ControlPoint](#8314-controlpoint)<br>
 [8.3.15 PhysicalLineGuidedProperty](#8315-physicallineguidedproperty)<br>
 [8.3.16 Station](#8316-station)<br>
+[8.3.17 AllowedDeviationXY](#8317-alloweddeviationxy)<br>
+[8.3.18 Corridor](#8318-corridor)<br>
 [8.4 Complete Data Structure of LIF](#84-complete-data-structure-of-lif)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
 [10.1 Why aren't bi-directional edges supported in LIF?](#101-why-arent-bi-directional-edges-supported-in-lif)<br>
 [10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?](#102-why-are-mobile-robot-integrator-specific-extensions-of-the-lif-not-foreseen)<br>
-[11 Examples](#11-examples)<br>
-[11.1 Forward Edge](#111-forward-edge)<br>
-[11.2 Bidirectional Edge](#112-bidirectional-edge)<br>
-[11.3 Counter-clockwise Rotation on Node](#113-counter-clockwise-rotation-on-node)<br>
-[11.4 Omnidirectional Edge](#114-omnidirectional-edge)<br>
-[11.5 Multiple Layouts in One LIF](#115-multiple-layouts-in-one-lif)<br>
-[11.6 Station with One Node](#116-station-with-one-node)<br>
-[11.7 Station with Two Nodes](#117-station-with-two-nodes)<br>
-[11.8 Station with Two Nodes, Restricted for Different Mobile Robot Types](#118-station-with-two-nodes-restricted-for-different-mobile-robot-types)<br>
-[11.9 Rotation Station](#119-rotation-station)<br>
-[11.10 Station with Three Nodes, Restricted to Different Mobile Robot Types](#1110-station-with-three-nodes-restricted-to-different-mobile-robot-types)<br>
-[11.11 Multiple Edges with Load Restrictions](#1111-multiple-edges-with-load-restrictions)<br>
-[11.12 Multiple Edges Between Same Two Nodes for Different mobileRobotTypeEdgeProperty Constraints.](#1112-multiple-edges-between-same-two-nodes-for-different-mobilerobottypeedgeproperty-constraints)<br>
-[11.13 Battery Charging Station](#1113-battery-charging-station)<br>
-[11.14 Two Levels of a Facility in One LIF File](#1114-two-levels-of-a-facility-in-one-lif-file)<br>
-[11.15 Rack Station Modelled by Three Stations](#1115-rack-station-modelled-by-three-stations)<br>
-[11.16 Rack Station Modelled by Three Nodes](#1116-rack-station-modelled-by-three-nodes)<br>
-[11.17 Edge with Trajectory Definition](#1117-edge-with-trajectory-definition)<br>
-[11.18 Manufacturer Specific Action on an Edge](#1118-manufacturer-specific-action-on-an-edge)<br>
-[11.19 Forward Edge with Two Mobile Robot Types with Differing Orientation](#1119-forward-edge-with-two-mobile-robot-types-with-differing-orientation)<br>
 
 # 1 Terms
 
@@ -233,7 +215,7 @@ Variables that are optional in the LIF, but are strictly required by the mobile 
 
 ## 8.2 Element ID Uniqueness
 
-Certain elements, namely: Layouts, Nodes, Edges and Stations have IDs associated with them. These IDs should be unique among their type.
+Certain elements, namely: Origins, Layouts, Nodes, Edges, and Stations, have IDs associated with them. These IDs should be unique among their type.
 
 ## 8.3 Elements of LIF
 ### 8.3.1 LIF Structure
@@ -272,7 +254,7 @@ The objects contained in this structure are described in more detail below.
 
 #### 8.3.3.1 Best Practices for Defining an Origin
 
-The origin object is meant to be coordinated and consistently applied across all LIFs of a facility by the responsible integrator and all parties which consume the LIF. Sharing an `originId` implies that the origin's coordinate system, including its rotation and scale, matches others with the same `originId`. If this is not the case, different `originId`s should be utilized. Any layouts which may overlap or interact with one another should always belong to the same origin wherever possible.
+The origin object is meant to be coordinated and consistently applied across all LIFs of a facility by the responsible integrator and all parties which consume the LIF. Sharing an `originId` implies that the origin's coordinate system, including its rotation and scale, matches all others with the same `originId`. If this is not the case, different `originId`s should be utilized. Any layouts which may overlap or interact with one another should always belong to the same origin wherever possible.
 
 The LIF does not specify how two layouts from different origins, whether defined in the same LIF file or from multiple LIF files, may overlap or relate to one another.
 
@@ -374,7 +356,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
 | } |  |  |  |
 
-### 8.3.11 MobileRobotTypeEdgeProperty
+### 8.3.12 MobileRobotTypeEdgeProperty
 
 | Object Structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -676,12 +658,14 @@ In addition to the reference to the VDA5050 interface definition, information ab
 
 # 10 Frequently Asked Questions (FAQ)
 
+Note that on the LIF github repository you will find decision records for some topics. The most common questions are included here.
+
 ## 10.1 Why aren't bi-directional edges supported in LIF?
 
-This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different rotationAllowed values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also judged that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
+This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different rotationAllowed values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also assumed that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
 
 ## 10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?
 
-The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot integrator-specific fields should be added, and there are no poorly defined "magic fields" in which to place information to achieve this purpose.
+The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot suppler or integrator specific fields should be added, and there are no poorly defined "magic fields" in which to place arbitrary information to achieve this purpose. If any such information is required for a particular combination of mobile robot and fleet controller provider, a parallel document shall be required.
 
-If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version.
+If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version. You are always welcome to directly open an issue on the LIF github repository.
