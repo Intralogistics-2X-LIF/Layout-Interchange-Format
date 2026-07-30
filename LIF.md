@@ -505,7 +505,7 @@ The above link may change between any specific publication version of this docum
 LIF 1.0 included examples within the LIF specification document. As of LIF 2.0, these have been moved to the GitHub repository (/examples). These examples may now be expanded without the need of a new LIF version release.
 
 ## 11.2 JSON Schema
-While not a an official part of the standard, the schema included on the GitHub may be useful (/json_schemas). 
+While not an official part of the standard, the schema included on the GitHub may be useful (/json_schemas). 
 
 ## 11.3 Decision Records
 The most frequently asked, simplest questions are located in the FAQ section above. A select few other decisions and rationales can be found on the GitHub repository (/decision_records).
