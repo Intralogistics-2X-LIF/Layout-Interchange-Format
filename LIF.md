@@ -34,7 +34,7 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
 [6 Format of the LIF](#6-format-of-the-lif)<br>
-[7 Responsibiliites of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
+[7 Responsibilities of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
 [7.1 Export of the LIF File by the Provider or Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-provider-or-integrator-of-the-mobile-robots)<br>
 [7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-fleet-control-system)<br>
 [7.3 Further Updates and Exports of the LIF File](#73-further-updates-and-exports-of-the-lif-file)<br>
@@ -133,7 +133,7 @@ A JSON structure is used for the exchange format. JSON strings must conform to t
 
 The JSON structure allows for future extension of LIF with additional parameters.
 
-# 7 Responsibiliites of the Supplier of a LIF
+# 7 Responsibilities of the Supplier of a LIF
 
 Often a LIF is produced by a mobile robot supplier, and then is imported into a facility's fleet control system by the integrator. While the LIF is primarily intended for consumption by a fleet control system, the LIF itself is merely a declarative definition of some or all of the capabilities, limitations, and requirements for mobile robots that it describes. There is no provision for or against the generation or consumption of the LIF by design tools, fleet control software, mobile robot software, or otherwise.
 
