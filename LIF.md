@@ -33,8 +33,9 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [5.1 Requirements](#51-requirements)<br>
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
+[5.3.1 Compatibility with Different VDA 5050 Versions](#531-compatibility-with-different-vda-5050-versions)<br>
 [6 Format of the LIF](#6-format-of-the-lif)<br>
-[7 Responsibiliites of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
+[7 Responsibilities of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
 [7.1 Export of the LIF File by the Provider or Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-provider-or-integrator-of-the-mobile-robots)<br>
 [7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-fleet-control-system)<br>
 [7.3 Further Updates and Exports of the LIF File](#73-further-updates-and-exports-of-the-lif-file)<br>
@@ -127,13 +128,16 @@ The LIF does not affect, nor is it affected by, different localization technolog
 
 The LIF does not define by what means or at which points in time it is to be communicated between involved parties.
 
+### 5.3.1 Compatibility with Different VDA 5050 Versions
+LIF 2.0 was released in the context of VDA 5050 3.0, and several changes to LIF 2.0 were done to match updated terminology in VDA 5050 3.0. While there is no explicit provision to guarantee backwards or forwards compatibility between versions of the two sister standards, effort was taken in LIF 2.0 to still support VDA 5050 2.1. Some descriptions of fields below have a note about what changes may be made to allow compatibility between LIF 2.0 and VDA 5050 2.1.
+
 # 6 Format of the LIF
 
 A JSON structure is used for the exchange format. JSON strings must conform to the RFC 8259 description for object notation. Keys must be strings and values must be a valid JSON data type (string, integer, float, object, array, boolean, or null). The data is case sensitive.
 
 The JSON structure allows for future extension of LIF with additional parameters.
 
-# 7 Responsibiliites of the Supplier of a LIF
+# 7 Responsibilities of the Supplier of a LIF
 
 Often a LIF is produced by a mobile robot supplier, and then is imported into a facility's fleet control system by the integrator. While the LIF is primarily intended for consumption by a fleet control system, the LIF itself is merely a declarative definition of some or all of the capabilities, limitations, and requirements for mobile robots that it describes. There is no provision for or against the generation or consumption of the LIF by design tools, fleet control software, mobile robot software, or otherwise.
 
