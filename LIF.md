@@ -1,4 +1,4 @@
-![](assets/logo_vdma.png)
+![](assets/logo_VDMA.png)
 
 # LIF - Layout Interchange Format
 
