@@ -33,11 +33,11 @@ Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) |
 [5.1 Requirements](#51-requirements)<br>
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
-[6 LIF Format](#6-format-of-the-lif)<br>
-[7 LIF Transfer and Responsibilities of Mobile Robot Integrator and Fleet Control System](#7-lif-transfer-and-responsibilities-of-mobile-robot-integrator-and-third-party-fleet-control-system)<br>
-[7.1 Export of the LIF File by the Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-integrator-of-the-mobile-robots)<br>
+[6 Format of the LIF](#6-format-of-the-lif)<br>
+[7 Responsibiliites of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
+[7.1 Export of the LIF File by the Provider or Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-provider-or-integrator-of-the-mobile-robots)<br>
 [7.2 Import and Processing of the LIF File by the Fleet Control System](#72-import-and-processing-of-the-lif-file-by-the-third-party-fleet-control-system)<br>
-[7.3 Further Exports of the LIF File and Imports into the Fleet Control System](#73-further-exports-of-the-lif-file-and-imports-into-the-third-party-fleet-control-system)<br>
+[7.3 Further Updates and Exports of the LIF File](#73-further-updates-and-exports-of-the-lif-file)<br>
 [8 Specification of LIF](#8-specification-of-lif)<br>
 [8.1 Table Symbols and Meaning of Formatting](#81-table-symbols-and-meaning-of-formatting)<br>
 [8.1.1 Optional Variables](#811-optional-variables)<br>
