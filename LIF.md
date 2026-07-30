@@ -493,7 +493,6 @@ This is an intentional choice, reflecting the fact that such edges also do not e
 
 The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot suppler or integrator specific fields should be added, and there are no poorly defined "magic fields" in which to place arbitrary information to achieve this purpose. If any such information is required for a particular combination of mobile robot and fleet controller provider, a parallel document shall be required.
 
-
 # 11 LIF on GitHub
 
 https://github.com/Intralogistics-2X-LIF/
