@@ -325,7 +325,7 @@ The LIF does not specify how two layouts from different origins, whether defined
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| action { |  | JSON-object | Refers to VDA5050 action definition. All properties that have the same name are meant to be semantically identical. |
+| action { |  | JSON-object | Refers to VDA 5050 action definition. All properties that have the same name are meant to be semantically identical. |
 | actionType |  | string | Name of action as described in the VDA 5050 specification document (see VDA 5050 3.0.0 section 6.2.3). Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the fleet control system such as via the interpretation of a mobile robot's factsheet. |
 | *actionDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use as *actionDescription*. |
 | blockingType |  | string | Enum {NONE, SOFT, SINGLE, HARD} See VDA 5050 3.0.0 section 6.2.2 for the description and implication of each blockingType. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use "HARD" instead of "SINGLE". |
