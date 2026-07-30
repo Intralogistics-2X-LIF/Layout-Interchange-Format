@@ -508,5 +508,5 @@ While not an official part of the standard, the schema included on the GitHub ma
 ## 11.3 Decision Records
 The most frequently asked, simplest questions are located in the FAQ section above. A select few other decisions and rationales can be found on the GitHub repository (/decision_records).
 
-## 11.4 Submitting Corrections/Suggestions/Requests
+## 11.4 Submitting Corrections, Suggestions, and Requests
 Anyone is welcome to submit corrections and improvement suggestions. New feature requests are also welcome after reviewing the relevant decision records beforehand. As with any open repository, searching the existing issue backlog for similar and related items to be taken into account is expected. 
