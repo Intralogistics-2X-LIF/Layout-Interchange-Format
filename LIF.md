@@ -63,7 +63,7 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [8.3.18 Corridor](#8318-corridor)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
-[11 LIF on GitHub](11-lif-on-github)<br>
+[11 LIF on GitHub](#11-lif-on-github)<br>
 
 # 1 Terms
 
