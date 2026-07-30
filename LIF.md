@@ -59,6 +59,8 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [8.3.14 ControlPoint](#8314-controlpoint)<br>
 [8.3.15 PhysicalLineGuidedProperty](#8315-physicallineguidedproperty)<br>
 [8.3.16 Station](#8316-station)<br>
+[8.3.17 AllowedDeviationXY](#8317-alloweddeviationxy)<br>
+[8.3.18 Corridor](#8318-corridor)<br>
 [8.4 Complete Data Structure of LIF](#84-complete-data-structure-of-lif)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
