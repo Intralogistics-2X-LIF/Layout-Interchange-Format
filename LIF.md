@@ -475,10 +475,7 @@ allowedDeviationXY defines an ellipse around the node position within which the 
 - If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, any value of the minimum equal to or less than the corresponding maximum is assumed to be valid.
 - If neither pair of aMinimum/aMaximum or bMinimum/bMaximum are defined, the fleet control may send any value when compiling an order.
 
-In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order:
-
-$$minimumRadius = max(aMinimum, bMinimum)$$<br>
-$$maximumRadius = min(aMaximum, bMaximum)$$<br>
+In the case that an ellipse is not supported by either the mobile robot or by VDA5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order, using aMinimum as the smallest possible radius and bMaximum as the largest possible radius.
 
 Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
 
