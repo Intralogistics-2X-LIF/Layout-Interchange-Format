@@ -16,9 +16,9 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 
 | | |
 | --- | --- |
-| Publisher | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
+| Publisher | VDMA e.V | 
 |  | Lyoner Strasse 18, 60528 Frankfurt am Main | 
-| Copyright | Verband Deutscher Maschinen- und Anlagenbau e. V. (VDMA) | 
+| Copyright | VDMA e.V | 
 |  | Reprinting and any other form of reproduction is permitted only if the source is acknowledged. | 
 | Status | September 2026 | 
 | Version | 2.0.0 |
