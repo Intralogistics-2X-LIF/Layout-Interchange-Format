@@ -141,7 +141,7 @@ Regardless of the party who created it, the creator of a LIF file is responsible
 
 The LIF is not all-encompasing. Discussions between the integrator and providers may still be required.
 
-The following section describes one of the normal exchange of a LIF file:
+The following sections describe a typical exchange of a LIF file:
 
 1. Export of the LIF file by the provider of the mobile robots.
 2. Import and processing of the LIF file by the fleet control system.
