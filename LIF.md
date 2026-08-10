@@ -121,7 +121,7 @@ The LIF described in this document is intended to map a common set of necessary 
 * The mobile robot provider or integrator will also provide the fleet control system with the mobile robots' factsheet per the VDA 5050 specification, which will contain information about mobile robot geometry, kinematics, and other "capabilities of the mobile robot" such as which actions it may perform.
 
 ## 5.3 LIF Limitations
-The LIF does not describe any specific logical processes by which a mobile robot or fleet control system must perform its tasks. This includes, but is not limited to, the handling of route planning, traffic management, intersections of multiple mobile robots from the same of different mobile robot providers or integrators, interaction with stationary equipment, and so forth. The LIF is merely a definition of a layout, and what and where a fleet controller may instruct a mobile robot to do within the facility.
+The LIF does not describe any specific logical processes by which a mobile robot or fleet control system must perform its tasks. This includes, but is not limited to, the handling of route planning, traffic management, intersections of multiple mobile robots from the same of different mobile robot providers or integrators, interaction with stationary equipment, and so forth. The LIF is merely a definition of a layout, and what and where a fleet control system may instruct a mobile robot to do within the facility.
 
 The LIF does not affect, nor is it affected by, different localization technologies that mobile robots may use, nor does it contain any information pertaining to localization methods.
 
@@ -217,9 +217,10 @@ Variables that are optional in the LIF, but are strictly required by the mobile 
 Certain elements, namely: Origins, Layouts, Nodes, Edges, and Stations, have IDs associated with them. These IDs should be unique among their type.
 
 ## 8.3 Elements of LIF
-### 8.3.1 LIF Structure
 
 The facility is described by a collection of track layouts (here "layout"), which is represented in a JSON object as follows:
+
+### 8.3.1 LIF Structure
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -494,6 +495,6 @@ This is an intentional choice, reflecting the fact that such edges also do not e
 
 ## 10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?
 
-The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot supplier or integrator specific fields should be added, and there are no poorly defined "magic fields" in which to place arbitrary information to achieve this purpose. If any such information is required for a particular combination of mobile robot and fleet controller provider, a parallel document shall be required.
+The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot supplier or integrator specific fields should be added, and there are no poorly defined "magic fields" in which to place arbitrary information to achieve this purpose. If any such information is required for a particular combination of mobile robot and fleet control provider, a parallel document shall be required.
 
 If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version. You are always welcome to directly open an issue on the LIF github repository.
