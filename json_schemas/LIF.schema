@@ -340,6 +340,17 @@
                     "items": {
                         "$ref": "#/$defs/actionParameter"
                     }
+                },
+                "actionReferenceId": {
+                   "type": "string",
+                   "description": "Unique identifier of this action across all layouts within this LIF file. Only required if this action is referenced by the requiredPrecedingActionReferenceIds of another action. Note: This identifier is unrelated to the VDA 5050 actionId. It exists only within the LIF and shall not be forwarded to the mobile robot."
+                },
+                "requiredPrecedingActionReferenceIds": {
+                    "type": "array",
+                    "description": "actionReferenceIds of actions which shall have been executed before this action may be executed. The referenced actions shall be defined as feasible or required actions of a node or edge within this LIF file and are executed at the node or edge on which they are defined. If multiple actionReferenceIds are listed, all of them shall have been executed beforehand (logical AND). Preconditions shall not form circular chains. See section 8.3.9.1 of the specification document.",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
