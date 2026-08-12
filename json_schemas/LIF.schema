@@ -323,7 +323,7 @@
             "properties": {
                 "actionType": {
                     "type": "string",
-                    "description": "Name of the action as described in the VDA 5050 specification document. Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system."
+                    "description": "Name of the action as described in the VDA 5050 specification document.  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the fleet control system such as via the interpretation of a mobile robot's factsheet."
                 },
                 "actionDescriptor": {
                     "type": "string",
