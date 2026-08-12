@@ -329,9 +329,23 @@ The LIF does not specify how two layouts from different origins, whether defined
 | *actionDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use as *actionDescription*. |
 | blockingType |  | string | Enum {NONE, SOFT, SINGLE, HARD} See VDA 5050 3.0.0 section 6.2.2 for the description and implication of each blockingType. <br><br>Backwards compatibility: for VDA 5050 2.1 or prior, use "HARD" instead of "SINGLE". |
 | *actionParameters [actionParameter]* |  | array of JSON-object | Exact list of parameters and their statically defined values which must be sent along with this action.  Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet. |
+| *actionReferenceId* |  | string | Unique identifier of this action across all layouts within this LIF file. Only required if this action is referenced by the requiredPrecedingActionReferenceIds of another action.  Note: This identifier is unrelated to the VDA 5050 actionId. It exists only within the LIF and shall not be forwarded to the mobile robot. |
+| *requiredPrecedingActionReferenceIds[string]* |  | array of string | actionReferenceIds of actions which shall have been executed before this action may be executed. The referenced actions shall be defined as feasible actions of a node or edge within this LIF file. Whenever the fleet control system sends this action, it shall ensure that every referenced action is executed beforehand. If multiple actionReferenceIds are listed, all of them shall have been executed beforehand (logical AND).  See section 8.3.9.1. |
 | } |  |  |  |
 
 The mobile robot's factsheet may define actions that can be taken nearly anywhere, such as triggering a series of beeps or activating a light on the mobile robot. These types of general actions may or may not be defined on (most or all) nodes and edges in the LIF. Such actions must be discussed between the mobile robot integrator and the fleet control system.
+
+#### 8.3.9.1 Action Preconditions
+
+Via `requiredPrecedingActionReferenceIds`, an action may declare that other actions shall have been executed before it may be executed. The following rules apply:
+
+* Whenever the fleet control system sends an action with `requiredPrecedingActionReferenceIds` defined, the referenced actions shall be executed before the dependent action. If a referenced action has not been executed beforehand, the dependent action cannot not be executed.
+* Referenced actions shall be defined in the `feasibleActions` or `requiredActions` of a node or edge in the same LIF file and shall carry the referenced `actionReferenceId`.
+* A referenced action shall be executed at the node or edge on which it is defined.
+* The referenced actions shall have been started at an earlier position within the same order (including order updates) in which the dependent action is sent.
+* If multiple actionReferenceIds are listed, all of them shall have been executed beforehand (logical AND).
+* Preconditions shall not form circular chains. A LIF file containing cyclic `requiredPrecedingActionReferenceIds` references is invalid.
+* If a mobile robot type cannot execute a referenced action, the dependent action shall be considered unusable for that mobile robot type.
 
 ### 8.3.10 ActionParameter
 
