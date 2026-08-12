@@ -63,8 +63,7 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [8.3.18 Corridor](#8318-corridor)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
-[10.1 Why aren't bi-directional edges supported in LIF?](#101-why-arent-bi-directional-edges-supported-in-lif)<br>
-[10.2 Why are mobile robot integrator-specific extensions of the LIF not foreseen?](#102-why-are-mobile-robot-integrator-specific-extensions-of-the-lif-not-foreseen)<br>
+[11 LIF on GitHub](#11-lif-on-github)<br>
 
 # 1 Terms
 
@@ -486,8 +485,6 @@ In addition to the reference to the VDA 5050 interface definition, information a
 
 # 10 Frequently Asked Questions (FAQ)
 
-Note that on the LIF github repository you will find decision records for some topics. The most common questions are included here.
-
 ## 10.1 Why aren't bi-directional edges supported in LIF?
 
 This is an intentional choice, reflecting the fact that such edges also do not explicitly exist in VDA 5050; there is always a start node and an end node to every edge. While the LIF could be changed to redefine the two nodes on an edge as a "terminalNodes" collection that is always of size 2, this would also cause a loss of precision in what could be defined. For instance, it may be desirable to define different `reachOrientationBeforeEntering` values on the nodes or to have a corridor allowed for only one direction of an edge. Instead of allowing a combination of bidirectional and unidirectional edges, it was deemed simpler to have all edges be unidirectional. It was also assumed that it should be relatively trivial for whichever design tool is being used to create the LIF to allow the user to define a bidirectional edge, which is then encoded as two separate unidirectional edges in the LIF. Likewise, the same design tool, if desired, could recombine these edges when it deems it necessary to do so for such a user.
@@ -496,4 +493,20 @@ This is an intentional choice, reflecting the fact that such edges also do not e
 
 The LIF's intention is to be parsed as automatically as possible while being consistent across all mobile robot integrators. No mobile robot supplier or integrator specific fields should be added, and there are no poorly defined "magic fields" in which to place arbitrary information to achieve this purpose. If any such information is required for a particular combination of mobile robot and fleet controller provider, a parallel document shall be required.
 
-If your use case is not supported by the LIF, contact the VDMA for it to be considered for a future version. You are always welcome to directly open an issue on the LIF github repository.
+# 11 LIF on GitHub
+
+https://github.com/Intralogistics-2X-LIF/
+
+The above link may change between any specific publication version of this document. The GitHub project serves as a parallel official source of information on the LIF, as well as a repository of all previous, present, and potential in-development future versions.
+
+## 11.1 Examples
+LIF 1.0 included examples within the LIF specification document. As of LIF 2.0, these have been moved to the GitHub repository (/examples). These examples may now be expanded without the need of a new LIF version release.
+
+## 11.2 JSON Schema
+While not an official part of the standard, the schema included on the GitHub may be useful (/json_schemas). 
+
+## 11.3 Decision Records
+The most frequently asked, simplest questions are located in the FAQ section above. A select few other decisions and rationales can be found on the GitHub repository (/decision_records).
+
+## 11.4 Submitting Corrections, Suggestions, and Requests
+Anyone is welcome to submit corrections and improvement suggestions. New feature requests are also welcome after reviewing the relevant decision records beforehand. As with any open repository, searching the existing issue backlog for similar and related items to be taken into account is expected. 
