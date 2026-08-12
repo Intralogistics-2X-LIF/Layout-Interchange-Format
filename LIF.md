@@ -33,6 +33,7 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [5.1 Requirements](#51-requirements)<br>
 [5.2 Further Assumptions](#52-further-assumptions)<br>
 [5.3 LIF Limitations](#53-lif-limitations)<br>
+[5.3.1 Compatibility with Different VDA 5050 Versions](#531-compatibility-with-different-vda-5050-versions)<br>
 [6 Format of the LIF](#6-format-of-the-lif)<br>
 [7 Responsibilities of the Supplier of a LIF](#7-responsibilities-of-the-supplier-of-a-lif)<br>
 [7.1 Export of the LIF File by the Provider or Integrator of the Mobile Robots](#71-export-of-the-lif-file-by-the-provider-or-integrator-of-the-mobile-robots)<br>
@@ -125,6 +126,9 @@ The LIF does not describe any specific logical processes by which a mobile robot
 The LIF does not affect, nor is it affected by, different localization technologies that mobile robots may use, nor does it contain any information pertaining to localization methods.
 
 The LIF does not define by what means or at which points in time it is to be communicated between involved parties.
+
+### 5.3.1 Compatibility with Different VDA 5050 Versions
+LIF 2.0 was released in the context of VDA 5050 3.0, and several changes to LIF 2.0 were done to match updated terminology in VDA 5050 3.0. While there is no explicit provision to guarantee backwards or forwards compatibility between versions of the two sister standards, effort was taken in LIF 2.0 to still support VDA 5050 2.1. Some descriptions of fields below have a note about what changes may be made to allow compatibility between LIF 2.0 and VDA 5050 2.1.
 
 # 6 Format of the LIF
 
