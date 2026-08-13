@@ -50,19 +50,18 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [8.3.4 Layout](#834-layout)<br>
 [8.3.5 Node](#835-node)<br>
 [8.3.6 MobileRobotTypeNodeProperty](#836-mobilerobottypenodeproperty)<br>
-DO THIS TOO, DAMN IT
 [8.3.7 MobileRobotType](#837-mobilerobottype)<br>
-[8.3.8 LoadRestriction](#838-loadrestriction)<br>
+[8.3.8 AllowedDeviationXY](#838-alloweddeviationxy)<br>
 [8.3.9 Action](#839-action)<br>
 [8.3.10 ActionParameter](#8310-actionparameter)<br>
-[8.3.11 Edge](#8311-edge)<br>
-[8.3.12 MobileRobotTypeEdgeProperty](#8312-mobilerobottypeedgeproperty)<br>
-[8.3.13 Trajectory](#8313-trajectory)<br>
-[8.3.14 ControlPoint](#8314-controlpoint)<br>
-[8.3.15 PhysicalLineGuidedProperty](#8315-physicallineguidedproperty)<br>
-[8.3.16 Station](#8316-station)<br>
-[8.3.17 AllowedDeviationXY](#8317-alloweddeviationxy)<br>
-[8.3.18 Corridor](#8318-corridor)<br>
+[8.3.11 LoadRestriction](#8311-loadrestriction)<br>
+[8.3.12 Edge](#8312-edge)<br>
+[8.3.13 MobileRobotTypeEdgeProperty](#8313-mobilerobottypeedgeproperty)<br>
+[8.3.14 Trajectory](#8314-trajectory)<br>
+[8.3.15 ControlPoint](#8315-controlpoint)<br>
+[8.3.16 PhysicalLineGuidedProperty](#8316-physicallineguidedproperty)<br>
+[8.3.17 Corridor](#8317-corridor)<br>
+[8.3.18 Station](#8318-station)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
 [11 LIF on GitHub](#11-lif-on-github)<br>
