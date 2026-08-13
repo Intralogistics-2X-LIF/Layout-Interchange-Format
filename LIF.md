@@ -51,17 +51,17 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [8.3.5 Node](#835-node)<br>
 [8.3.6 MobileRobotTypeNodeProperty](#836-mobilerobottypenodeproperty)<br>
 [8.3.7 MobileRobotType](#837-mobilerobottype)<br>
-[8.3.8 LoadRestriction](#838-loadrestriction)<br>
+[8.3.8 AllowedDeviationXY](#838-alloweddeviationxy)<br>
 [8.3.9 Action](#839-action)<br>
 [8.3.10 ActionParameter](#8310-actionparameter)<br>
-[8.3.11 Edge](#8311-edge)<br>
-[8.3.12 MobileRobotTypeEdgeProperty](#8312-mobilerobottypeedgeproperty)<br>
-[8.3.13 Trajectory](#8313-trajectory)<br>
-[8.3.14 ControlPoint](#8314-controlpoint)<br>
-[8.3.15 PhysicalLineGuidedProperty](#8315-physicallineguidedproperty)<br>
-[8.3.16 Station](#8316-station)<br>
-[8.3.17 AllowedDeviationXY](#8317-alloweddeviationxy)<br>
-[8.3.18 Corridor](#8318-corridor)<br>
+[8.3.11 LoadRestriction](#8311-loadrestriction)<br>
+[8.3.12 Edge](#8312-edge)<br>
+[8.3.13 MobileRobotTypeEdgeProperty](#8313-mobilerobottypeedgeproperty)<br>
+[8.3.14 Trajectory](#8314-trajectory)<br>
+[8.3.15 ControlPoint](#8315-controlpoint)<br>
+[8.3.16 PhysicalLineGuidedProperty](#8316-physicallineguidedproperty)<br>
+[8.3.17 Corridor](#8317-corridor)<br>
+[8.3.18 Station](#8318-station)<br>
 [9 Additional Information that Should Be Exchanged Uniformly](#9-additional-information-that-should-be-exchanged-uniformly)<br>
 [10 Frequently Asked Questions (FAQ)](#10-frequently-asked-questions-faq)<br>
 [11 LIF on GitHub](#11-lif-on-github)<br>
@@ -267,10 +267,9 @@ The LIF does not specify how two layouts from different origins, whether defined
 | --- | --- | --- | --- |
 | layout { |  | JSON-object | A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or fleet control systems. It is intended to hold the information for all different mobile robot types.  Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a "plane", i.e., multiple levels must be modelled in different layouts.  It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level. |
 | layoutId |  | string | Unique identifier for this layout. |
-| *layoutName* |  | string | Human-readable name of the layout (e.g., for displaying). |
+| *layoutDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
 | layoutVersion |  | string | Version of the layout.  Note: It is suggested that this be an integer, represented as a string, incremented with each change, starting at "1". |
 | *layoutLevelId* |  | string | This attribute can be used to explicitly indicate which level or floor within a building or buildings a layout represents in a situation where there are multiple, such as multiple levels in the same facility, or two disconnected areas in the same facility. |
-| *layoutDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
 | nodes[node] |  | array of JSON-object | Collection of all nodes in the layout. |
 | edges[edge] |  | array of JSON-object | Collection of all edges in the layout. |
 | *stations[station]* |  | array of JSON-object | Collection of all stations in the layout. |
@@ -299,10 +298,10 @@ The LIF does not specify how two layouts from different origins, whether defined
 | mobileRobotTypes[mobileRobotType] |  | array of JSON-object | Holds mobile robot types to which these properties apply on this node. Only one mobileRobotTypeNodeProperty can be declared per mobile robot type per node. |
 | *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the mobile robot on the node in reference to the origin's rotation. |
 | *allowedDeviationXY* |  | JSON-object | Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly. |
-| *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | *requiredActions[action]* | | array of JSON-object | Actions on this node which must always be included when sent by the fleet control system. E.g., waitForTrigger if the intention is that this action is always strictly necessary on this particular node. |
 | *feasibleActions[action]* | | array of JSON-object | Actions on this node with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system provider outside of the scope of the LIF. E.g., the pick and drop actions on a node that is an interaction node of a load handling station, the startCharging action on a node when the node is also a transit node which may often be traversed without charging, an action on the node which is only valid if a preceding edge action has also been sent, and so forth. |
 | *forbiddenActionTypes[string]* | | array of string | `actionType`s on this node which are strictly forbidden from ever being sent by the fleet control system, and may result in an error state or other negative or undefined consequences. |
+| *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | } |  |  |  |
 
 ### 8.3.7 MobileRobotType
@@ -314,14 +313,27 @@ The LIF does not specify how two layouts from different origins, whether defined
 | seriesName |  | string | Unique name of the mobile robot series in the context of the manufacturer. This should correspond to the robot's factsheet.typeSpecification.seriesName field. |
 | } |  |  |  |
 
-### 8.3.8 LoadRestriction
+### 8.3.8 AllowedDeviationXY
+
+allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates while still considering the node traversed. The coordinates of the node define the center of the ellipse. 
+
+- If aMinimum = aMaximum and bMinimum = bMaximum, the provided allowedDeviationXY must be sent for this node with every order.
+- If aMinimum/bMinimum are defined but aMaximum/bMaximum are not, any value of the maximum equal to or greater than the corresponding minimum is assumed to be valid.
+- If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, any value of the minimum equal to or less than the corresponding maximum is assumed to be valid.
+- If neither pair of aMinimum/aMaximum or bMinimum/bMaximum are defined, the fleet control may send any value when compiling an order.
+
+In the case that an ellipse is not supported by either the mobile robot or by VDA 5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order.
+
+Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA 5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
-| loadRestriction { |  | JSON-object |  |
-| unloaded |  | boolean | "true": This node or edge may be used by an unloaded mobile robot. "false": This node or edge must not be used by an unloaded mobile robot. |
-| loaded |  | boolean | "true": This node or edge may be used by a loaded mobile robot. "false": This node or edge must not be used by a loaded mobile robot.  Note: If set to true, the attribute loadSetNames, if given, must be respected. |
-| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
+| allowedDeviationXY { |  | JSON-object |  |
+| *aMinimum* | meter | float64 | Range: [0.0 ... float64.maximum]  Minimum length of the ellipse semi-major axis in meters. |
+| *aMaximum* | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum length of the ellipse semi-major axis in meters. |
+| *bMinimum* | meter | float64 | Range: [0.0 ... float64.maximum]  Minimum length of the ellipse semi-minor axis in meters. |
+| *bMaximum* | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum length of the ellipse semi-minor axis in meters. |
+| *theta* | rad | float64 | Range: [-Pi/2 ... Pi/2] Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system. |
 | } |  |  |  |
 
 ### 8.3.9 Action
@@ -346,20 +358,29 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | value |  | One of: array, boolean, number, string, object | The value of the parameter that belongs to the key.  Note: The data type is defined in the mobile robot VDA 5050 factsheet. |
 | } |  |  |  |
 
-### 8.3.11 Edge
+### 8.3.11 LoadRestriction
+
+| Object structure | Unit | Data type | Description |
+| --- | --- | --- | --- |
+| loadRestriction { |  | JSON-object |  |
+| unloaded |  | boolean | "true": This node or edge may be used by an unloaded mobile robot. "false": This node or edge must not be used by an unloaded mobile robot. |
+| loaded |  | boolean | "true": This node or edge may be used by a loaded mobile robot. "false": This node or edge must not be used by a loaded mobile robot.  Note: If set to true, the attribute loadSetNames, if given, must be respected. |
+| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system must evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets must be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
+| } |  |  |  |
+
+### 8.3.12 Edge
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | edge { |  | JSON-object | Refers to VDA 5050 edge definition. All properties that have the same name are meant to be semantically identical. The LIF only contains edges that can be used by at least one mobile robot type. Therefore, the LIF does not contain any edges that are blocked. |
 | edgeId |  | string | Unique identifier of the edge across all layouts within this LIF file.  Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the fleet control system to track whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF. |
-| *edgeName* |  | string | Name of the edge.  This should only be for visualization purposes. This attribute must not be used for any kind of identification or other logical purpose. |
 | *edgeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *edgeDescription*. |
 | startNodeId |  | string | Id of the start node.  The start node must always be part of the current layout. |
 | endNodeId |  | string | Id of the end node.  The end node can be located in another layout. This models a transition from one layout to another. |
 | mobileRobotTypeEdgeProperties [mobileRobotTypeEdgeProperty] |  | array of JSON-object | Mobile robot type specific properties for this edge.  Note: This attribute must not be empty. For each allowed mobile robot type there must be an element. |
 | } |  |  |  |
 
-### 8.3.12 MobileRobotTypeEdgeProperty
+### 8.3.13 MobileRobotTypeEdgeProperty
 
 | Object Structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -374,21 +395,21 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | *maximumRotationSpeed* | rad/s | float64 | Range: [0.0 ... float64.maximum]  Maximum rotation speed  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxRotationSpeed*. |
 | *minimumLoadHandlingDeviceHeight* | meter | float64 | Permitted minimal height of the load handling device on the edge.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *minHeight*. |
 | *maximumMobileRobotHeight* | meter | float64 | Range: [0.0 ... float64.maximum]  Permitted maximum height of the mobile robot, including the load, on edge.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxHeight*. |
-| *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
+| *reentryAllowed* |  | boolean | "true": Mobile robots of a type listed in `mobileRobotTypes` are allowed to enter automatic management by the fleet control system while on this edge.  "false": Mobile robots of a type listed in `mobileRobotTypes` are not allowed to enter into automatic management by the fleet control system while on this edge.  Note: If not defined, the default is true. |
 | *requiredActions[action]* | | array of JSON-object | Actions on this edge which must always be included when sent by the fleet control system. E.g., an action which requires hazard lights to engage. |
 | *feasibleActions[action]* | | array of JSON-object | Actions on this node with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system provider outside of the scope of the LIF. E.g., an action which must be taken if this edge has an associated corridor definition, but otherwise must not. |
 | *forbiddenActionTypes[string]* | | array of string | `actionType`s on this edge which are strictly forbidden from ever being sent by the fleet control system, and will result in an error state or other negative or undefined consequences. |
+| *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the fleet control system may not have sufficient information to be responsible for determining whether different mobile robots from the same or different manufacturers would collide.  Note: This object must be used mutually exclusively with the physicalLineGuidedProperty object. |
 | *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited mobile robot types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object must be used mutually exclusively with the trajectory object. |
-| *reentryAllowed* |  | boolean | "true": Mobile robots of a type listed in `mobileRobotTypes` are allowed to enter automatic management by the fleet control system while on this edge.  "false": Mobile robots of a type listed in `mobileRobotTypes` are not allowed to enter into automatic management by the fleet control system while on this edge.  Note: If not defined, the default is true. |
 | *corridor* |  | JSON-object | Describes the options to set a corridor. Note: If not defined, no corridor shall be used. |
 | } |  |  |  |
 
-#### 8.3.12.1 Rotation Allowed at Start and End
+#### 8.3.13.1 Rotation Allowed at Start and End
 
 Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may contradict one another if they terminate and originate, respectively, at the same node. In such cases, these should be combined as per a boolean *and*. As an example, if the end node rotation is BOTH on the terminating edge, but NONE on the originating edge, this would be interpreted as NONE. For directional rotation values of CW or CCW, they must also align exactly, or a value of CW or CCW on the terminating edge but BOTH on the originating edge would also only allow CW or CCW rotation, respectively. If these two attributes do not align at such a node, some edges of the layout may be unnavigable depending upon how the mobile robot arrived at the node (which may or may not be intentional).
 
-### 8.3.13 Trajectory
+### 8.3.14 Trajectory
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -398,7 +419,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | controlPoints[controlPoint] |  | array of JSON-object | List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end point. |
 | } |  |  |  |
 
-### 8.3.14 ControlPoint
+### 8.3.15 ControlPoint
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -408,7 +429,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *weight* |  | float64 | Range: ]0.0 ... float64.maximum]  The weight with which this control point pulls on the curve. When not defined, the default is 1.0. |
 | } |  |  |  |
 
-### 8.3.15 PhysicalLineGuidedProperty
+### 8.3.16 PhysicalLineGuidedProperty
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -417,17 +438,27 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *length* | meter | float64 | The length of this edge for mobile robot types which require it but are unable to process or respect trajectories. |
 | } |  |  |  |
 
-### 8.3.16 Station
+### 8.3.17 Corridor
+
+| Object structure | Unit | Data type | Description |
+| --- | --- | --- | --- |
+| corridor { |  | JSON-object |  |
+| maximumLeftWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the left of the edge. |
+| maximumRightWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the right of the edge. |
+| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robot's kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *corridorRefPoint* and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'. |
+| } |  |  |  |
+
+### 8.3.18 Station
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | station { |  | JSON-object | A station represents any logical place where a mobile robot can explicitly interact with the environment, including but not limited to physical interactions. |
 | stationId |  | string | Unique identifier of the station across all layouts within this LIF file.  Note: It is recommended that stationIds match and align between all LIFs from all mobile robot integrators and other load handling systems such as WMSs, as well as physical visual labelling and the like. |
-| interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the fleet control system. Choosing the correct interaction node may require that the fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
 | *stationName* |  | string | Name of the station. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. |
-| *stationType* |  | string | Type of the station. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. |
 | *stationDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. |
+| *stationType* |  | string | Type of the station. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. |
 | *stationHeight* | meter | float64 | Range: [0.0 ... float64.maximum]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. For other types of stations, this value may have a different meaning. Its interpretation must be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height must not be assumed to be zero or any default value. |
+| interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute must not be empty; there must be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the fleet control system. Choosing the correct interaction node may require that the fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
 | *stationPosition {* |  |  | Center point and orientation of the station.  Note: Only for visualization purposes, to assist how to represent this station in any user interface. This position is commonly the center point of the physical station or the center point of a load on the station but may not always be. |
 | x | meter | float64 | X position of the station in the layout in reference to the origin. |
 | y | meter | float64 | Y position of the station in the layout in reference to the origin. |
@@ -435,7 +466,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *}* |  |  |  |
 | } |  |  |  |
 
-#### 8.3.16.1 Best Practices for Defining a Station
+#### 8.3.18.1 Best Practices for Defining a Station
 
 A station could be a battery charging point where a mobile robot must interface with physical charging infrastructure. A station could be (and perhaps most often is) a place to pick or drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
 
@@ -447,44 +478,11 @@ As an additional example, imagine a last-in, first-out (LIFO) 1 wide, N deep, 1 
 
 The exact configuration of the above examples and other potentially complex situations must always be handled on a case-by-case basis between fleet control system and mobile robot integrator(s).
 
-#### 8.3.16.2 How the Fleet Control System Can Identify the Purpose of a Station
+#### 8.3.18.2 How the Fleet Control System Can Identify the Purpose of a Station
 
 If the fleet control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's VDA 5050 factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, or so forth.
 
 A station's optional `stationType` is not considered a strong definition of the station's purpose on its own.
-
-### 8.3.17 AllowedDeviationXY
-
-allowedDeviationXY defines an ellipse around the node position within which the mobile robot's control point may deviate from the exact node coordinates while still considering the node traversed. The coordinates of the node define the center of the ellipse. 
-
-- If aMinimum = aMaximum and bMinimum = bMaximum, the provided allowedDeviationXY must be sent for this node with every order.
-- If aMinimum/bMinimum are defined but aMaximum/bMaximum are not, any value of the maximum equal to or greater than the corresponding minimum is assumed to be valid.
-- If aMaximum/bMaximum are defined but aMinimum/bMinimum are not, any value of the minimum equal to or less than the corresponding maximum is assumed to be valid.
-- If neither pair of aMinimum/aMaximum or bMinimum/bMaximum are defined, the fleet control may send any value when compiling an order.
-
-In the case that an ellipse is not supported by either the mobile robot or by VDA 5050 version (e.g., 2.1 or prior), the fleet control system must choose a single radius within the minimum and maximum bounds of both a and b when dispatching an order.
-
-Regardless of the values defined for the ellipse, due to the fact that the fleet control system must always ensure that any VDA 5050 commands resulting from this information require that the semi-minor axis is equal to or less than the semi-major axis, values in the LIF that would directly force such an error are invalid.
-
-| Object structure | Unit | Data type | Description |
-| --- | --- | --- | --- |
-| allowedDeviationXY { |  | JSON-object |  |
-| *aMinimum* | meter | float64 | Range: [0.0 ... float64.maximum]  Minimum length of the ellipse semi-major axis in meters. |
-| *aMaximum* | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum length of the ellipse semi-major axis in meters. |
-| *bMinimum* | meter | float64 | Range: [0.0 ... float64.maximum]  Minimum length of the ellipse semi-minor axis in meters. |
-| *bMaximum* | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum length of the ellipse semi-minor axis in meters. |
-| *theta* | rad | float64 | Range: [-Pi/2 ... Pi/2] Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system. |
-| } |  |  |  |
-
-### 8.3.18 Corridor
-
-| Object structure | Unit | Data type | Description |
-| --- | --- | --- | --- |
-| corridor { |  | JSON-object |  |
-| maximumLeftWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the left of the edge. |
-| maximumRightWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the right of the edge. |
-| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robot's kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *corridorRefPoint* and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'. |
-| } |  |  |  |
 
 # 9 Additional Information that Should Be Exchanged Uniformly
 
