@@ -439,7 +439,17 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *length* | meter | float64 | The length of this edge for mobile robot types which require it but are unable to process or respect trajectories. |
 | } |  |  |  |
 
-### 8.3.17 Station
+### 8.3.17 Corridor
+
+| Object structure | Unit | Data type | Description |
+| --- | --- | --- | --- |
+| corridor { |  | JSON-object |  |
+| maximumLeftWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the left of the edge. |
+| maximumRightWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the right of the edge. |
+| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robot's kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *corridorRefPoint* and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'. |
+| } |  |  |  |
+
+### 8.3.18 Station
 
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
@@ -457,7 +467,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *}* |  |  |  |
 | } |  |  |  |
 
-#### 8.3.17.1 Best Practices for Defining a Station
+#### 8.3.18.1 Best Practices for Defining a Station
 
 A station could be a battery charging point where a mobile robot must interface with physical charging infrastructure. A station could be (and perhaps most often is) a place to pick or drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
 
@@ -469,21 +479,11 @@ As an additional example, imagine a last-in, first-out (LIFO) 1 wide, N deep, 1 
 
 The exact configuration of the above examples and other potentially complex situations must always be handled on a case-by-case basis between fleet control system and mobile robot integrator(s).
 
-#### 8.3.17.2 How the Fleet Control System Can Identify the Purpose of a Station
+#### 8.3.18.2 How the Fleet Control System Can Identify the Purpose of a Station
 
 If the fleet control system would need to graphically identify certain stations, or would need to filter on a list of stations for human interaction purposes, the purpose of a station is entirely defined by the actions available on its interaction nodes. Every station that represents a charging area, for instance, should have a corresponding charging action, as defined in the mobile robot's VDA 5050 factsheet, on its interaction node. Stations that can have multiple purposes, such as both emergency evacuation and maintenance, could be represented by two overlapping stations, or one station with multiple actions on one or more interaction nodes, or one combined action defined in the mobile robot's factsheet, or so forth.
 
 A station's optional `stationType` is not considered a strong definition of the station's purpose on its own.
-
-### 8.3.18 Corridor
-
-| Object structure | Unit | Data type | Description |
-| --- | --- | --- | --- |
-| corridor { |  | JSON-object |  |
-| maximumLeftWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the left of the edge. |
-| maximumRightWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the right of the edge. |
-| *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robot's kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *corridorRefPoint* and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'. |
-| } |  |  |  |
 
 # 9 Additional Information that Should Be Exchanged Uniformly
 
