@@ -1,0 +1,70 @@
+digraph multiple_layouts_in_one_lif {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.05;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    layout_upper_box [pos="252.03,315!", shape=box, style=dashed, color="black",
+                       penwidth=2, fixedsize=true, width=7.001, height=1.81, label=""];
+    layout_ground_box [pos="252.03,85!", shape=box, style=dashed, color="black",
+                        penwidth=2, fixedsize=true, width=7.001, height=1.81, label=""];
+
+    layout_upper_title [pos="126.8,355!", shape=plaintext, fontsize=24,
+                         fixedsize=true, width=3.3, height=0.4, margin=0,
+                         label="Layout_Upper_Level\l"];
+    layout_ground_title [pos="130.4,125!", shape=plaintext, fontsize=24,
+                          fixedsize=true, width=3.4, height=0.4, margin=0,
+                          label="Layout_Ground_Level\l"];
+
+    N101_label [pos="42.07,315!", shape=plaintext, label="N101", fontsize=22];
+    N101       [pos="100,315!", shape=hexagon, style=filled, fillcolor="black",
+                color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N102       [pos="418,315!", shape=hexagon, style=filled, fillcolor="black",
+                color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N102_label [pos="467,315!", shape=plaintext, label="N102", fontsize=22];
+
+    N1_label [pos="31.03,85!", shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="100,85!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2       [pos="418,85!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2_label [pos="467,85!", shape=plaintext, label="N2", fontsize=22];
+
+    fwd_upper_start [pos="124.24,315!", shape=point, width=0.01, style=invis, label=""];
+    fwd_upper_end   [pos="393.76,315!", shape=point, width=0.01, style=invis, label=""];
+    fwd_upper_start -> fwd_upper_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                                      arrowhead=normal, arrowtail=none, dir=forward];
+
+    fwd_ground_start [pos="124.24,85!", shape=point, width=0.01, style=invis, label=""];
+    fwd_ground_end   [pos="393.76,85!", shape=point, width=0.01, style=invis, label=""];
+    fwd_ground_start -> fwd_ground_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="1060,215!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.3, height=2.083, label=""];
+
+    legend_title [pos="880,264!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lg_start [pos="863,230!", shape=point, width=0.01, style=invis, label=""];
+    lg_end   [pos="908.75,230!", shape=point, width=0.01, style=invis, label=""];
+    lg_start -> lg_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_fwd_text [pos="1118.75,230!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward\l"];
+
+    legend_node [pos="889.4,196!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="1118.75,196!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+
+    legend_layout_icon [pos="889.4,162!", shape=box, style=dashed, color="black",
+                        penwidth=2, fixedsize=true, width=0.75, height=0.4, label=""];
+    legend_layout_text [pos="1118.75,162!", shape=plaintext, fontsize=19,
+                        fixedsize=true, width=4.5, height=0.35, margin=0,
+                        label="Layout\l"];
+}

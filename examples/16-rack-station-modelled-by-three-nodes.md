@@ -6,6 +6,8 @@ Rack station with three levels modelled by three different nodes:
 * Node NB is only for dropping a load.
 * Node NC is for picking and dropping a load.
 
+![](assets/png/16-rack-station-modelled-by-three-nodes.png)
+
 LIF-File:
 ```json
 {

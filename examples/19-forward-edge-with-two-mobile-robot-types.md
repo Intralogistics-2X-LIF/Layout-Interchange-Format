@@ -2,6 +2,8 @@
 
 One edge (straight line) between two nodes, where two different mobile robot types from the same integrator must adopt different orientations.
 
+![](assets/png/19-forward-edge-with-two-mobile-robot-types.png)
+
 LIF-File:
 ```json
 {

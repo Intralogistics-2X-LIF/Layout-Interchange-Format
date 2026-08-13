@@ -1,0 +1,45 @@
+digraph omnidirectional_edge {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.02;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    N1_label [pos="27,60!", shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="100,60!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2       [pos="418,60!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2_label [pos="467,60!", shape=plaintext, label="N2", fontsize=22];
+
+    fwd_start [pos="125,69!", shape=point, width=0.01, style=invis, label=""];
+    fwd_end   [pos="393,69!", shape=point, width=0.01, style=invis, label=""];
+    fwd_start -> fwd_end [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+
+    bwd_start [pos="393,51!", shape=point, width=0.01, style=invis, label=""];
+    bwd_end   [pos="125,51!", shape=point, width=0.01, style=invis, label=""];
+    bwd_start -> bwd_end [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="742.9,60!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.177, height=1.8, label=""];
+
+    legend_title [pos="562.5,93.5!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lg_start [pos="545.5,59.5!", shape=point, width=0.01, style=invis, label=""];
+    lg_end   [pos="591.25,59.5!", shape=point, width=0.01, style=invis, label=""];
+    lg_start -> lg_end [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_omni_text [pos="801,59.5!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 omni\l"];
+
+    legend_node [pos="571.9,25.5!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="801,25.5!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+}

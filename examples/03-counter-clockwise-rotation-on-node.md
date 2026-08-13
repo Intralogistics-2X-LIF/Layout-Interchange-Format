@@ -2,6 +2,8 @@
 
 Two edges (straight line) between two nodes. The mobile robot may only move forward oriented on both edges; rotation counter-clockwise is allowed at node N2.
 
+![](assets/png/03-counter-clockwise-rotation-on-node.png)
+
 LIF-File:
 ```json
 {

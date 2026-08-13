@@ -2,6 +2,8 @@
 
 Two edges (straight line) between two nodes. At one node there is a station for picking up pallets. The mobile robot may only move forward oriented on one edge and backward oriented on the other edge.
 
+![](assets/png/06-station-with-one-node.png)
+
 LIF-File:
 ```json
 {

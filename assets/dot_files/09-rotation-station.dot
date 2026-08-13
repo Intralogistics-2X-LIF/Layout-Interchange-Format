@@ -1,0 +1,70 @@
+digraph rotation_station {
+    layout=neato
+    overlap=true
+    splines=false
+    bgcolor="white"
+    pad=0.03
+
+    node [fontname="Arial", fontcolor="black", penwidth=0]
+    edge [fontname="Arial"]
+
+    N1_hex   [pos="19.49,188.93!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""]
+    Node2_hex[pos="179.23,188.93!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label="2",
+              fontcolor="white", fontsize=20]
+    N2_hex   [pos="179.23,49.63!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""]
+
+    N1_label   [pos="19.92,150.72!", shape=plaintext, label="N1", fontsize=22]
+    N2_label   [pos="179.52,21.6!",  shape=plaintext, label="N2", fontsize=22]
+    S01_title  [pos="189.36,228!",   shape=plaintext, label="S01", fontsize=24]
+    N11_label  [pos="225,201.93!",   shape=plaintext, label="N11", fontsize=22]
+    N21_label  [pos="225,175.93!",   shape=plaintext, label="N21", fontsize=22]
+
+    station_box [pos="189.36,200.4!", shape=box, style=dashed, color="gray40",
+                 penwidth=3, fixedsize=true, width=1.6, height=1.3, label=""]
+
+    e1_start [pos="43.73,188.93!", shape=point, width=0.01, style=invis, label=""]
+    e1_end   [pos="154.99,188.93!", shape=point, width=0.01, style=invis, label=""]
+    e1_start -> e1_end [color="#FF3131", penwidth=4.5, arrowsize=1.78, arrowhead=normal, arrowtail=none, dir=forward]
+
+    e2_start [pos="179.23,164.69!", shape=point, width=0.01, style=invis, label=""]
+    e2_end   [pos="179.23,73.87!", shape=point, width=0.01, style=invis, label=""]
+    e2_start -> e2_end [color="#70AD47", penwidth=4.5, arrowsize=1.78, arrowhead=normal, arrowtail=none, dir=forward]
+
+    legend_bg [pos="549.35,121!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.177, height=2.8, label=""]
+
+    legend_title [pos="368.95,188!", shape=plaintext, label="Legend:", fontsize=19]
+
+    lg_start [pos="351.95,154!", shape=point, width=0.01, style=invis, label=""]
+    lg_end   [pos="397.7,154!", shape=point, width=0.01, style=invis, label=""]
+    lg_start -> lg_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward]
+    legend_fwd_text [pos="607.45,154!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward\l"]
+
+    lr_start [pos="351.95,120!", shape=point, width=0.01, style=invis, label=""]
+    lr_end   [pos="397.7,120!", shape=point, width=0.01, style=invis, label=""]
+    lr_start -> lr_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward]
+    legend_bwd_text [pos="607.45,120!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 backward\l"]
+
+    legend_node [pos="378.35,86!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""]
+    legend_node_text [pos="607.45,86!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"]
+
+    legend_station_icon [pos="378.35,52!", shape=box, style=dashed, color="gray40",
+                        penwidth=3, fixedsize=true, width=0.75, height=0.4,
+                        fontsize=14, fontcolor="black", label="S01"]
+    legend_station_text [pos="607.45,52!", shape=plaintext, fontsize=19,
+                        fixedsize=true, width=4.5, height=0.35, margin=0,
+                        label="Station and station name\l"]
+}

@@ -16,6 +16,8 @@ Explanation:
 * NSR: Series_2 drop
 * NSR: Series_3 pick and drop
 
+![](assets/png/10-station-with-three-nodes-restricted.png)
+
 LIF-File:
 ```json
 {

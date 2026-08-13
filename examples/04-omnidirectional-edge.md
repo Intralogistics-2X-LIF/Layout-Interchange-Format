@@ -2,6 +2,8 @@
 
 Two edges (straight line) between two nodes. The mobile robot moves omnidirectionally to 90° on the edge from N1 to N2 and moves omnidirectionally back to -90° on the edge from N2 back to N1.
 
+![](assets/png/04-omnidirectional-edge.png)
+
 LIF-File:
 ```json
 {

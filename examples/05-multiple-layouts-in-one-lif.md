@@ -2,6 +2,8 @@
 
 Two layouts in one LIF file, representing two different levels of the facility. Each layout references its own origin, reflecting that the levels are located on different levels of the facility.
 
+![](assets/png/05-multiple-layouts-in-one-lif.png)
+
 LIF-File:
 ```json
 {
