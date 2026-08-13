@@ -42,8 +42,8 @@
                 "exportTimestamp": {
                     "type": "string",
 					"format": "date-time",
-                    "description": "The timestamp at which this LIF file was created/updated/modified. Used to distinguish LIF file versions over time. Timestamp format is ISO8601 in UTC (YYYY-MM-DDTHH:mm:ss.ssZ).",
-                    "examples": ["2017-04-15T11:40:03.12Z"]
+                    "description": "The timestamp at which this LIF file was created/updated/modified. Used to distinguish LIF file versions over time. Timestamp format is ISO8601 in UTC (YYYY-MM-DDTHH:mm:ss.fffZ).",
+                    "examples": ["2017-04-15T11:40:03.123Z"]
                 },
                 "lifVersion": {
                     "type": "string",
@@ -152,7 +152,7 @@
                 },
                 "mapId": {
                     "type": "string",
-                    "description": "Unique identification of the map in which the node or node's position is referenced. Each map has the same origin of coordinates."
+                    "description": "Unique identification of the map in which the node or node's position is referenced."
                 },
                 "nodePosition": {
                     "$ref": "#/$defs/nodePosition"
@@ -329,7 +329,7 @@
             "properties": {
                 "actionType": {
                     "type": "string",
-                    "description": "Name of the action as described in the VDA 5050 specification document. Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the (third-party) fleet control system."
+                    "description": "Name of the action as described in the VDA 5050 specification document.  Note: Manufacturer-specific actions can be specified. Such actions must be agreed with the fleet control system such as via the interpretation of a mobile robot's factsheet."
                 },
                 "actionDescriptor": {
                     "type": "string",
@@ -342,7 +342,7 @@
                 },
                 "actionParameters": {
                     "type": "array",
-                    "description": "Exact list of parameters and their statically defined values which must be sent along with this action. Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The (third-party) fleet control system must still determine and send these actionParameters. Refer to the AGV Fact Sheet.",
+                    "description": "Exact list of parameters and their statically defined values which must be sent along with this action. Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The (third-party) fleet control system must still determine and send these actionParameters. Refer to the mobile robot's Fact Sheet.",
                     "items": {
                         "$ref": "#/$defs/actionParameter"
                     }
