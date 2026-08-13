@@ -1,12 +1,14 @@
-# 21 Node with allowedDeviationXY as a Fixed Ellipse
+# 22 Node with allowedDeviationXY as a Fixed Ellipse
 
-Node N2 defines an allowedDeviationXY with different minimum and maximum values for a and b, permitting the mobile robot to deviate within an ellipse around the node position.
+Node N2 defines an allowedDeviationXY where aMinimum equals aMaximum and bMinimum equals bMaximum, permitting deviation only along the boundary of a fixed circle around the node position.
+
+![](assets/png/22-node-with-allowedDeviationXY-as-a-fixed-ellipse.png)
 
 LIF-File:
 ```json
 {
     "metaInformation": {
-        "lifId": "LIF_Example_21",
+        "lifId": "LIF_Example_22",
         "creator": "VDMA",
         "exportTimestamp": "2023-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
@@ -55,10 +57,10 @@ LIF-File:
                                         }
                                     ],
                                     "allowedDeviationXY": {
-                                        "aMinimum": 0.3,
-                                        "bMinimum": 0.2,
-                                        "aMaximum": 0.6,
-                                        "bMaximum": 0.4,
+                                        "aMinimum": 0.4,
+                                        "bMinimum": 0.25,
+                                        "aMaximum": 0.4,
+                                        "bMaximum": 0.25,
                                         "theta": 0.0
                                     }
                                 }

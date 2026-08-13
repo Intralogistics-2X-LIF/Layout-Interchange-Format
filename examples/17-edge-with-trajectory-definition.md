@@ -2,6 +2,8 @@
 
 Two edges between node N1 and N2 with a half circle trajectory. Before entering the edge N1 to N2 the mobile robot needs to rotate on N1 to -90°. The mobile robot will maintain the -90° while moving on the edge. Before entering the edge N2 to N1 the mobile robot needs to rotate to 90°. The mobile robot will maintain the 90° while moving on the edge.
 
+![](assets/png/17-edge-with-trajectory-definition.png)
+
 LIF-File:
 ```json
 {

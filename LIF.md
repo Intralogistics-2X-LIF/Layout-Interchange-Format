@@ -147,7 +147,7 @@ The following section describes one of the normal exchange of a LIF file:
 2. Import and processing of the LIF file by the fleet control system.
 3. Further exports of the LIF file and imports into the fleet control system, such as incremental updates or changes.
 
-![](assets/fig7_1-1.png)
+![](assets/png/fig7_1-1.png)
 
 ## 7.1 Export of the LIF File by the Provider or Integrator of the Mobile Robots
 

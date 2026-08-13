@@ -2,6 +2,8 @@
 
 Two edges (straight line) between two nodes. The mobile robot may only move forward oriented on one edge and backward oriented on the other edge.
 
+![](assets/png/02-bidirectional-edge.png)
+
 LIF-File:
 ```json
 {

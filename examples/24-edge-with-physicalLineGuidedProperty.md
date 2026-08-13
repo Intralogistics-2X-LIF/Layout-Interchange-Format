@@ -2,6 +2,8 @@
 
 Two edges (straight lines) leaving node N2 in different directions, each defining a physicalLineGuidedProperty with its own direction and length for line-guided mobile robots.
 
+![](assets/png/24-edge-with-physicalLineGuidedProperty.png)
+
 LIF-File:
 ```json
 {

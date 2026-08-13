@@ -1,0 +1,121 @@
+digraph station_with_three_nodes_restricted {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.02;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    station_box [pos="504.25,341!", shape=box, style=dashed, color="gray40",
+                 penwidth=3, fixedsize=true, width=5.847, height=3.09, label=""];
+    station_title [pos="504.25,432.24!", shape=plaintext, label="S01", fontsize=24];
+
+    N1_label  [pos="13,386!", shape=plaintext, label="N1", fontsize=22];
+    N1        [pos="63,386!", shape=hexagon, style=filled, fillcolor="black",
+               color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    NSL       [pos="360,386!", shape=hexagon, style=filled, fillcolor="black",
+               color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    NSL_label [pos="410,386!", shape=plaintext, label="NSL", fontsize=22];
+    NSR_label [pos="598.5,386!", shape=plaintext, label="NSR", fontsize=22];
+    NSR       [pos="648.5,386!", shape=hexagon, style=filled, fillcolor="black",
+               color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N3        [pos="991.5,386!", shape=hexagon, style=filled, fillcolor="black",
+               color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N3_label  [pos="1041.5,386!", shape=plaintext, label="N3", fontsize=22];
+    NSB_label [pos="511.5,321!", shape=plaintext, label="NSB", fontsize=22];
+    NSB       [pos="511.5,276!", shape=hexagon, style=filled, fillcolor="black",
+               color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2        [pos="511.5,28.5!", shape=hexagon, style=filled, fillcolor="black",
+               color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2_label  [pos="561.5,23.5!", shape=plaintext, label="N2", fontsize=22];
+
+    fwd1_start [pos="87.24,395!", shape=point, width=0.01, style=invis, label=""];
+    fwd1_end   [pos="335.76,395!", shape=point, width=0.01, style=invis, label=""];
+    fwd1_start -> fwd1_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    bwd1_start [pos="335.76,377!", shape=point, width=0.01, style=invis, label=""];
+    bwd1_end   [pos="87.24,377!", shape=point, width=0.01, style=invis, label=""];
+    bwd1_start -> bwd1_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    fwd2_start [pos="672.74,395!", shape=point, width=0.01, style=invis, label=""];
+    fwd2_end   [pos="967.26,395!", shape=point, width=0.01, style=invis, label=""];
+    fwd2_start -> fwd2_end [color="#4472C4", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    bwd2_start [pos="967.26,377!", shape=point, width=0.01, style=invis, label=""];
+    bwd2_end   [pos="672.74,377!", shape=point, width=0.01, style=invis, label=""];
+    bwd2_start -> bwd2_end [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    fwd3_start [pos="520.5,52.74!", shape=point, width=0.01, style=invis, label=""];
+    fwd3_end   [pos="520.5,251.76!", shape=point, width=0.01, style=invis, label=""];
+    fwd3_start -> fwd3_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    bwd3_start [pos="502.5,251.76!", shape=point, width=0.01, style=invis, label=""];
+    bwd3_end   [pos="502.5,52.74!", shape=point, width=0.01, style=invis, label=""];
+    bwd3_start -> bwd3_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    diag1_start [pos="486.93,36.57!", shape=point, width=0.01, style=invis, label=""];
+    diag1_end   [pos="76.35,363.85!", shape=point, width=0.01, style=invis, label=""];
+    diag1_start -> diag1_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                              arrowhead=normal, arrowtail=none, dir=forward];
+
+    diag2_start [pos="87.57,377.93!", shape=point, width=0.01, style=invis, label=""];
+    diag2_end   [pos="498.15,50.65!", shape=point, width=0.01, style=invis, label=""];
+    diag2_start -> diag2_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                              arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="1400.85,231.27!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=7.801, height=4.089, label=""];
+
+    legend_title [pos="1167,352.07!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lg1_start [pos="1150,318.07!", shape=point, width=0.01, style=invis, label=""];
+    lg1_end   [pos="1195.75,318.07!", shape=point, width=0.01, style=invis, label=""];
+    lg1_start -> lg1_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_fwd1_text [pos="1445.1,318.07!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=5.6, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward\l"];
+
+    lr1_start [pos="1150,284.07!", shape=point, width=0.01, style=invis, label=""];
+    lr1_end   [pos="1195.75,284.07!", shape=point, width=0.01, style=invis, label=""];
+    lr1_start -> lr1_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_bwd1_text [pos="1445.1,284.07!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=5.6, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 backward\l"];
+
+    lg2_start [pos="1150,250.07!", shape=point, width=0.01, style=invis, label=""];
+    lg2_end   [pos="1195.75,250.07!", shape=point, width=0.01, style=invis, label=""];
+    lg2_start -> lg2_end [color="#4472C4", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_fwd2_text [pos="1445.1,250.07!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=5.6, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 2 & 3 forward\l"];
+
+    lr2_start [pos="1150,216.07!", shape=point, width=0.01, style=invis, label=""];
+    lr2_end   [pos="1195.75,216.07!", shape=point, width=0.01, style=invis, label=""];
+    lr2_start -> lr2_end [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_bwd2_text [pos="1445.1,216.07!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=5.6, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 2 & 3 backward\l"];
+
+    legend_node [pos="1176.4,182.07!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="1445.1,182.07!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=5.6, height=0.35, margin=0,
+                      label="Node\l"];
+    legend_station_icon [pos="1176.4,148.07!", shape=box, style=dashed, color="gray40",
+                        penwidth=3, fixedsize=true, width=0.75, height=0.4,
+                        fontsize=14, fontcolor="black", label="S01"];
+    legend_station_text [pos="1445.1,148.07!", shape=plaintext, fontsize=19,
+                        fixedsize=true, width=5.6, height=0.35, margin=0,
+                        label="Station and station name\l"];
+}

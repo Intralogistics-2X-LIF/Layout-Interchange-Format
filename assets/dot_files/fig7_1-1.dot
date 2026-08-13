@@ -1,0 +1,77 @@
+digraph fig7_1_1 {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.1;
+    node [fontname="Arial", fontcolor="black", penwidth=1];
+
+    integrator [pos="140,130!", shape=box, style=filled, fillcolor="#F2F2F2",
+                color="black", penwidth=1.2, fixedsize=true, width=3.3, height=0.83,
+                fontsize=13, fontname="Arial Bold",
+                label="Integrator of the\ndriverless transport vehicles"];
+
+    arrow_start [pos="262,130!", shape=point, width=0.01, style=invis, label=""];
+    arrow_end   [pos="618,130!", shape=point, width=0.01, style=invis, label=""];
+    arrow_start -> arrow_end [color="black", penwidth=2.2, arrowsize=1.3,
+                              arrowhead=normal, arrowtail=none, dir=forward];
+
+    lif_label [pos="430,235!", shape=plaintext, label="LIF file", fontsize=13,
+               fontname="Arial Bold"];
+    file_icon [pos="430,183!", shape=note, style=filled, fillcolor="#FFF2CC",
+               color="#D6A419", penwidth=1.5, fixedsize=true, width=0.75, height=0.9,
+               label=""];
+    fl1 [pos="415,200!", shape=plaintext, label="___", fontsize=10, fontcolor="#D6A419"];
+    fl2 [pos="415,188!", shape=plaintext, label="___", fontsize=10, fontcolor="#D6A419"];
+    fl3 [pos="415,176!", shape=plaintext, label="___", fontsize=10, fontcolor="#D6A419"];
+    fl4 [pos="415,164!", shape=plaintext, label="___", fontsize=10, fontcolor="#D6A419"];
+
+    mcs_box [pos="800,130!", shape=box, style="filled", fillcolor="white",
+             color="black", penwidth=1.2, fixedsize=true, width=5.0, height=0.6,
+             fontsize=13, fontname="Arial Bold",
+             label="Fleet Control System"];
+
+    vda_box [pos="800,86!", shape=box, style=filled, fillcolor="#FFE699",
+             color="black", penwidth=1, fixedsize=true, width=5.0, height=0.5,
+             fontsize=11, fontname="Arial Bold",
+             label="VDA5050 interface for\ncommunication to the vehicles"];
+
+    veh1_left  [pos="615,15!", shape=box, style=filled, fillcolor="#D9D9D9",
+                color="black", penwidth=1, fixedsize=true, width=0.22, height=0.42, label=""];
+    veh1       [pos="650,15!", shape=box, style=filled, fillcolor="white",
+                color="black", penwidth=1, fixedsize=true, width=0.75, height=0.42,
+                fontsize=8, label="Mobile Robot"];
+    veh1_right [pos="685,15!", shape=box, style=filled, fillcolor="#D9D9D9",
+                color="black", penwidth=1, fixedsize=true, width=0.22, height=0.42, label=""];
+
+    veh2_left  [pos="775,15!", shape=box, style=filled, fillcolor="#D9D9D9",
+                color="black", penwidth=1, fixedsize=true, width=0.22, height=0.42, label=""];
+    veh2       [pos="810,15!", shape=box, style=filled, fillcolor="white",
+                color="black", penwidth=1, fixedsize=true, width=0.75, height=0.42,
+                fontsize=8, label="Mobile Robot"];
+    veh2_right [pos="845,15!", shape=box, style=filled, fillcolor="#D9D9D9",
+                color="black", penwidth=1, fixedsize=true, width=0.22, height=0.42, label=""];
+
+    veh3_left  [pos="935,15!", shape=box, style=filled, fillcolor="#D9D9D9",
+                color="black", penwidth=1, fixedsize=true, width=0.22, height=0.42, label=""];
+    veh3       [pos="970,15!", shape=box, style=filled, fillcolor="white",
+                color="black", penwidth=1, fixedsize=true, width=0.75, height=0.42,
+                fontsize=8, label="Mobile Robot"];
+    veh3_right [pos="1005,15!", shape=box, style=filled, fillcolor="#D9D9D9",
+                color="black", penwidth=1, fixedsize=true, width=0.22, height=0.42, label=""];
+
+    v1_start [pos="650,64!", shape=point, width=0.01, style=invis, label=""];
+    v1_end   [pos="650,34.12!", shape=point, width=0.01, style=invis, label=""];
+    v1_start -> v1_end [color="black", penwidth=1.3, arrowsize=0.8,
+                        arrowhead=normal, arrowtail=normal, dir=both];
+
+    v2_start [pos="810,64!", shape=point, width=0.01, style=invis, label=""];
+    v2_end   [pos="810,34.12!", shape=point, width=0.01, style=invis, label=""];
+    v2_start -> v2_end [color="black", penwidth=1.3, arrowsize=0.8,
+                        arrowhead=normal, arrowtail=normal, dir=both];
+
+    v3_start [pos="970,64!", shape=point, width=0.01, style=invis, label=""];
+    v3_end   [pos="970,34.12!", shape=point, width=0.01, style=invis, label=""];
+    v3_start -> v3_end [color="black", penwidth=1.3, arrowsize=0.8,
+                        arrowhead=normal, arrowtail=normal, dir=both];
+}

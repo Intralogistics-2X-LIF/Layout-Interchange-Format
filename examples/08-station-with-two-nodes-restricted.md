@@ -2,6 +2,8 @@
 
 Station with two nodes, but restricted for different mobile robot types.
 
+![](assets/png/08-station-with-two-nodes-restricted.png)
+
 LIF-File:
 ```json
 {

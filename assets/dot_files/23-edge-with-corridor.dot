@@ -1,0 +1,68 @@
+digraph edge_with_corridor {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.1;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    circle1 [pos="150,150!", shape=ellipse, style=dashed, color="black",
+             penwidth=1.8, fixedsize=true, width=2.64, height=2.64, label=""];
+    circle2 [pos="550,150!", shape=ellipse, style=dashed, color="black",
+             penwidth=1.8, fixedsize=true, width=2.64, height=2.64, label=""];
+
+    tan_top_s [pos="150,245!", shape=point, width=0.01, style=invis, label=""];
+    tan_top_e [pos="550,245!", shape=point, width=0.01, style=invis, label=""];
+    tan_top_s -> tan_top_e [color="black", penwidth=1.5, style=dashed,
+                            arrowhead=none, arrowtail=none, dir=none];
+
+    tan_bot_s [pos="150,55!", shape=point, width=0.01, style=invis, label=""];
+    tan_bot_e [pos="550,55!", shape=point, width=0.01, style=invis, label=""];
+    tan_bot_s -> tan_bot_e [color="black", penwidth=1.5, style=dashed,
+                            arrowhead=none, arrowtail=none, dir=none];
+
+    N1_label [pos="150,205!", shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="150,150!", shape=octagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.75, height=0.75, label=""];
+    N2_label [pos="550,205!", shape=plaintext, label="N2", fontsize=22];
+    N2       [pos="550,150!", shape=octagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.75, height=0.75, label=""];
+
+    e_start [pos="185,150!", shape=point, width=0.01, style=invis, label=""];
+    e_end   [pos="515,150!", shape=point, width=0.01, style=invis, label=""];
+    e_start -> e_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                      arrowhead=normal, arrowtail=none, dir=forward];
+
+    max_left [pos="350,270!", shape=invhouse, style=filled, fillcolor="white",
+              color="black", penwidth=1.2, fixedsize=true, width=2.2, height=0.55,
+              fontsize=13, label="maximumLeftWidth"];
+    max_right [pos="350,30!", shape=house, style=filled, fillcolor="white",
+               color="black", penwidth=1.2, fixedsize=true, width=2.3, height=0.55,
+               fontsize=13, label="maximumRightWidth"];
+
+    legend_bg [pos="1050,150!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.177, height=2.6, label=""];
+
+    legend_title [pos="870,214!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lf_start [pos="853,180!", shape=point, width=0.01, style=invis, label=""];
+    lf_end   [pos="898.75,180!", shape=point, width=0.01, style=invis, label=""];
+    lf_start -> lf_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_fwd_text [pos="1108.75,180!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward\l"];
+
+    legend_node [pos="879.4,146!", shape=octagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="1108.75,146!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+
+    legend_ellipse [pos="879.4,105!", shape=ellipse, style=dashed, color="black",
+                     penwidth=1.8, fixedsize=true, width=0.5, height=0.5, label=""];
+    legend_ellipse_text [pos="1108.75,112!", shape=plaintext, fontsize=19,
+                         fixedsize=true, width=4.5, height=0.35, margin=0,
+                         label="allowedDeviationXY\l"];
+}

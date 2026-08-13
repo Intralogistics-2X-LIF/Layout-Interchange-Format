@@ -2,6 +2,8 @@
 
 If, for example, a mobile robot would be incapable of remembering the properties of the load it is carrying, and/or the fleet control system would be asked to manage the mobile robots' maximumSpeed or other behaviour, multiple overlapping edges (or in other cases nodes) can accomplish this.
 
+![](assets/png/12-multiple-edges-between-same-two-nodes.png)
+
 LIF-File:
 ```json
 {

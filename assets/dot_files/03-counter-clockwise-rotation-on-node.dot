@@ -1,0 +1,49 @@
+digraph counter_clockwise_rotation_on_node {
+  layout=neato;
+  overlap=true;
+  splines=false;
+  bgcolor="white";
+  pad=0.04;
+  node [fontname="Arial", fontcolor="black", penwidth=0];
+  edge [fontname="Arial"];
+
+  N1 [shape=hexagon, pos="0.00,0.00!", width=0.451, height=0.406, fixedsize=true, fillcolor="black", style=filled, label=""];
+  N2 [shape=hexagon, pos="318.00,0.00!", width=0.451, height=0.406, fixedsize=true, fillcolor="black", style=filled, label=""];
+
+  N1_label [shape=plaintext, pos="-73,0!", fontsize=22, label="N1"];
+  N2_label [shape=plaintext, pos="394,0!", fontsize=22, label="N2"];
+
+  fwd_start [pos="24.24,15!", shape=point, width=0.01, style=invis, label=""]
+  fwd_end   [pos="293.76,15!", shape=point, width=0.01, style=invis, label=""]
+  fwd_start -> fwd_end [color="#70AD47", penwidth=4.5, arrowsize=1.78, arrowhead=normal, arrowtail=none, dir=forward]
+  bwd_start [pos="293.76,-15!", shape=point, width=0.01, style=invis, label=""]
+  bwd_end   [pos="24.24,-15!", shape=point, width=0.01, style=invis, label=""]
+  bwd_start -> bwd_end [color="#70AD47", penwidth=4.5, arrowsize=1.78, arrowhead=normal, arrowtail=none, dir=forward]
+
+  rot_p0 [pos="347.28,-19.23!", shape=point, width=0.01, style=invis, label=""]
+  rot_p1 [pos="367.43,-2.32!", shape=point, width=0.01, style=invis, label=""]
+  rot_p2 [pos="350.52,17.83!", shape=point, width=0.01, style=invis, label=""]
+  rot_tip [pos="340.33,18.72!", shape=point, width=0.01, style=invis, label=""]
+  rot_p0 -> rot_p2 [pos="347.28,-19.23 357.51,-20.12 366.53,-12.55 367.43,-2.32 368.32,7.91 360.75,16.93 350.52,17.83", color="black", penwidth=4.2, arrowhead=none, dir=forward]
+  rot_p2 -> rot_tip [color="black", penwidth=4.2, arrowsize=1.0, arrowhead=normal, dir=forward]
+
+  legend_box [shape=box, pos="644.00,-7.45!", width=6.278, height=2.251, fixedsize=true, fillcolor="#F2F2F2", color="#F2F2F2", style=filled, label=""];
+
+  legend_title [shape=plaintext, pos="479.80,52!", fontsize=19, fixedsize=true, width=1.3, height=0.3, margin=0, label="Legend:\l"];
+
+  lg_fwd_start [pos="446.00,18!", shape=point, width=0.01, style=invis, label=""]
+  lg_fwd_end   [pos="492.00,18!", shape=point, width=0.01, style=invis, label=""]
+  lg_fwd_start -> lg_fwd_end [color="#70AD47", penwidth=4.5, arrowsize=1.78, arrowhead=normal, dir=forward]
+  lg_text1 [shape=plaintext, pos="701.00,18!", fontsize=19, fixedsize=true, width=4.5, height=0.3, margin=0, label="Edge: Mobile Robot Type 1 forward\l"];
+
+  lg_hex [shape=hexagon, pos="469,-16!", width=0.451, height=0.406, fixedsize=true, fillcolor="black", style=filled, label=""];
+  lg_text2 [shape=plaintext, pos="701.00,-16!", fontsize=19, fixedsize=true, width=4.5, height=0.3, margin=0, label="Node\l"];
+
+  lg_rot_p0 [pos="467.87,-68.95!", shape=point, width=0.01, style=invis, label=""]
+  lg_rot_p1 [pos="481.95,-57.13!", shape=point, width=0.01, style=invis, label=""]
+  lg_rot_p2 [pos="470.13,-43.05!", shape=point, width=0.01, style=invis, label=""]
+  lg_rot_tip [pos="463.01,-42.43!", shape=point, width=0.01, style=invis, label=""]
+  lg_rot_p0 -> lg_rot_p2 [pos="467.87,-68.95 475.02,-69.58 481.32,-64.29 481.95,-57.13 482.58,-49.98 477.29,-43.68 470.13,-43.05", color="black", penwidth=3.2, arrowhead=none, dir=forward]
+  lg_rot_p2 -> lg_rot_tip [color="black", penwidth=3.2, arrowsize=0.8, arrowhead=normal, dir=forward]
+  lg_text3 [shape=plaintext, pos="701.00,-50!", fontsize=19, fixedsize=true, width=4.5, height=0.3, margin=0, label="Counterclockwise Rotation\l"];
+}

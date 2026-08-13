@@ -2,6 +2,8 @@
 
 An edge (straight line) between two nodes where the mobile robot is permitted to deviate sideways, within a corridor of defined width to the left and right, referenced to its kinematic center.
 
+![](assets/png/23-edge-with-corridor.png)
+
 LIF-File:
 ```json
 {
