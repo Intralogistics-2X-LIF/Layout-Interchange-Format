@@ -16,7 +16,7 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 
 | | |
 | --- | --- |
-| Publisher | VDMA e.V. | 
+| Publisher | VDMA e. V. | 
 |  | Lyoner Strasse 18, 60528 Frankfurt am Main | 
 | Copyright | VDMA e. V. | 
 |  | Reprinting and any other form of reproduction is permitted only if the source is acknowledged. | 
