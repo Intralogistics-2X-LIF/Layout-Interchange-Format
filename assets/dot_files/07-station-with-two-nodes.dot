@@ -50,23 +50,23 @@ digraph station_with_two_nodes {
     g2_start -> g2_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
                         arrowhead=normal, arrowtail=none, dir=forward];
 
-    c1_curve_start [pos="485,378!", shape=point, width=0.01, style=invis, label=""];
-    c1_curve_end   [pos="156.0,74.8!", shape=point, width=0.01, style=invis, label=""];
+    c1_curve_start [pos="487.8,389.6!", shape=point, width=0.01, style=invis, label=""];
+    c1_curve_end   [pos="124.5,82.85!", shape=point, width=0.01, style=invis, label=""];
     c1_curve_start -> c1_curve_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
                         arrowhead=none, arrowtail=none, dir=forward,
-                        pos="485,378 570,230 300,90 156.0,74.8"];
-    c1_tip_start [pos="156.0,74.8!", shape=point, width=0.01, style=invis, label=""];
+                        pos="487.8,389.6 350,370 150,150 124.5,82.85"];
+    c1_tip_start [pos="124.5,82.85!", shape=point, width=0.01, style=invis, label=""];
     c1_tip_end   [pos="120,71!", shape=point, width=0.01, style=invis, label=""];
     c1_tip_start -> c1_tip_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
                         arrowhead=normal, arrowtail=none, dir=forward];
 
-    c2_curve_start [pos="640,378!", shape=point, width=0.01, style=invis, label=""];
-    c2_curve_end   [pos="149.6,63.0!", shape=point, width=0.01, style=invis, label=""];
+    c2_curve_start [pos="636.4,391.6!", shape=point, width=0.01, style=invis, label=""];
+    c2_curve_end   [pos="137.9,70.58!", shape=point, width=0.01, style=invis, label=""];
     c2_curve_start -> c2_curve_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
                         arrowhead=none, arrowtail=none, dir=forward,
-                        pos="640,378 610,150 260,55 149.6,63.0"];
-    c2_tip_start [pos="149.6,63.0!", shape=point, width=0.01, style=invis, label=""];
-    c2_tip_end   [pos="122,65!", shape=point, width=0.01, style=invis, label=""];
+                        pos="636.4,391.6 500,350 220,95 137.9,70.58"];
+    c2_tip_start [pos="137.9,70.58!", shape=point, width=0.01, style=invis, label=""];
+    c2_tip_end   [pos="123.41,66.27!", shape=point, width=0.01, style=invis, label=""];
     c2_tip_start -> c2_tip_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
                         arrowhead=normal, arrowtail=none, dir=forward];
 
@@ -103,5 +103,5 @@ digraph station_with_two_nodes {
                         fontsize=14, fontcolor="black", label="S01"];
     legend_station_text [pos="1208.75,219.5!", shape=plaintext, fontsize=19,
                         fixedsize=true, width=4.5, height=0.35, margin=0,
-                        label="Station and stationname\l"];
+                        label="Station and station name\l"];
 }
