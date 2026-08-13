@@ -369,11 +369,11 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | *reachOrientationBeforeEntering* |  | boolean | This parameter is only valid for omni-directional mobile robots. <br>"true": Desired edge orientation shall be reached before entering the edge.<br>"false": Mobile robot can rotate into the desired orientation on the edge. The fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control (e.g., deadlocks, potential collisions).<br><br>Optional. Default: "true".<br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *rotationAllowed* with inverse boolean value. |
 | *mobileRobotOrientations* | rad | array of float64 | All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value `orientationType` defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards.<br>If the mobile robot starts in a different orientation, rotate the mobile robot on the edge to the desired orientations if `reachOrientationBeforeEntering` is set to "false". If `reachOrientationBeforeEntering` is "true", rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory.  Note: If not defined, such as to allow for truly omnidirectional movement, the fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time. |
 | *rotationAtStartNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the start node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.12.1 for detailed description. |
-| *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.12.1 for detailed description. |
-| *maximumSpeed* | m/s | float64 | Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxSpeed*. |
-| *maximumRotationSpeed* | rad/s | float64 | Maximum rotation speed  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxRotationSpeed*. |
+| *rotationAtEndNodeAllowed* |  | string | Enum {NONE, CCW, CW, BOTH}  Allowed directions of rotation for the mobile robot at the end node.  "NONE" - Rotation not allowed.  "CCW" - Counter clockwise (positive).  "CW" - Clockwise (negative).  "BOTH" - Both directions.  Note: If not defined, the default value is "BOTH".  See section 8.3.12.1 for detailed description. 
+| *maximumSpeed* | m/s | float64 | Range: [0.0 ... float64.maximum]  Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxSpeed*. |
+| *maximumRotationSpeed* | rad/s | float64 | Range: [0.0 ... float64.maximum]  Maximum rotation speed  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxRotationSpeed*. |
 | *minimumLoadHandlingDeviceHeight* | meter | float64 | Permitted minimal height of the load handling device on the edge.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *minHeight*. |
-| *maximumMobileRobotHeight* | meter | float64 | Permitted maximum height of the mobile robot, including the load, on edge.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxHeight*. |
+| *maximumMobileRobotHeight* | meter | float64 | Range: [0.0 ... float64.maximum]  Permitted maximum height of the mobile robot, including the load, on edge.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxHeight*. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | *requiredActions[action]* | | array of JSON-object | Actions on this edge which must always be included when sent by the fleet control system. E.g., an action which requires hazard lights to engage. |
 | *feasibleActions[action]* | | array of JSON-object | Actions on this node with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system provider outside of the scope of the LIF. E.g., an action which must be taken if this edge has an associated corridor definition, but otherwise must not. |
@@ -469,11 +469,11 @@ Regardless of the values defined for the ellipse, due to the fact that the fleet
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | allowedDeviationXY { |  | JSON-object |  |
-| *aMinimum* | meter | float64 | Minimum length of the ellipse semi-major axis in meters. |
-| *aMaximum* | meter | float64 | Maximum length of the ellipse semi-major axis in meters. |
-| *bMinimum* | meter | float64 | Minimum length of the ellipse semi-minor axis in meters. |
-| *bMaximum* | meter | float64 | Maximum length of the ellipse semi-minor axis in meters. |
-| *theta* | rad | float64 | Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system. |
+| *aMinimum* | meter | float64 | Range: [0.0 ... float64.maximum]  Minimum length of the ellipse semi-major axis in meters. |
+| *aMaximum* | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum length of the ellipse semi-major axis in meters. |
+| *bMinimum* | meter | float64 | Range: [0.0 ... float64.maximum]  Minimum length of the ellipse semi-minor axis in meters. |
+| *bMaximum* | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum length of the ellipse semi-minor axis in meters. |
+| *theta* | rad | float64 | Range: [-Pi/2 ... Pi/2] Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system. |
 | } |  |  |  |
 
 ### 8.3.18 Corridor
@@ -481,8 +481,8 @@ Regardless of the values defined for the ellipse, due to the fact that the fleet
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | corridor { |  | JSON-object |  |
-| maximumLeftWidth | meter | float64 | Maximum corridor margin possible to the left of the edge. |
-| maximumRightWidth | meter | float64 | Maximum corridor margin possible to the right of the edge. |
+| maximumLeftWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the left of the edge. |
+| maximumRightWidth | meter | float64 | Range: [0.0 ... float64.maximum]  Maximum corridor margin possible to the right of the edge. |
 | *corridorReferencePoint* | | string | Defines whether the boundaries are valid for the kinematic center or the contour of the mobile robot. If not specified the boundaries are valid to the mobile robot's kinematic center. Enum {'KINEMATIC_CENTER', 'CONTOUR'}. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *corridorRefPoint* and 'KINEMATICCENTER' instead of 'KINEMATIC_CENTER'. |
 | } |  |  |  |
 

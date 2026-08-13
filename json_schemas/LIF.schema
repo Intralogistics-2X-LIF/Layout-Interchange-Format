@@ -264,27 +264,33 @@
                 "aMinimum": {
                     "type": "number",
                     "unit": "m",
-                    "description": "Minimum length of the ellipse semi-major axis in meters."
+                    "description": "Minimum length of the ellipse semi-major axis in meters.",
+					"minimum": 0.0
                 },
                 "aMaximum": {
                     "type": "number",
                     "unit": "m",
-                    "description": "Maximum length of the ellipse semi-major axis in meters."
+                    "description": "Maximum length of the ellipse semi-major axis in meters.",
+					"minimum": 0.0
                 },
                 "bMinimum": {
                     "type": "number",
                     "unit": "m",
-                    "description": "Minimum length of the ellipse semi-minor axis in meters."
+                    "description": "Minimum length of the ellipse semi-minor axis in meters.",
+					"minimum": 0.0
                 },
                 "bMaximum": {
                     "type": "number",
                     "unit": "m",
-                    "description": "Maximum length of the ellipse semi-minor axis in meters."
+                    "description": "Maximum length of the ellipse semi-minor axis in meters.",
+					"minimum": 0.0
                 },
                 "theta": {
                     "type": "number",
                     "unit": "rad",
-                    "description": "Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system."
+                    "description": "Rotation angle from the positive horizontal axis to the ellipse's major axis in this origin's coordinate system.",
+					"minimum": -1.570796327,
+					"maximum": 1.570796327
                 }
             }
         },
@@ -445,12 +451,14 @@
                 "maximumSpeed": {
                     "type": "number",
                     "unit": "m/s",
-                    "description": "Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot. Note: If not defined, no limitation."
+                    "description": "Permitted maximum speed on the edge. Speed is defined by the fastest measurement of the mobile robot. Note: If not defined, no limitation.",
+					"minimum": 0.0
                 },
                 "maximumRotationSpeed": {
                     "type": "number",
                     "unit": "rad/s",
-                    "description": "Maximum rotation speed. Note: If not defined, no limitation."
+                    "description": "Maximum rotation speed. Note: If not defined, no limitation.",
+					"minimum": 0.0
                 },
                 "minimumLoadHandlingDeviceHeight": {
                     "type": "number",
@@ -460,7 +468,8 @@
                 "maximumMobileRobotHeight": {
                     "type": "number",
                     "unit": "m",
-                    "description": "Permitted maximum height of the mobile robot, including the load, on edge. Note: If not defined, no limitation."
+                    "description": "Permitted maximum height of the mobile robot, including the load, on edge. Note: If not defined, no limitation.",
+					"minimum": 0.0
                 },
                 "loadRestriction": {
                     "$ref": "#/$defs/loadRestriction"
@@ -659,12 +668,14 @@
                 "maximumLeftWidth": {
                     "type": "number",
                     "unit": "m",
-                    "description": "Maximum corridor margin possible to the left of the edge."
+                    "description": "Maximum corridor margin possible to the left of the edge.",
+                    "minimum": 0.0
                 },
                 "maximumRightWidth": {
                     "type": "number",
                     "unit": "m",
-                    "description": "Maximum corridor margin possible to the right of the edge."
+                    "description": "Maximum corridor margin possible to the right of the edge.",
+                    "minimum": 0.0
                 },
                 "corridorReferencePoint": {
                     "type": "string",
