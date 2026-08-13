@@ -505,7 +505,7 @@ The GitHub project serves as a repository of all previous, present, and in-devel
 https://github.com/Intralogistics-2X-LIF/Layout-Interchange-Format
 
 ## 11.1 Examples
-LIF version 1.0 included examples within the LIF specification document. As of LIF version 2.0, these have been moved to the GitHub repository (/examples). These examples may now be expanded without the need of a new LIF version release.
+LIF version 1.0 included examples within the LIF specification document. As of LIF version 2.0, these have been moved to the GitHub repository (/examples). These examples may now be expanded without the need for a new LIF version release.
 
 ## 11.2 JSON Schema
 While not an official part of the standard, the schema included on the GitHub may be useful (/json_schemas). 
