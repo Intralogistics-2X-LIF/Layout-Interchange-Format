@@ -502,12 +502,12 @@ The LIF's intention is to be parsed as automatically as possible while being con
 
 # 11 LIF on GitHub
 
-https://github.com/Intralogistics-2X-LIF/
+The GitHub project serves as a repository of all previous, present, and in-development work, and as an additional source of information.
 
-The above link may change between any specific publication version of this document. The GitHub project serves as a parallel official source of information on the LIF, as well as a repository of all previous, present, and potential in-development future versions.
+https://github.com/Intralogistics-2X-LIF/Layout-Interchange-Format
 
 ## 11.1 Examples
-LIF 1.0 included examples within the LIF specification document. As of LIF version 2.0, these have been moved to the GitHub repository (/examples). These examples may now be expanded without the need of a new LIF version release.
+LIF version 1.0 included examples within the LIF specification document. As of LIF version 2.0, these have been moved to the GitHub repository (/examples). These examples may now be expanded without the need of a new LIF version release.
 
 ## 11.2 JSON Schema
 While not an official part of the standard, the schema included on the GitHub may be useful (/json_schemas). 
