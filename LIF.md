@@ -389,9 +389,9 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | trajectory { |  | JSON-object |  |
-| *degree* |  | integer | Range: [1.0 ... integer.maximum]  Defines the number of control points that influence any given point on the curve. Increasing the degree increases continuity.  If not defined, the default value is 1. |
-| knotVector[float64] |  | array of float64 | Range: [0.0 ... 1.0]  Sequence of parameter values that determines where and how the control points affect the NURBS curve.  knotVector has size of number of control points + degree + 1. |
-| controlPoints[controlPoint] |  | array of JSON-object | List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end point. |
+| *degree* |  | unint32 | Range: [1.0 ... integer.maximum]  Defines the number of control points that influence any given point on the curve. Increasing the degree increases continuity.  If not defined, the default value is 1. |
+| knotVector[float64] |  | array | Range: [0.0 ... 1.0]  Sequence of parameter values that determines where and how the control points affect the NURBS curve.  knotVector has size of number of control points + degree + 1. |
+| controlPoints[controlPoint] |  | array | List of JSON controlPoint JSON-objects defining the control points of the NURBS, which includes the beginning and end point. |
 | } |  |  |  |
 
 ### 8.3.14 ControlPoint
@@ -399,9 +399,9 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | controlPoint { |  | JSON-object |  |
-| x | meter | float64 | X position on the layout in reference to the origin. |
-| y | meter | float64 | Y position on the layout in reference to the origin. |
-| *weight* |  | float64 | Range: ]0.0 ... float64.maximum]  The weight with which this control point pulls on the curve. When not defined, the default is 1.0. |
+| x | meter | float64 | X-coordinate described in the project-specific coordinate system. |
+| y | meter | float64 | Y-coordinate described in the project-specific coordinate system. |
+| *weight* |  | float64 | The weight of the control point on the curve.<br><br>Range: ]0.0 ... float64.max]<br>Default: 1.0 |
 | } |  |  |  |
 
 ### 8.3.15 PhysicalLineGuidedProperty
