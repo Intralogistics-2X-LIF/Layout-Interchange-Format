@@ -1,5 +1,5 @@
 # Situation
-VDA 5050 version 3.0 introduced the concept of [zones]([url](https://github.com/VDA5050/VDA5050/blob/release/3.0.0/VDA5050_EN.md#64-zones)), which represent polygons with logical implications.
+VDA 5050 version 3.0 introduced the concept of zones, which represent polygons with logical implications.
 
 # Complication
 Zones are a separate concept from a map in VDA 5050, represented by a mobile robot's current zoneSet. zoneSets can be updated indepedently of mobile robot's map and/or navigation graph.
