@@ -8,7 +8,7 @@ LIF-File:
     "metaInformation": {
         "lifId": "LIF_Example_27",
         "creator": "VDMA",
-        "exportTimestamp": "2023-09-28T10:00:00.000Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [
@@ -18,7 +18,6 @@ LIF-File:
             "layouts": [
                 {
                     "layoutId": "Layout_Ground_Level",
-                    "layoutName": "Name of Layout Ground Level",
                     "layoutVersion": "1",
                     "nodes": [
                         {
@@ -49,7 +48,7 @@ LIF-File:
                                             "seriesName": "Series_2"
                                         }
                                     ],
-                                    "theta": 1.5707963267948966,
+                                    "theta": 1.5708,
                                     "loadRestriction": {
                                         "unloaded": true,
                                         "loaded": true,
@@ -88,7 +87,7 @@ LIF-File:
                                             "seriesName": "Series_2"
                                         }
                                     ],
-                                    "theta": 1.5707963267948966,
+                                    "theta": 1.5708,
                                     "loadRestriction": {
                                         "unloaded": true,
                                         "loaded": true,

@@ -8,7 +8,7 @@ LIF-File:
     "metaInformation": {
         "lifId": "LIF_Example_20",
         "creator": "VDMA",
-        "exportTimestamp": "2023-09-28T10:00:00.000Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [
@@ -18,7 +18,6 @@ LIF-File:
             "layouts": [
                 {
                     "layoutId": "Layout_A",
-                    "layoutName": "Approach from the West",
                     "layoutVersion": "1",
                     "layoutDescriptor": "Ground level of Customer",
                     "nodes": [
@@ -84,7 +83,6 @@ LIF-File:
                 },
                 {
                     "layoutId": "Layout_B",
-                    "layoutName": "Approach from the East",
                     "layoutVersion": "1",
                     "layoutDescriptor": "Ground level of Customer",
                     "nodes": [
@@ -151,7 +149,7 @@ LIF-File:
                                         }
                                     ],
                                     "mobileRobotOrientations": [
-                                        3.141592653589793
+                                        3.14159
                                     ],
                                     "orientationType": "TANGENTIAL"
                                 }
@@ -171,7 +169,7 @@ LIF-File:
                                         }
                                     ],
                                     "mobileRobotOrientations": [
-                                        3.141592653589793
+                                        3.14159
                                     ],
                                     "orientationType": "TANGENTIAL"
                                 }
@@ -185,7 +183,7 @@ LIF-File:
                                 "N2_A",
                                 "N2_B"
                             ],
-                            "stationName": "SOURCE_01",
+                            "stationName": "DROPOFF_01",
                             "stationDescriptor": "Lane Drop-Off",
                             "stationHeight": 0.55
                         }
