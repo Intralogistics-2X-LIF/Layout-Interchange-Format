@@ -19,7 +19,7 @@ LIF-File:
                 {
                     "layoutId": "Layout_A",
                     "layoutVersion": "1",
-                    "layoutDescriptor": "Ground level of Customer",
+                    "layoutDescriptor": "Approach from the West",
                     "nodes": [
                         {
                             "nodeId": "N1_A",
@@ -84,7 +84,7 @@ LIF-File:
                 {
                     "layoutId": "Layout_B",
                     "layoutVersion": "1",
-                    "layoutDescriptor": "Ground level of Customer",
+                    "layoutDescriptor": "Approach from the East",
                     "nodes": [
                         {
                             "nodeId": "N1_B",
