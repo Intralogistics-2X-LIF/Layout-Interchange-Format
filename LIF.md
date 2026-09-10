@@ -284,8 +284,8 @@ The LIF does not specify how two layouts from different origins, whether defined
 | *nodeDescriptor* |  | string | A user-defined, human-readable name or descriptor. This shall not be used for logical purposes. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *nodeDescription*. |
 | mapId |  | string | Unique identification of the map in which the node or node's position is referenced. Note: The LIF does not directly define what a VDA 5050 map is or is not. A map may be an alternate declaration of a shared coordinate origin, or may be the same as a layout, or a layout may comprise multiple maps. See the VDA 5050 specification for more information. |
 | nodePosition { |  | JSON-object | Geometric location of the node. |
-| x | meter | float64 | X position on the layout in reference to the origin. |
-| y | meter | float64 | Y position on the layout in reference to the origin. |
+| x | meter | float64 | X-coordinate on the layout in reference to the origin. |
+| y | meter | float64 | Y-coordinate on the layout in reference to the origin. |
 | } |  |  |  |
 | mobileRobotTypeNodeProperties [mobileRobotTypeNodeProperty] |  | array of JSON-object | Mobile robot type specific properties for this node.  This attribute shall not be empty. There shall be an element for each mobile robot type that may use this node. If no element exists for a particular mobile robot type, the fleet control system shall consider that node invalid for use with that mobile robot type. |
 | } |  |  |  |
@@ -460,8 +460,8 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | *stationHeight* | meter | float64 | Range: [0.0 ... float64.maximum]  If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. For other types of stations, this value may have a different meaning. Its interpretation shall be clearly defined and agreed upon between the fleet control system and the mobile robot integrator.  Note: If this value is not specified, the station height shall not be assumed to be zero or any default value. |
 | interactionNodeIds[string] |  | array of string | List of nodeIds for this station.  These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways (such as stations that can be approached from multiple directions, e.g.: a station which can receive a EUR pallet longitudinally or laterally). This attribute shall not be empty; there shall be at least one nodeId.  Note: The decision of which nodeId is used is the responsibility of the fleet control system. Choosing the correct interaction node may require that the fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node. |
 | *stationPosition {* |  |  | Center point and orientation of the station.  Note: Only for visualization purposes, to assist how to represent this station in any user interface. This position is commonly the center point of the physical station or the center point of a load on the station but may not always be. |
-| x | meter | float64 | X position of the station in the layout in reference to the origin. |
-| y | meter | float64 | Y position of the station in the layout in reference to the origin. |
+| x | meter | float64 | X-coordinate of the station in the layout in reference to the origin. |
+| y | meter | float64 | Y-coordinate of the station in the layout in reference to the origin. |
 | *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the station on the node. |
 | *}* |  |  |  |
 | } |  |  |  |
