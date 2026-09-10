@@ -401,7 +401,7 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 | controlPoint { |  | JSON-object |  |
 | x | meter | float64 | X-coordinate on the layout in reference to the origin. |
 | y | meter | float64 | Y-coordinate on the layout in reference to the origin. |
-| *weight* |  | float64 | The weight of the control point on the curve.<br><br>Range: ]0.0 ... float64.max]<br>Default: 1.0 |
+| *weight* |  | float64 | Range: ]0.0 ... float64.max] The weight of the control point on the curve.<br>Default: 1.0 |
 | } |  |  |  |
 
 ### 8.3.15 PhysicalLineGuidedProperty
