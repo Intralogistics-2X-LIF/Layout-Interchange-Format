@@ -16,13 +16,15 @@ Explanation:
 * NSR: Series_2 drop
 * NSR: Series_3 pick and drop
 
+![](assets/png/10-station-with-three-nodes-restricted.png)
+
 LIF-File:
 ```json
 {
     "metaInformation": {
         "lifId": "LIF_Example_10",
         "creator": "VDMA",
-        "exportTimestamp": "2026-09-28T10:00:00.00Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [

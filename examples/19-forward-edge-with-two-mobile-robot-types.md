@@ -2,13 +2,15 @@
 
 One edge (straight line) between two nodes, where two different mobile robot types from the same integrator must adopt different orientations.
 
+![](assets/png/19-forward-edge-with-two-mobile-robot-types.png)
+
 LIF-File:
 ```json
 {
     "metaInformation": {
         "lifId": "LIF_Example_19",
         "creator": "VDMA",
-        "exportTimestamp": "2026-09-28T10:00:00.00Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [

@@ -1,0 +1,73 @@
+digraph node_with_allowedDeviationXY_as_a_fixed_ellipse {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.1;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    ellipse1 [pos="450,300!", shape=ellipse, style="", color="black",
+              penwidth=1.2, fixedsize=true, width=4.167, height=3.056, label=""];
+
+    a_line_s [pos="450,300!", shape=point, width=0.01, style=invis, label=""];
+    a_line_e [pos="600,300!", shape=point, width=0.01, style=invis, label=""];
+    a_line_s -> a_line_e [color="black", penwidth=1, arrowhead=none, arrowtail=none, dir=none];
+    a_label [pos="525,315!", shape=plaintext, label="a", fontsize=18];
+
+    b_line_s [pos="450,300!", shape=point, width=0.01, style=invis, label=""];
+    b_line_e [pos="450,410!", shape=point, width=0.01, style=invis, label=""];
+    b_line_s -> b_line_e [color="black", penwidth=1, arrowhead=none, arrowtail=none, dir=none];
+    b_label [pos="432,355!", shape=plaintext, label="b", fontsize=18];
+
+    N1_label [pos="100,355!", shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="100,300!", shape=octagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.75, height=0.75, label=""];
+    N2_label [pos="450,247!", shape=plaintext, label="N2", fontsize=22];
+    N2       [pos="450,300!", shape=octagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.75, height=0.75, label=""];
+    N3_label [pos="695,505!", shape=plaintext, label="N3", fontsize=22];
+    N3       [pos="650,480!", shape=octagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.75, height=0.75, label=""];
+
+    e1_start [pos="135,300!", shape=point, width=0.01, style=invis, label=""];
+    e1_end   [pos="415,300!", shape=point, width=0.01, style=invis, label=""];
+    e1_start -> e1_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    e2_start [pos="476.02,323.41!", shape=point, width=0.01, style=invis, label=""];
+    e2_end   [pos="623.98,456.59!", shape=point, width=0.01, style=invis, label=""];
+    e2_start -> e2_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="1150,333.5!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.177, height=2.917, label=""];
+
+    legend_title [pos="970,418.5!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lf_start [pos="953,384.5!", shape=point, width=0.01, style=invis, label=""];
+    lf_end   [pos="998.75,384.5!", shape=point, width=0.01, style=invis, label=""];
+    lf_start -> lf_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_fwd_text [pos="1208.75,384.5!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward\l"];
+
+    legend_node [pos="979.4,350.5!", shape=octagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="1208.75,350.5!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+
+    legend_ellipse [pos="979.4,316.5!", shape=ellipse, color="black",
+                     penwidth=1.2, fixedsize=true, width=0.65, height=0.4, label=""];
+    legend_ellipse_text [pos="1208.75,316.5!", shape=plaintext, fontsize=19,
+                         fixedsize=true, width=4.5, height=0.35, margin=0,
+                         label="Ellipse:\l"];
+    legend_ellipse_a [pos="1208.75,282.5!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="a = aMinimum = aMaximum\l"];
+    legend_ellipse_b [pos="1208.75,248.5!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="b = bMinimum = bMaximum\l"];
+}

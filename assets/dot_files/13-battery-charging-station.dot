@@ -1,0 +1,68 @@
+digraph battery_charging_station {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.02;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    station_box [pos="115,178!", shape=box, style=dashed, color="gray40",
+                 penwidth=3, fixedsize=true, width=2.2, height=1.65, label=""];
+
+    station_inner_label [pos="119.8,212!", shape=plaintext, fontsize=20,
+                          fixedsize=true, width=2.0, height=0.3, margin=0,
+                          label="N_CHARGER\l"];
+
+    N_CHARGER [pos="100,150!", shape=hexagon, style=filled, fillcolor="black",
+               color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N_CHARGER_label [pos="100,100!", shape=plaintext, label="N_CHARGER", fontsize=22];
+
+    N1       [pos="400,150!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N1_label [pos="400,100!", shape=plaintext, label="N1", fontsize=22];
+
+    fwd_start [pos="124.24,159!", shape=point, width=0.01, style=invis, label=""];
+    fwd_end   [pos="375.76,159!", shape=point, width=0.01, style=invis, label=""];
+    fwd_start -> fwd_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+
+    bwd_start [pos="375.76,141!", shape=point, width=0.01, style=invis, label=""];
+    bwd_end   [pos="124.24,141!", shape=point, width=0.01, style=invis, label=""];
+    bwd_start -> bwd_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="742.9,150!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.177, height=2.8, label=""];
+
+    legend_title [pos="562.5,217!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lg_start [pos="545.5,183!", shape=point, width=0.01, style=invis, label=""];
+    lg_end   [pos="591.25,183!", shape=point, width=0.01, style=invis, label=""];
+    lg_start -> lg_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_fwd_text [pos="801,183!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward\l"];
+
+    lr_start [pos="545.5,149!", shape=point, width=0.01, style=invis, label=""];
+    lr_end   [pos="591.25,149!", shape=point, width=0.01, style=invis, label=""];
+    lr_start -> lr_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_bwd_text [pos="801,149!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 backward\l"];
+
+    legend_node [pos="571.9,115!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="801,115!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+
+    legend_station_icon [pos="571.9,81!", shape=box, style=dashed, color="gray40",
+                        penwidth=3, fixedsize=true, width=0.75, height=0.4,
+                        fontsize=14, fontcolor="black", label="S01"];
+    legend_station_text [pos="801,81!", shape=plaintext, fontsize=19,
+                        fixedsize=true, width=4.5, height=0.35, margin=0,
+                        label="Station and station name\l"];
+}

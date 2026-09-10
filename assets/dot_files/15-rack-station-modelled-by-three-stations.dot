@@ -1,0 +1,73 @@
+digraph rack_station_modelled_by_three_stations {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.02;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    station_box [pos="147.5,132.5!", shape=box, style=dashed, color="gray40",
+                 penwidth=3, fixedsize=true, width=3.681, height=2.986, label=""];
+
+    level_c [pos="128.6,205!", shape=plaintext, fontsize=30,
+             fixedsize=true, width=2.6, height=0.5, margin=0,
+             label="S01_Level_C\l"];
+    level_b [pos="128.6,160!", shape=plaintext, fontsize=30,
+             fixedsize=true, width=2.6, height=0.5, margin=0,
+             label="S01_Level_B\l"];
+    level_a [pos="128.6,115!", shape=plaintext, fontsize=30,
+             fixedsize=true, width=2.6, height=0.5, margin=0,
+             label="S01_Level_A\l"];
+
+    N1_label [pos="50,60!", shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="100,60!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2       [pos="418,60!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2_label [pos="467,60!", shape=plaintext, label="N2", fontsize=22];
+
+    fwd_start [pos="125,54!", shape=point, width=0.01, style=invis, label=""];
+    fwd_end   [pos="393,54!", shape=point, width=0.01, style=invis, label=""];
+    fwd_start -> fwd_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+
+    bwd_start [pos="393,66!", shape=point, width=0.01, style=invis, label=""];
+    bwd_end   [pos="125,66!", shape=point, width=0.01, style=invis, label=""];
+    bwd_start -> bwd_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="742.9,132.5!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.177, height=2.57, label=""];
+
+    legend_title [pos="562.5,200!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lg_start [pos="545.5,166!", shape=point, width=0.01, style=invis, label=""];
+    lg_end   [pos="591.25,166!", shape=point, width=0.01, style=invis, label=""];
+    lg_start -> lg_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_fwd_text [pos="801,166!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Vehicle Type 1 forward\l"];
+
+    lr_start [pos="545.5,132!", shape=point, width=0.01, style=invis, label=""];
+    lr_end   [pos="591.25,132!", shape=point, width=0.01, style=invis, label=""];
+    lr_start -> lr_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_bwd_text [pos="801,132!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Vehicle Type 1 backward\l"];
+
+    legend_node [pos="571.9,98!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="801,98!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+
+    legend_station_icon [pos="571.9,64!", shape=box, style=dashed, color="gray40",
+                        penwidth=3, fixedsize=true, width=0.75, height=0.4,
+                        fontsize=14, fontcolor="black", label="S01"];
+    legend_station_text [pos="801,64!", shape=plaintext, fontsize=19,
+                        fixedsize=true, width=4.5, height=0.35, margin=0,
+                        label="Station and station name\l"];
+}

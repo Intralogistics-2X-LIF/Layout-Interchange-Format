@@ -1,0 +1,178 @@
+digraph edge_with_trajectory_definition {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.05;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    N1_label [pos="20,150!", shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="100,150!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2       [pos="380,150!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2_label [pos="460,150!", shape=plaintext, label="N2", fontsize=22];
+
+    circ_top_s [pos="100.00,174.24!", shape=point, width=0.01, style=invis, label=""];
+    circ_top_e [pos="380.00,190.48!", shape=point, width=0.01, style=invis, label=""];
+    circ_top_s -> circ_top_e [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="100.00,174.24 100.00,336.67 380.00,336.67 380.00,190.48"];
+    circ_top_tip_s [pos="380.00,190.48!", shape=point, width=0.01, style=invis, label=""];
+    circ_top_tip_e [pos="380.00,174.24!", shape=point, width=0.01, style=invis, label=""];
+    circ_top_tip_s -> circ_top_tip_e [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    circ_bot_s [pos="380.00,125.76!", shape=point, width=0.01, style=invis, label=""];
+    circ_bot_e [pos="100.00,109.52!", shape=point, width=0.01, style=invis, label=""];
+    circ_bot_s -> circ_bot_e [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="380.00,125.76 380.00,-36.67 100.00,-36.67 100.00,109.52"];
+    circ_bot_tip_s [pos="100.00,109.52!", shape=point, width=0.01, style=invis, label=""];
+    circ_bot_tip_e [pos="100.00,125.76!", shape=point, width=0.01, style=invis, label=""];
+    circ_bot_tip_s -> circ_bot_tip_e [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    iconN1L_s0_s [pos="53.73,147.93!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_s0_e [pos="43.93,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_s0_s -> iconN1L_s0_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="53.73,147.93 52.58,143.66 48.20,141.13 43.93,142.27"];
+    iconN1L_s1_s [pos="43.93,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_s1_e [pos="38.27,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_s1_s -> iconN1L_s1_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="43.93,142.27 39.66,143.42 37.13,147.80 38.27,152.07"];
+    iconN1L_last_s [pos="38.27,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_last_e [pos="47.18,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_last_s -> iconN1L_last_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="38.27,152.07 39.35,156.08 43.30,158.60 47.18,157.91"];
+    iconN1L_tips [pos="47.18,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_tipe [pos="47.39,157.88!", shape=point, width=0.01, style=invis, label=""];
+    iconN1L_tips -> iconN1L_tipe [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    iconN1R_s0_s [pos="62.27,147.93!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_s0_e [pos="72.07,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_s0_s -> iconN1R_s0_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="62.27,147.93 63.42,143.66 67.80,141.13 72.07,142.27"];
+    iconN1R_s1_s [pos="72.07,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_s1_e [pos="77.73,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_s1_s -> iconN1R_s1_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="72.07,142.27 76.34,143.42 78.87,147.80 77.73,152.07"];
+    iconN1R_last_s [pos="77.73,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_last_e [pos="68.82,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_last_s -> iconN1R_last_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="77.73,152.07 76.65,156.08 72.70,158.60 68.82,157.91"];
+    iconN1R_tips [pos="68.82,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_tipe [pos="68.61,157.88!", shape=point, width=0.01, style=invis, label=""];
+    iconN1R_tips -> iconN1R_tipe [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    iconN2L_s0_s [pos="417.73,147.93!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_s0_e [pos="407.93,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_s0_s -> iconN2L_s0_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="417.73,147.93 416.58,143.66 412.20,141.13 407.93,142.27"];
+    iconN2L_s1_s [pos="407.93,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_s1_e [pos="402.27,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_s1_s -> iconN2L_s1_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="407.93,142.27 403.66,143.42 401.13,147.80 402.27,152.07"];
+    iconN2L_last_s [pos="402.27,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_last_e [pos="411.18,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_last_s -> iconN2L_last_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="402.27,152.07 403.35,156.08 407.30,158.60 411.18,157.91"];
+    iconN2L_tips [pos="411.18,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_tipe [pos="411.39,157.88!", shape=point, width=0.01, style=invis, label=""];
+    iconN2L_tips -> iconN2L_tipe [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    iconN2R_s0_s [pos="426.27,147.93!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_s0_e [pos="436.07,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_s0_s -> iconN2R_s0_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="426.27,147.93 427.42,143.66 431.80,141.13 436.07,142.27"];
+    iconN2R_s1_s [pos="436.07,142.27!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_s1_e [pos="441.73,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_s1_s -> iconN2R_s1_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="436.07,142.27 440.34,143.42 442.87,147.80 441.73,152.07"];
+    iconN2R_last_s [pos="441.73,152.07!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_last_e [pos="432.82,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_last_s -> iconN2R_last_e [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="441.73,152.07 440.65,156.08 436.70,158.60 432.82,157.91"];
+    iconN2R_tips [pos="432.82,157.91!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_tipe [pos="432.61,157.88!", shape=point, width=0.01, style=invis, label=""];
+    iconN2R_tips -> iconN2R_tipe [color="gray45", penwidth=5, arrowsize=0.45,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="806.6,150!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=7.128, height=2.3, label=""];
+
+    legend_title [pos="592,206!", shape=plaintext, label="Legend:", fontsize=19];
+
+    legend_node [pos="578.475,172!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="809.6,172!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=3.5, height=0.35, margin=0,
+                      label="Node\l"];
+
+    le_start [pos="559.6,138!", shape=point, width=0.01, style=invis, label=""];
+    le_end   [pos="605.35,138!", shape=point, width=0.01, style=invis, label=""];
+    le_start -> le_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_edge_text [pos="809.6,138!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=3.5, height=0.35, margin=0,
+                      label="Edge\l"];
+
+    lrotL_s0_s [pos="574.33,101.93!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_s0_e [pos="564.53,96.27!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_s0_s -> lrotL_s0_e [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="574.33,101.93 573.18,97.66 568.8,95.13 564.53,96.27"];
+    lrotL_s1_s [pos="564.53,96.27!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_s1_e [pos="558.87,106.07!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_s1_s -> lrotL_s1_e [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="564.53,96.27 560.26,97.42 557.73,101.8 558.87,106.07"];
+    lrotL_last_s [pos="558.87,106.07!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_last_e [pos="567.78,111.91!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_last_s -> lrotL_last_e [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="558.87,106.07 559.95,110.08 563.9,112.6 567.78,111.91"];
+    lrotL_tips [pos="567.78,111.91!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_tipe [pos="567.99,111.88!", shape=point, width=0.01, style=invis, label=""];
+    lrotL_tips -> lrotL_tipe [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    lrotR_s0_s [pos="590.87,101.93!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_s0_e [pos="600.67,96.27!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_s0_s -> lrotR_s0_e [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="590.87,101.93 592.02,97.66 596.4,95.13 600.67,96.27"];
+    lrotR_s1_s [pos="600.67,96.27!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_s1_e [pos="606.33,106.07!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_s1_s -> lrotR_s1_e [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="600.67,96.27 604.94,97.42 607.47,101.8 606.33,106.07"];
+    lrotR_last_s [pos="606.33,106.07!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_last_e [pos="597.42,111.91!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_last_s -> lrotR_last_e [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="606.33,106.07 605.25,110.08 601.3,112.6 597.42,111.91"];
+    lrotR_tips [pos="597.42,111.91!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_tipe [pos="597.21,111.88!", shape=point, width=0.01, style=invis, label=""];
+    lrotR_tips -> lrotR_tipe [color="gray45", penwidth=4.2, arrowsize=0.45,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+        legend_rot_text [pos="809.6,104!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=3.5, height=0.35, margin=0,
+                      label="Rotation CCW or CW\l"];
+}

@@ -1,0 +1,146 @@
+digraph multiple_edges_with_load_restrictions {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.02;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    N0_label [pos="60,155!", shape=plaintext, label="N0", fontsize=22];
+    N0       [pos="60,200!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N1_label [pos="378,155!", shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="378,200!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2_label [pos="696,155!", shape=plaintext, label="N2", fontsize=22];
+    N2       [pos="696,200!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N3_label [pos="1014,155!", shape=plaintext, label="N3", fontsize=22];
+    N3       [pos="1014,200!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N4_label [pos="1332,155!", shape=plaintext, label="N4", fontsize=22];
+    N4       [pos="1332,200!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+
+    fwd0_start [pos="84.24,209!", shape=point, width=0.01, style=invis, label=""];
+    fwd0_end   [pos="353.76,209!", shape=point, width=0.01, style=invis, label=""];
+    fwd0_start -> fwd0_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    bwd0_start [pos="353.76,191!", shape=point, width=0.01, style=invis, label=""];
+    bwd0_end   [pos="84.24,191!", shape=point, width=0.01, style=invis, label=""];
+    bwd0_start -> bwd0_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                            arrowhead=normal, arrowtail=none, dir=forward];
+
+    l12_top_s [pos="378.00,217.62!", shape=point, width=0.01, style=invis, label=""];
+    l12_top_e [pos="686.46,223.85!", shape=point, width=0.01, style=invis, label=""];
+    l12_top_s -> l12_top_e [color="#BF8F00", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="378.00,217.62 473.40,280.00 600.60,280.00 686.46,223.85"];
+    l12_top_tip_s [pos="686.46,223.85!", shape=point, width=0.01, style=invis, label=""];
+    l12_top_tip_e [pos="696.00,217.62!", shape=point, width=0.01, style=invis, label=""];
+    l12_top_tip_s -> l12_top_tip_e [color="#BF8F00", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    l12_bot_s [pos="696.00,182.38!", shape=point, width=0.01, style=invis, label=""];
+    l12_bot_e [pos="387.54,176.15!", shape=point, width=0.01, style=invis, label=""];
+    l12_bot_s -> l12_bot_e [color="#BF8F00", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="696.00,182.38 600.60,120.00 473.40,120.00 387.54,176.15"];
+    l12_bot_tip_s [pos="387.54,176.15!", shape=point, width=0.01, style=invis, label=""];
+    l12_bot_tip_e [pos="378.00,182.38!", shape=point, width=0.01, style=invis, label=""];
+    l12_bot_tip_s -> l12_bot_tip_e [color="#BF8F00", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    l23_top_s [pos="696.00,217.62!", shape=point, width=0.01, style=invis, label=""];
+    l23_top_e [pos="1004.46,223.85!", shape=point, width=0.01, style=invis, label=""];
+    l23_top_s -> l23_top_e [color="#4472C4", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="696.00,217.62 791.40,280.00 918.60,280.00 1004.46,223.85"];
+    l23_top_tip_s [pos="1004.46,223.85!", shape=point, width=0.01, style=invis, label=""];
+    l23_top_tip_e [pos="1014.00,217.62!", shape=point, width=0.01, style=invis, label=""];
+    l23_top_tip_s -> l23_top_tip_e [color="#4472C4", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    l23_bot_s [pos="1014.00,182.38!", shape=point, width=0.01, style=invis, label=""];
+    l23_bot_e [pos="705.54,176.15!", shape=point, width=0.01, style=invis, label=""];
+    l23_bot_s -> l23_bot_e [color="#4472C4", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="1014.00,182.38 918.60,120.00 791.40,120.00 705.54,176.15"];
+    l23_bot_tip_s [pos="705.54,176.15!", shape=point, width=0.01, style=invis, label=""];
+    l23_bot_tip_e [pos="696.00,182.38!", shape=point, width=0.01, style=invis, label=""];
+    l23_bot_tip_s -> l23_bot_tip_e [color="#4472C4", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    l34_top_s [pos="1014.00,217.62!", shape=point, width=0.01, style=invis, label=""];
+    l34_top_e [pos="1322.46,223.85!", shape=point, width=0.01, style=invis, label=""];
+    l34_top_s -> l34_top_e [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="1014.00,217.62 1109.40,280.00 1236.60,280.00 1322.46,223.85"];
+    l34_top_tip_s [pos="1322.46,223.85!", shape=point, width=0.01, style=invis, label=""];
+    l34_top_tip_e [pos="1332.00,217.62!", shape=point, width=0.01, style=invis, label=""];
+    l34_top_tip_s -> l34_top_tip_e [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    l34_bot_s [pos="1332.00,182.38!", shape=point, width=0.01, style=invis, label=""];
+    l34_bot_e [pos="1023.54,176.15!", shape=point, width=0.01, style=invis, label=""];
+    l34_bot_s -> l34_bot_e [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=none, arrowtail=none, dir=forward,
+                        pos="1332.00,182.38 1236.60,120.00 1109.40,120.00 1023.54,176.15"];
+    l34_bot_tip_s [pos="1023.54,176.15!", shape=point, width=0.01, style=invis, label=""];
+    l34_bot_tip_e [pos="1014.00,182.38!", shape=point, width=0.01, style=invis, label=""];
+    l34_bot_tip_s -> l34_bot_tip_e [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_bg [pos="1883.05,195.50!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=12.862, height=3.458, label=""];
+
+    legend_title [pos="1465,300!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lg0_start [pos="1450.00,266!", shape=point, width=0.01, style=invis, label=""];
+    lg0_end   [pos="1495.75,266!", shape=point, width=0.01, style=invis, label=""];
+    lg0_start -> lg0_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_text0 [pos="1932.30,266!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=10.8, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward no loads allowed\l"];
+
+    lg1_start [pos="1450.00,232!", shape=point, width=0.01, style=invis, label=""];
+    lg1_end   [pos="1495.75,232!", shape=point, width=0.01, style=invis, label=""];
+    lg1_start -> lg1_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_text1 [pos="1932.30,232!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=10.8, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 backward no loads allowed\l"];
+
+    lg2_start [pos="1450.00,198!", shape=point, width=0.01, style=invis, label=""];
+    lg2_end   [pos="1495.75,198!", shape=point, width=0.01, style=invis, label=""];
+    lg2_start -> lg2_end [color="#BF8F00", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_text2 [pos="1932.30,198!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=10.8, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 omni unloaded or any load type - no restrictions\l"];
+
+    lg3_start [pos="1450.00,164!", shape=point, width=0.01, style=invis, label=""];
+    lg3_end   [pos="1495.75,164!", shape=point, width=0.01, style=invis, label=""];
+    lg3_start -> lg3_end [color="#4472C4", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_text3 [pos="1932.30,164!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=10.8, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 omni unloaded or only load type 2 allowed\l"];
+
+    lg4_start [pos="1450.00,130!", shape=point, width=0.01, style=invis, label=""];
+    lg4_end   [pos="1495.75,130!", shape=point, width=0.01, style=invis, label=""];
+    lg4_start -> lg4_end [color="#C55A11", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+    legend_text4 [pos="1932.30,130!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=10.8, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 omni only while loaded with load type 2\l"];
+
+    legend_node [pos="1472.88,96!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="1932.30,96!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=10.8, height=0.35, margin=0,
+                      label="Node\l"];
+}

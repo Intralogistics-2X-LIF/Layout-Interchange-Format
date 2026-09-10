@@ -12,7 +12,7 @@ _The following descriptions of the decision options were copied nearly verbatim 
 ### Pros
 - Outlines a clear scope and design guideline for the core team to work with.
 - Provides straightforward definition of responsibilities between LIF creator and LIF consumer.
-- Constitutes a cleaner, simpler and more immediately approachable standard.
+- Constitutes a cleaner, simpler, and more immediately approachable standard.
 
 ### Cons
 - The concept of stations (their descriptor/height/position) already slightly violates this mandate, though removing it would be problematic.
@@ -39,7 +39,7 @@ controllers, design tools, ...)"
 ### User Story
 As a deployment engineer, I want to have a single format where I export from my design tool to the fleet control software. I do not wish to have to add any meta-data after the initial export in an additional tool or the fleet control software. With a re-upload all information about the layout should still be contained in the single format I used for original upload and no information lost, which then has to be manually added once more.
 
-# Final Decision
+# Decision
 On 2026/02/27, the VDMA TAC (Technical Advisory Council) voted on which of the two options that LIF would pursue for Version 2.0 after having the implications of both options explained to them. The result: **Restricted**.
 
 The immediate implications of this are as follows:
@@ -47,7 +47,6 @@ The immediate implications of this are as follows:
 2. No further expansions to the basic concept of Stations shall be made as part of the LIF 2.0 or subsequent minor releases. However, some legacy information concerning stations must be re-evaluated before the release of LIF 2.0 (E.g., stationHeight). Interested parties may search the github issue history for any issues mentioning stations in their title for more information.
 
 # Future Decisions
-
 Re-evaluation of the scope of LIF for a future major version (3.0 or later) depends on feedback from both the members of the VDMA as well as the general market. This decision only affects LIF 2.0.
 
 There is also the possibility of releasing an extended, separate partner format after the release of LIF 2.0 which may contain additional information. This will depend on interest and requests from VDMA members and the general market.

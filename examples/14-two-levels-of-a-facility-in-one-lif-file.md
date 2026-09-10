@@ -1,5 +1,7 @@
 # 14 Two Levels of a Facility in One LIF File
 
+![](assets/png/14-two-levels-of-a-facility-in-one-lif-file.png)
+
 Two layouts in one LIF file, representing two different levels of the facility. Modelling of a transition between two levels. Each layout references its own origin, reflecting that the levels are located on different levels of the facility.
 
 LIF-File:
@@ -8,7 +10,7 @@ LIF-File:
     "metaInformation": {
         "lifId": "LIF_Example_14",
         "creator": "VDMA",
-        "exportTimestamp": "2026-09-28T10:00:00.00Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [

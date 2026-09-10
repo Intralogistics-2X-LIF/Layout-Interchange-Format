@@ -2,13 +2,15 @@
 
 Modelling a station with two different nodes, such as a rotation station for a pallet.
 
+![](assets/png/07-station-with-two-nodes.png)
+
 LIF-File:
 ```json
 {
     "metaInformation": {
         "lifId": "LIF_Example_07",
         "creator": "VDMA",
-        "exportTimestamp": "2026-09-28T10:00:00.00Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [

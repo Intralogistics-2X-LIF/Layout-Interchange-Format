@@ -1,0 +1,41 @@
+digraph forward_edge {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.02;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    legend_bg [pos="740.1,66.5!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.094, height=1.848, label=""];
+
+    N1_label [pos="27.5,60!",  shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="100.4,59.5!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2       [pos="420.4,59.5!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    N2_label [pos="470,60!",   shape=plaintext, label="N2", fontsize=22];
+
+    fwd_start [pos="124.64,59.5!", shape=point, width=0.01, style=invis, label=""];
+    fwd_end   [pos="396.16,59.5!", shape=point, width=0.01, style=invis, label=""];
+    fwd_start -> fwd_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+              arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_title [pos="560.1,112!", shape=plaintext, label="Legend:", fontsize=19];
+
+    la_start [pos="546,78!", shape=point, width=0.01, style=invis, label=""];
+    la_end   [pos="591.5,78!", shape=point, width=0.01, style=invis, label=""];
+    la_start -> la_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_edge_text [pos="789.9,78!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Edge: Mobile Robot Type 1 forward\l"];
+
+    legend_node [pos="572.4,44!", shape=hexagon, style=filled, fillcolor="black",
+                 color="black", fixedsize=true, width=0.451, height=0.406, label=""];
+    legend_node_text [pos="789.9,44!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+}

@@ -1,0 +1,54 @@
+digraph bidirectional_edge {
+    layout=neato;
+    overlap=true;
+    splines=false;
+    bgcolor="white";
+    pad=0.02;
+    node [fontname="Arial", fontcolor="black", penwidth=0];
+
+    legend_bg [pos="742.9,81.25!", shape=box, style=filled,
+               fillcolor="#F2F2F2", color="#F2F2F2",
+               fixedsize=true, width=6.177, height=2.229, label=""];
+
+    N1_label [pos="29.6,89.1!",  shape=plaintext, label="N1", fontsize=22];
+    N1       [pos="102.75,88.6!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.458, height=0.399, label=""];
+    N2       [pos="420.75,88.6!", shape=hexagon, style=filled, fillcolor="black",
+              color="black", fixedsize=true, width=0.458, height=0.399, label=""];
+    N2_label [pos="470.1,89.1!",  shape=plaintext, label="N2", fontsize=22];
+
+    fwd_start [pos="127.24,97.6!",    shape=point, width=0.01, style=invis, label=""];
+    fwd_end   [pos="396.26,97.6!",  shape=point, width=0.01, style=invis, label=""];
+    bwd_start [pos="396.26,79.6!",     shape=point, width=0.01, style=invis, label=""];
+    bwd_end   [pos="127.24,79.6!",    shape=point, width=0.01, style=invis, label=""];
+
+    fwd_start -> fwd_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+    bwd_start -> bwd_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                          arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_title [pos="562.5,140.25!", shape=plaintext, label="Legend:", fontsize=19];
+
+    lg_start [pos="545.5,106.25!", shape=point, width=0.01, style=invis, label=""];
+    lg_end   [pos="591.25,106.25!", shape=point, width=0.01, style=invis, label=""];
+    lg_start -> lg_end [color="#70AD47", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    lr_start [pos="545.5,72.25!", shape=point, width=0.01, style=invis, label=""];
+    lr_end   [pos="591.25,72.25!", shape=point, width=0.01, style=invis, label=""];
+    lr_start -> lr_end [color="#FF3131", penwidth=4.5, arrowsize=1.78,
+                        arrowhead=normal, arrowtail=none, dir=forward];
+
+    legend_fwd_text [pos="801,106.25!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 forward\l"];
+    legend_bwd_text [pos="801,72.25!", shape=plaintext, fontsize=19,
+                     fixedsize=true, width=4.5, height=0.35, margin=0,
+                     label="Edge: Mobile Robot Type 1 backward\l"];
+
+    legend_node      [pos="571.9,38.25!", shape=hexagon, style=filled, fillcolor="black",
+                      color="black", fixedsize=true, width=0.458, height=0.399, label=""];
+    legend_node_text [pos="801,38.25!", shape=plaintext, fontsize=19,
+                      fixedsize=true, width=4.5, height=0.35, margin=0,
+                      label="Node\l"];
+}

@@ -2,13 +2,15 @@
 
 Station with two nodes, but restricted for different mobile robot types.
 
+![](assets/png/08-station-with-two-nodes-restricted.png)
+
 LIF-File:
 ```json
 {
     "metaInformation": {
         "lifId": "LIF_Example_08",
         "creator": "VDMA",
-        "exportTimestamp": "2026-09-28T10:00:00.00Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [
