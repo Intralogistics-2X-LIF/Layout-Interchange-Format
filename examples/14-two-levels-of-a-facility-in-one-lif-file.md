@@ -20,7 +20,6 @@ LIF-File:
             "layouts": [
                 {
                     "layoutId": "Layout_Ground_Level",
-                    "layoutName": "Name of Layout Ground Level",
                     "layoutVersion": "1",
                     "layoutLevelId": "0",
                     "layoutDescriptor": "Ground level of Customer",
@@ -113,7 +112,6 @@ LIF-File:
             "layouts": [
                 {
                     "layoutId": "Layout_Upper_Level",
-                    "layoutName": "Name of Layout Upper Level",
                     "layoutVersion": "1",
                     "layoutLevelId": "1",
                     "layoutDescriptor": "Upper level of Customer",

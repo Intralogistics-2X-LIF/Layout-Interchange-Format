@@ -8,7 +8,7 @@ LIF-File:
     "metaInformation": {
         "lifId": "LIF_Example_26",
         "creator": "VDMA",
-        "exportTimestamp": "2023-09-28T10:00:00.000Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [
@@ -18,7 +18,7 @@ LIF-File:
             "layouts": [
                 {
                     "layoutId": "Layout_Ground_Level",
-                    "layoutName": "Name of Layout Ground Level",
+                    "layoutDescriptor": "Name of Layout Ground Level",
                     "layoutVersion": "1",
                     "nodes": [
                         {

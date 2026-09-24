@@ -8,7 +8,7 @@ LIF-File:
     "metaInformation": {
         "lifId": "LIF_Example_29",
         "creator": "VDMA",
-        "exportTimestamp": "2023-09-28T10:00:00.000Z",
+        "exportTimestamp": "2026-09-28T10:00:00.000Z",
         "lifVersion": "2.0.0"
     },
     "origins": [
@@ -78,7 +78,7 @@ LIF-File:
                                     "orientationType": "TANGENTIAL",
                                     "mobileRobotOrientations": [
                                         0.0,
-                                        3.141592653589793
+                                        3.14159
                                     ],
                                     "reachOrientationBeforeEntering": true,
                                     "corridor": {

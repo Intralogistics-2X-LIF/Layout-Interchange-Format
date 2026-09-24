@@ -19,7 +19,6 @@ LIF-File:
             "layouts": [
                 {
                     "layoutId": "Layout_Ground_Level",
-                    "layoutName": "Name of Layout Ground Level",
                     "layoutVersion": "1",
                     "layoutDescriptor": "Ground level of Customer",
                     "nodes": [
