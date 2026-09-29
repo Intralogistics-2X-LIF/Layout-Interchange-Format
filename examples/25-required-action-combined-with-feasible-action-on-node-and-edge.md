@@ -84,7 +84,7 @@ LIF-File:
                                             "seriesName": "Series_1"
                                         }
                                     ],
-                                    "mobileRobotOrientations": [
+                                    "defaultOrientation": [
                                         0.0
                                     ],
                                     "orientationType": "TANGENTIAL",
