@@ -76,7 +76,7 @@ LIF-File:
                                         }
                                     ],
                                     "orientationType": "TANGENTIAL",
-                                    "mobileRobotOrientations": [
+                                    "defaultOrientation": [
                                         0.0,
                                         3.14159
                                     ],
