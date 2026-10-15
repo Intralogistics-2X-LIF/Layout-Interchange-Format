@@ -74,7 +74,7 @@ LIF-File:
                                     ],
                                     "orientationType": "TANGENTIAL",
                                     "reachOrientationBeforeEntering": false,
-                                    "mobileRobotOrientations": [
+                                    "defaultOrientation": [
                                         1.5708
                                     ],
                                     "rotationAtStartNodeAllowed": "NONE",
@@ -96,7 +96,7 @@ LIF-File:
                                     ],
                                     "orientationType": "TANGENTIAL",
                                     "reachOrientationBeforeEntering": false,
-                                    "mobileRobotOrientations": [
+                                    "defaultOrientation": [
                                         -1.5708
                                     ],
                                     "rotationAtStartNodeAllowed": "NONE",
