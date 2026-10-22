@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Layout Interchange Format",
-    "description": "The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward (third-party) fleet control system providers.",
+    "description": "The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward fleet control system providers.",
     "type": "object",
     "required": [
         "metaInformation",
@@ -81,7 +81,7 @@
         },
         "layout": {
             "type": "object",
-            "description": "A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or (third-party) fleet control systems. It is intended to hold the information for all different mobile robot types. Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a 'plane', i.e., multiple levels must be modelled in different layouts. It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level.",
+            "description": "A layout for order generation and routing. This layout holds relevant information independently from possible mobile robots or fleet control systems. It is intended to hold the information for all different mobile robot types. Nodes and edges model a graph structure that is used as foundation for order generation and routing. A layout holds information that can be topologically considered a 'plane', i.e., multiple levels must be modelled in different layouts. It is also possible to partition the facility into multiple layouts even if the encoded information can be considered to lie on the same level.",
             "required": [
                 "layoutId",
                 "layoutVersion",
@@ -140,7 +140,7 @@
             "properties": {
                 "nodeId": {
                     "type": "string",
-                    "description": "Unique identifier of the node across all layouts contained in this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to track whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF."
+                    "description": "Unique identifier of the node across all layouts contained in this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the fleet control system to track whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF."
                 },
                 "nodeDescriptor": {
                     "type": "string",
@@ -211,21 +211,21 @@
                 },
                 "requiredActions": {
                     "type": "array",
-                    "description": "Actions on this node which must always be included when sent by the (third-party) fleet control system.",
+                    "description": "Actions on this node which must always be included when sent by the fleet control system.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
                 },
                 "feasibleActions": {
                     "type": "array",
-                    "description": "Actions on this node with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and (third-party) fleet control system outside of the scope of the LIF.",
+                    "description": "Actions on this node with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system outside of the scope of the LIF.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
                 },
                 "forbiddenActionTypes": {
                     "type": "array",
-                    "description": "actionTypes on this node which are strictly forbidden from ever being sent by the (third-party) fleet control system, and may result in an error state or other negative or undefined consequences.",
+                    "description": "actionTypes on this node which are strictly forbidden from ever being sent by the fleet control system, and may result in an error state or other negative or undefined consequences.",
                     "items": {
                         "type": "string"
                     }
@@ -313,7 +313,7 @@
                 },
                 "actionParameters": {
                     "type": "array",
-                    "description": "Exact list of parameters and their statically defined values which must be sent along with this action. Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The (third-party) fleet control system must still determine and send these actionParameters. Refer to the mobile robot's Fact Sheet.",
+                    "description": "Exact list of parameters and their statically defined values which must be sent along with this action. Note: There may be other actionParameters with dynamic values that are required by an action that are not contained in this list. The fleet control system must still determine and send these actionParameters. Refer to the mobile robot's factsheet.",
                     "items": {
                         "$ref": "#/$defs/actionParameter"
                     }
@@ -375,7 +375,7 @@
             "properties": {
                 "edgeId": {
                     "type": "string",
-                    "description": "Unique identifier of the edge across all layouts within this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to track whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF."
+                    "description": "Unique identifier of the edge across all layouts within this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the fleet control system to track whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF."
                 },
                 "edgeDescriptor": {
                     "type": "string",
@@ -420,12 +420,12 @@
                 },
                 "reachOrientationBeforeEntering": {
                     "type": "boolean",
-                    "description": "This parameter is only valid for omni-directional mobile robots. true: Desired edge orientation shall be reached before entering the edge. false: mobile robot can rotate into the desired orientation on the edge. The (third-party) fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The (third-party) fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control. Note: If not defined, the default value is true."
+                    "description": "This parameter is only valid for omni-directional mobile robots. true: Desired edge orientation shall be reached before entering the edge. false: mobile robot can rotate into the desired orientation on the edge. The fleet control system must assume that the mobile robot will rotate in any direction along the edge at any point. The fleet control system is responsible for avoiding issuing commands which will result in invalid or conflicting commands to other mobile robots also under its control. Note: If not defined, the default value is true."
                 },
                 "mobileRobotOrientations": {
                     "type": "array",
                     "unit": "rad",
-                    "description": "All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value orientationType defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards. If the mobile robot starts in a different orientation, rotate the mobile robot on the edge to the desired orientation if reachOrientationBeforeEntering is set to false. If reachOrientationBeforeEntering is true, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory. Note: If not defined, such as to allow for truly omnidirectional movement, the (third-party) fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time.",
+                    "description": "All possible orientations the mobile robot can take while traversing the edge. The fleet control system needs to select one of the possible orientations. The value orientationType defines whether the orientations must be interpreted relative to the global project specific map coordinate system or tangential to the edge. In case of interpreted tangential to the edge 0.0 = forwards and PI = backwards. If the mobile robot starts in a different orientation, rotate the mobile robot on the edge to the desired orientation if reachOrientationBeforeEntering is set to false. If reachOrientationBeforeEntering is true, rotate before entering the edge (assuming the start node allows rotation). If no trajectory is defined, apply the orientations to the direct path between the two connecting nodes of the edge. If a trajectory is defined for the edge, apply the orientations to the trajectory. Note: If not defined, such as to allow for truly omnidirectional movement, the fleet control system must assume the mobile robot traversing the edge could be in any orientation at any time.",
                     "items": {
                         "type": "number"
                     }
@@ -465,25 +465,25 @@
                 },
                 "reentryAllowed": {
                     "type": "boolean",
-                    "description": "true: Mobile robots of a type listed in mobileRobotTypes are allowed to enter into automatic management by the (third-party) fleet control system while on this edge. false: Mobile robots of a type listed in mobileRobotTypes are not allowed to enter into automatic management by the (third-party) fleet control system while on this edge. Note: If not defined, the default is true."
+                    "description": "true: Mobile robots of a type listed in mobileRobotTypes are allowed to enter into automatic management by the fleet control system while on this edge. false: Mobile robots of a type listed in mobileRobotTypes are not allowed to enter into automatic management by the fleet control system while on this edge. Note: If not defined, the default is true."
                 },
                 "requiredActions": {
                     "type": "array",
-                    "description": "Actions on this edge which must always be included when sent by the (third-party) fleet control system.",
+                    "description": "Actions on this edge which must always be included when sent by the fleet control system.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
                 },
                 "feasibleActions": {
                     "type": "array",
-                    "description": "Actions on this edge with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and (third-party) fleet control system outside of the scope of the LIF.",
+                    "description": "Actions on this edge with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system outside of the scope of the LIF.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
                 },
                 "forbiddenActionTypes": {
                     "type": "array",
-                    "description": "actionTypes on this edge which are strictly forbidden from ever being sent by the (third-party) fleet control system, and will result in an error state or other negative or undefined consequences.",
+                    "description": "actionTypes on this edge which are strictly forbidden from ever being sent by the fleet control system, and will result in an error state or other negative or undefined consequences.",
                     "items": {
                         "type": "string"
                     }
@@ -612,7 +612,7 @@
                 },
                 "interactionNodeIds": {
                     "type": "array",
-                    "description": "List of nodeIds for this station. These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways. This attribute must not be empty; there must be at least one nodeId. Note: The decision of which nodeId is used is the responsibility of the (third-party) fleet control system. Choosing the correct interaction node may require that the (third-party) fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node.",
+                    "description": "List of nodeIds for this station. These are the nodes that represent the position at which interaction with this station takes place. Multiple nodes can be listed for stations which can be accessed in multiple ways. This attribute must not be empty; there must be at least one nodeId. Note: The decision of which nodeId is used is the responsibility of the fleet control system. Choosing the correct interaction node may require that the fleet control system considers the list of load sets defined on the edge or edges leading to the interaction node.",
                     "items": {
                         "type": "string"
                     },
