@@ -211,7 +211,7 @@
                 },
                 "requiredActions": {
                     "type": "array",
-                    "description": "Actions on this node which must always be included when sent by the (third-party) fleet control system.",
+                    "description": "Actions which shall always be included on this node when routed to it by the fleet control system. E.g., honk if audio signaling is strictly required anytime this node is passed.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
@@ -225,7 +225,7 @@
                 },
                 "forbiddenActionTypes": {
                     "type": "array",
-                    "description": "actionTypes on this node which are strictly forbidden from ever being sent by the (third-party) fleet control system, and may result in an error state or other negative or undefined consequences.",
+                    "description": "ActionTypes strictly forbidden to be sent on this node as they will result in an error state or undefined negative consequences.",
                     "items": {
                         "type": "string"
                     }
@@ -469,7 +469,7 @@
                 },
                 "requiredActions": {
                     "type": "array",
-                    "description": "Actions on this edge which must always be included when sent by the (third-party) fleet control system.",
+                    "description": "Actions which shall always be included on this edge when routed over it by the fleet control system. E.g., adjustTravelHeightForks, because the mobile robot has to travel with raised forks in this area anytime it is on the edge.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
@@ -483,7 +483,7 @@
                 },
                 "forbiddenActionTypes": {
                     "type": "array",
-                    "description": "actionTypes on this edge which are strictly forbidden from ever being sent by the (third-party) fleet control system, and will result in an error state or other negative or undefined consequences.",
+                    "description": "ActionTypes strictly forbidden to be sent on this edge as they will result in an error state or undefined negative consequences.",
                     "items": {
                         "type": "string"
                     }
