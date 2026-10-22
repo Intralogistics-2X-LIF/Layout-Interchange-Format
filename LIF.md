@@ -203,7 +203,6 @@ Each table contains the name of the identifier, its data type, its unit if appli
 | **Identification** | **Description** |
 | --- | --- |
 | standard | Variable is an elementary data type. |
-| **bold** | Variable is a non-elementary data type (e. g. JSON object or array) and defined separately. |
 | *italics* | Variable is optional. |
 | arrayName [squareBrackets] | Variable (here arrayName) is an array of the data type specified in the square brackets (here the data type is squareBrackets). |
 
