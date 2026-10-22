@@ -514,7 +514,6 @@
         "trajectory": {
             "type": "object",
             "required": [
-                "knotVector",
                 "controlPoints"
             ],
             "properties": {
