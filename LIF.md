@@ -468,15 +468,48 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 
 #### 8.3.18.1 Best Practices for Defining a Station
 
-A station could be a battery charging point where a mobile robot must interface with physical charging infrastructure. A station could be (and perhaps most often is) a place to pick or drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
+A station can represent, for example:
 
-It is possible to have different configurations for stations which accomplish the same thing. It is considered best practice to have stations be as atomic as possible. For example, while a 1 wide, 1 deep, 5 tall (1x1x5) vertical column of load storage positions on a multi-tiered tall metal rack might be able to be represented by a single station, it is likely better to have five stations, one per level for each discrete position for each individual load, even if all five of such stations would share the same interaction node or nodes.
+- a battery charging point, where a mobile robot must interface with physical charging infrastructure,
+- a place to pick or drop a single load (perhaps the most common case),
+- a racking bay, where multiple loads could be stored next to one another. This applies especially where loads of variable widths may affect how many loads can be stored on the station.
 
-For stations where a variable number of loads might be kept, such as in the example given above for a racking bay which could, for example, hold either two wider loads or three thinner ones, it is suggested to make this a single station, and to utilize action parameters for where and how exactly to pick and drop from the bay. Less elegant, alternative options, such as where there might be a total of five stations for the bay, three for individual thin loads, and two for individual wide loads, many of which overlap with one another, are possible but not encouraged.
+As a general principle, stations should be defined as atomically as possible. Different station configurations may achieve the same outcome, but keeping individual stations atomic is considered best practice.
 
-As an additional example, imagine a last-in, first-out (LIFO) 1 wide, N deep, 1 tall (1xNx1) variable deep lane, where N is runtime variable depending on the dimensions of the loads being stored. Accurately representing all possible combinations of where loads of varying dimensions may be stored may become impractical. It again is likely best to have the entire variable deep lane be a single station, possibly with a single interaction node of where to begin entering the deep lane. An action parameter could be used to describe the depth offset into the deep lane the mobile robot should drop a load if the fleet control system decides such a thing, or allowing the mobile robot to report back the depth at which it dropped if the mobile robot decides. Conversely, if a 1xNx1 deep lane would always contain loads of all the same dimensions, but there would still be some other reason to vary the number of loads stored in it, and therefore the depth of the deep lane, at runtime, treating each individual position in the deep lane as its own station returns to being the more explicit, atomic representation.
+**Stations with multiple levels**
 
-The exact configuration of the above examples and other potentially complex situations shall always be handled on a case-by-case basis between fleet control system and mobile robot integrator(s).
+Example: vertical rack column (1 wide × 1 deep × 5 tall)
+
+- A vertical column of five load storage positions on a multi-tiered tall metal rack might be represented by a single station.
+- It is likely better to define five stations: one per level, i.e. one for each discrete position of each individual load.
+- This applies even if all five stations share the same interaction node(s).
+
+**Stations with multiple loads on one level**
+
+For stations where a variable number of loads might be kept on one level, it is suggested to:
+
+- define a single station, and
+- use action parameters to specify where and how exactly to pick and drop.
+
+Example: racking bay with loads of different widths (loads next to one another)
+
+- The bay can hold either two wider loads or three thinner ones.
+- Suggested: one station for the whole bay, with action parameters for the exact pick/drop position.
+- Possible but not encouraged (less elegant): five stations for the bay, three for individual thin loads and two for individual wide loads, many of which overlap with one another.
+
+Example: variable deep lane (loads behind one another; LIFO, 1 wide × N deep × 1 tall)
+
+- N varies at runtime, depending on the dimensions of the loads being stored.
+- Accurately representing all possible combinations of where loads of varying dimensions may be stored may become impractical.
+- It is again likely best to make the entire deep lane a single station, possibly with a single interaction node where the mobile robot begins entering the lane.
+- An action parameter can describe the depth offset into the lane:
+  - If the fleet control system decides the depth, the action parameter tells the mobile robot at which depth to drop the load.
+  - If the mobile robot decides the depth, it reports back the depth at which it dropped the load.
+- Counter-case: if the deep lane always contains loads of the same dimensions, but the number of loads (and therefore the lane depth) still varies at runtime for some other reason, treating each individual position in the lane as its own station is again the more explicit, atomic representation.
+
+**Case-by-case agreement**
+
+The exact configuration of the examples above, and of other potentially complex situations, shall always be handled case by case between the fleet control system and the mobile robot integrator(s).
 
 #### 8.3.18.2 How the Fleet Control System Can Identify the Purpose of a Station
 
