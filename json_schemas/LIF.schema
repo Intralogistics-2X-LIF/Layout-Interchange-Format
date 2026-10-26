@@ -225,7 +225,7 @@
                 },
                 "forbiddenActionTypes": {
                     "type": "array",
-                    "description": "Action types strictly forbidden to be sent on this node as they will result in an error state or undefined negative consequences.",
+                    "description": "Action types strictly forbidden to be sent on this node as they may result in an error state or undefined negative consequences.",
                     "items": {
                         "type": "string"
                     }
