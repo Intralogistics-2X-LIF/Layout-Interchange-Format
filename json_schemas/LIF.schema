@@ -469,7 +469,7 @@
                 },
                 "requiredActions": {
                     "type": "array",
-                    "description": "Actions which shall always be included on this edge when routed over it by the fleet control system. E.g., adjustTravelHeightForks, because the mobile robot has to travel with raised forks in this area anytime it is on the edge.",
+                    "description": "Actions which shall always be included on this edge when sent by the fleet control system. E.g., adjustTravelHeightForks, because the mobile robot has to travel with raised forks anytime it traverses this edge.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
