@@ -363,9 +363,8 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | loadRestriction { |  | JSON-object |  |
-| unloaded |  | boolean | "true": This node or edge may be used by an unloaded mobile robot. "false": This node or edge shall not be used by an unloaded mobile robot. |
-| loaded |  | boolean | "true": This node or edge may be used by a loaded mobile robot. "false": This node or edge shall not be used by a loaded mobile robot.  Note: If set to true, the attribute loadSetNames, if given, shall be respected. |
-| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system shall evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets shall be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
+| type |  | string | Enum {UNLOADED, LOADED, BOTH}:  "UNLOADED": the mobile robot may only traverse this edge while unloaded.  "LOADED": the mobile robot may not traverse this edge while unloaded, instead only while loaded. "BOTH": the mobile robot may traverse this edge either unloaded or loaded.<br>Note: If set to LOADED or BOTH, the attribute `loadSetNames`, if given, shall be respected. |
+| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system shall evaluate this attribute only if the attribute loaded is set to true. The same names for load sets shall be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).<br>Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
 | } |  |  |  |
 
 ### 8.3.12 Edge
