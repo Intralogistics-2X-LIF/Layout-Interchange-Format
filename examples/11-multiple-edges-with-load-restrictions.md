@@ -2,7 +2,7 @@
 
 Multiple edges with different load restrictions applied.
 
-![](assets/png/11-multiple-edges-with-load-restrictions.png)
+![](../assets/png/11-multiple-edges-with-load-restrictions.png)
 
 LIF-File:
 ```json

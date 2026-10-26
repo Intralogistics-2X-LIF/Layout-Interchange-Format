@@ -2,7 +2,7 @@
 
 Node N2 defines an allowedDeviationXY where aMinimum equals aMaximum and bMinimum equals bMaximum, permitting deviation only along the boundary of a fixed circle around the node position.
 
-![](assets/png/22-node-with-allowedDeviationXY-as-a-fixed-ellipse.png)
+![](../assets/png/22-node-with-allowedDeviationXY-as-a-fixed-ellipse.png)
 
 LIF-File:
 ```json

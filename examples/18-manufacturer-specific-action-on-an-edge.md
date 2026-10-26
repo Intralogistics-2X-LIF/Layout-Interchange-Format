@@ -2,7 +2,7 @@
 
 Manufacturer specific action on an edge.
 
-![](assets/png/18-manufacturer-specific-action-on-an-edge.png)
+![](../assets/png/18-manufacturer-specific-action-on-an-edge.png)
 
 LIF-File:
 ```json

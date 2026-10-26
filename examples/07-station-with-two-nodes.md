@@ -2,7 +2,7 @@
 
 Modelling a station with two different nodes, such as a rotation station for a pallet.
 
-![](assets/png/07-station-with-two-nodes.png)
+![](../assets/png/07-station-with-two-nodes.png)
 
 LIF-File:
 ```json

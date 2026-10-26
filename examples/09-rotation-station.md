@@ -2,7 +2,7 @@
 
 Rotation station for a pallet, on which a rectangular load can be dropped "short side leading" and then picked up "long side leading".
 
-![](assets/png/09-rotation-station.png)
+![](../assets/png/09-rotation-station.png)
 
 LIF-File:
 ```json

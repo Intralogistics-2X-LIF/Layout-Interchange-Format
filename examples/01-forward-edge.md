@@ -2,7 +2,7 @@
 
 One edge (straight line) between two nodes. The mobile robot may only move forward oriented on this edge.
 
-![](assets/png/01-forward-edge.png)
+![](../assets/png/01-forward-edge.png)
 
 LIF-File:
 ```json

@@ -2,7 +2,7 @@
 
 Modelling of a battery charging station.
 
-![](assets/png/13-battery-charging-station.png)
+![](../assets/png/13-battery-charging-station.png)
 
 LIF-File:
 ```json

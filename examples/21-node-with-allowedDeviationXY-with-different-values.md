@@ -2,7 +2,7 @@
 
 Node N2 defines an allowedDeviationXY with different minimum and maximum values for a and b, permitting the mobile robot to deviate within an ellipse around the node position.
 
-![](assets/png/21-node-with-allowedDeviationXY-with-different-values.png)
+![](../assets/png/21-node-with-allowedDeviationXY-with-different-values.png)
 
 LIF-File:
 ```json
