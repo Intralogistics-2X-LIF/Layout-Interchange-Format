@@ -300,7 +300,7 @@ The LIF does not specify how two layouts from different origins, whether defined
 | *allowedDeviationXY* |  | JSON-object | Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly. |
 | *requiredActions[action]* | | array of JSON-object | Actions which shall always be included on this node when sent by the fleet control system. E.g., honk if audio signaling is strictly required anytime this node is passed. |
 | *feasibleActions[action]* | | array of JSON-object | Actions on this node with validity dependent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system provider outside of the scope of the LIF. E.g., the pick and drop actions on a node that is an interaction node of a load handling station, the startCharging action on a node when the node is also a transit node which may often be traversed without charging, an action on the node which is only valid if a preceding edge action has also been sent, and so forth. |
-| *forbiddenActionTypes[string]* | | array of string | Action types strictly forbidden to be sent on this node as they will result in an error state or undefined negative consequences. |
+| *forbiddenActionTypes[string]* | | array of string | Action types strictly forbidden to be sent on this node as they may result in an error state or undefined negative consequences. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | } |  |  |  |
 
