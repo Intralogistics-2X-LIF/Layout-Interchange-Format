@@ -211,7 +211,7 @@
                 },
                 "requiredActions": {
                     "type": "array",
-                    "description": "Actions which shall always be included on this node when sent by the fleet control system. E.g., honk if audio signaling is strictly required anytime this node is passed.",
+                    "description": "Actions which shall always be included on this node when sent by the fleet control system. E.g., honk if audio signaling is strictly required any time this node is reached.",
                     "items": {
                         "$ref": "#/$defs/action"
                     }
