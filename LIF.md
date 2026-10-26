@@ -101,7 +101,7 @@ This document describes the LIF and its purpose. This document does not describe
 
 # 5 Aim of the LIF
 
-The objective of the Layout Interchange Format is to provide a standardised way of presenting mobile robot layouts to fleet control system providers or other parties.
+The objective of the Layout Interchange Format is to provide a standardized way of presenting mobile robot layouts to fleet control system providers or other parties.
 
 The primary goal is to complement the VDA 5050 interface's goal of facilitating decoupling between mobile robot manufacturers and fleet control system providers. It uses the same terminology and much of the same structure as the VDA 5050 interface.
 
