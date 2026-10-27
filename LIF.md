@@ -62,7 +62,7 @@ Should you encounter any inaccuracies or the possibility of incorrect interpreta
 [8.3.16 PhysicalLineGuidedProperty](#8316-physicallineguidedproperty)<br>
 [8.3.17 Corridor](#8317-corridor)<br>
 [8.3.18 Station](#8318-station)<br>
-[9 LIF on GitHub and how to contribute](#9-lif-on-github-and-how-to-contribute)<br>
+[9 LIF on GitHub and How to Contribute](#9-lif-on-github-and-how-to-contribute)<br>
 
 # 1 Terms
 
@@ -512,7 +512,7 @@ If the fleet control system would need to graphically identify certain stations,
 
 A station's optional `stationType` is not considered a strong definition of the station's purpose on its own.
 
-# 9 LIF on GitHub and how to contribute
+# 9 LIF on GitHub and Gow to Contribute
 
 The GitHub project serves as a repository of all previous, present, and in-development work, and as an additional source of information.
 
