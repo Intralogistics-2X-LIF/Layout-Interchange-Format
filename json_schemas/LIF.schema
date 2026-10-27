@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Layout Interchange Format",
-    "description": "The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward (third-party) fleet control system providers.",
+    "description": "The objective of the Layout Interchange Format is to standardize a way for the definition of mobile robot layouts to be presented toward fleet control system providers.",
     "type": "object",
     "required": [
         "metaInformation",
@@ -140,7 +140,7 @@
             "properties": {
                 "nodeId": {
                     "type": "string",
-                    "description": "Unique identifier of the node across all layouts contained in this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the (third-party) fleet control system to track whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF."
+                    "description": "Unique identifier of the node across all layouts contained in this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate nodeIds. In this case, it is the responsibility of the fleet control system to track whichever internal unique nodeId it wishes to use, and to map this to a mobile robot integrator's nodeId for its specific LIF."
                 },
                 "nodeDescriptor": {
                     "type": "string",
@@ -375,7 +375,7 @@
             "properties": {
                 "edgeId": {
                     "type": "string",
-                    "description": "Unique identifier of the edge across all layouts within this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the (third-party) fleet control system to track whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF."
+                    "description": "Unique identifier of the edge across all layouts within this LIF file. Note: Different LIF files, especially from different mobile robot integrators, may contain duplicate edgeIds. In this case, it is the responsibility of the fleet control system to track whichever internal unique edgeId it wishes to use, and to map this to a mobile robot integrator's edgeId for its specific LIF."
                 },
                 "edgeDescriptor": {
                     "type": "string",
@@ -465,7 +465,7 @@
                 },
                 "reentryAllowed": {
                     "type": "boolean",
-                    "description": "true: Mobile robots of a type listed in mobileRobotTypes are allowed to enter into automatic management by the (third-party) fleet control system while on this edge. false: Mobile robots of a type listed in mobileRobotTypes are not allowed to enter into automatic management by the (third-party) fleet control system while on this edge. Note: If not defined, the default is true."
+                    "description": "true: Mobile robots of a type listed in mobileRobotTypes are allowed to enter into automatic management by the fleet control system while on this edge. false: Mobile robots of a type listed in mobileRobotTypes are not allowed to enter into automatic management by the fleet control system while on this edge. Note: If not defined, the default is true."
                 },
                 "requiredActions": {
                     "type": "array",
