@@ -200,7 +200,6 @@ Each table contains the name of the identifier, its data type, its unit if appli
 | **Identification** | **Description** |
 | --- | --- |
 | standard | Variable is an elementary data type. |
-| **bold** | Variable is a non-elementary data type (e. g. JSON object or array) and defined separately. |
 | *italics* | Variable is optional. |
 | arrayName [squareBrackets] | Variable (here arrayName) is an array of the data type specified in the square brackets (here the data type is squareBrackets). |
 
@@ -295,9 +294,9 @@ The LIF does not specify how two layouts from different origins, whether defined
 | mobileRobotTypes[mobileRobotType] |  | array of JSON-object | Holds mobile robot types to which these properties apply on this node. Only one mobileRobotTypeNodeProperty can be declared per mobile robot type per node. |
 | *theta* | rad | float64 | Range: [-Pi ... Pi]  Absolute orientation of the mobile robot on the node in reference to the origin's rotation. |
 | *allowedDeviationXY* |  | JSON-object | Indicates the distance a mobile robot needs to deviate from a node to traverse it smoothly. |
-| *requiredActions[action]* | | array of JSON-object | Actions on this node which shall always be included when sent by the fleet control system. E.g., waitForTrigger if the intention is that this action is always strictly necessary on this particular node. |
+| *requiredActions[action]* | | array of JSON-object | Actions which shall always be included on this node when sent by the fleet control system. E.g., honk if audio signaling is strictly required any time this node is reached. |
 | *feasibleActions[action]* | | array of JSON-object | Actions on this node with validity dependent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system provider outside of the scope of the LIF. E.g., the pick and drop actions on a node that is an interaction node of a load handling station, the startCharging action on a node when the node is also a transit node which may often be traversed without charging, an action on the node which is only valid if a preceding edge action has also been sent, and so forth. |
-| *forbiddenActionTypes[string]* | | array of string | `actionType`s on this node which are strictly forbidden from ever being sent by the fleet control system, and may result in an error state or other negative or undefined consequences. |
+| *forbiddenActionTypes[string]* | | array of string | Action types strictly forbidden to be sent on this node as they may result in an error state or undefined negative consequences. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this node for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the node can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | } |  |  |  |
 
@@ -360,9 +359,8 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | loadRestriction { |  | JSON-object |  |
-| unloaded |  | boolean | "true": This node or edge may be used by an unloaded mobile robot. "false": This node or edge shall not be used by an unloaded mobile robot. |
-| loaded |  | boolean | "true": This node or edge may be used by a loaded mobile robot. "false": This node or edge shall not be used by a loaded mobile robot.  Note: If set to true, the attribute loadSetNames, if given, shall be respected. |
-| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system shall evaluate this attribute only if the attribute loaded is set to true.    The same names for load sets shall be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]).    Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
+| restrictionType |  | string | Enum {UNLOADED, LOADED, BOTH}: "UNLOADED": the mobile robot may only traverse this edge while unloaded. "LOADED": the mobile robot may not traverse this edge while unloaded, instead only while loaded. "BOTH": the mobile robot may traverse this edge either unloaded or loaded. Note: If set to LOADED or BOTH, the attribute `loadSetNames`, if given, shall be respected. |
+| *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system shall evaluate this attribute only if the `restrictionType` is set to LOADED or BOTH. The same names for load sets shall be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]). Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
 | } |  |  |  |
 
 ### 8.3.12 Edge
@@ -393,9 +391,9 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | *minimumLoadHandlingDeviceHeight* | meter | float64 | Permitted minimal height of the load handling device on the edge.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *minHeight*. |
 | *maximumMobileRobotHeight* | meter | float64 | Range: [0.0 ... float64.maximum]  Permitted maximum height of the mobile robot, including the load, on edge.  Note: If not defined, no limitation. <br><br>Backwards compatibility: for VDA 5050 version 2.1 or prior, use as *maxHeight*. |
 | *reentryAllowed* |  | boolean | "true": Mobile robots of a type listed in `mobileRobotTypes` are allowed to enter automatic management by the fleet control system while on this edge.  "false": Mobile robots of a type listed in `mobileRobotTypes` are not allowed to enter into automatic management by the fleet control system while on this edge.  Note: If not defined, the default is true. |
-| *requiredActions[action]* | | array of JSON-object | Actions on this edge which shall always be included when sent by the fleet control system. E.g., an action which requires hazard lights to engage. |
+| *requiredActions[action]* | | array of JSON-object | Actions which shall always be included on this edge when sent by the fleet control system. E.g., adjustTravelHeightForks, because the mobile robot must travel with raised forks any time it traverses this edge. |
 | *feasibleActions[action]* | | array of JSON-object | Actions on this edge with validity contingent upon outside factors. Further definition of timing and behavior may be required between the mobile robot provider and fleet control system provider outside of the scope of the LIF. E.g., an action which shall be taken if this edge has an associated corridor definition, but otherwise shall not. |
-| *forbiddenActionTypes[string]* | | array of string | `actionType`s on this edge which are strictly forbidden from ever being sent by the fleet control system, and may result in an error state or other negative or undefined consequences. |
+| *forbiddenActionTypes[string]* | | array of string | Action types on this edge which are strictly forbidden from ever being sent by the fleet control system, and may result in an error state or other negative or undefined consequences. |
 | *loadRestriction* |  | JSON-object | Describes the load restriction on this edge for each mobile robot type in `mobileRobotTypes`.  Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set. |
 | *trajectory* |  | JSON-object | Trajectory JSON-object for this edge as a NURBS. Defines the curve on which the mobile robot should move between startNode and endNode. Can be omitted if the mobile robot cannot process trajectories or if the mobile robot plans its own trajectory.  Note: The trajectory is not required, but if it is not provided, the fleet control system may not have sufficient information to be responsible for determining whether different mobile robots from the same or different manufacturers would collide.  Note: This object shall be used mutually exclusively with the physicalLineGuidedProperty object. |
 | *physicalLineGuidedProperty* |  | JSON-object | JSON-object for simple or limited mobile robot types which are unable to process or respect trajectories and are dependent upon the information defined within this object.  Note: This object shall be used mutually exclusively with the trajectory object. |
@@ -465,15 +463,48 @@ Two attributes, rotationAtEndNodeAllowed and rotationAtStartNodeAllowed, may con
 
 #### 8.3.18.1 Best Practices for Defining a Station
 
-A station could be a battery charging point where a mobile robot must interface with physical charging infrastructure. A station could be (and perhaps most often is) a place to pick or drop a single load. A station could represent a racking bay where multiple loads could be stored next to one another, especially in cases where loads of variable widths may affect how many loads are able to be stored on such a station.
+A station can represent, for example:
 
-It is possible to have different configurations for stations which accomplish the same thing. It is considered best practice to have stations be as atomic as possible. For example, while a 1 wide, 1 deep, 5 tall (1x1x5) vertical column of load storage positions on a multi-tiered tall metal rack might be able to be represented by a single station, it is likely better to have five stations, one per level for each discrete position for each individual load, even if all five of such stations would share the same interaction node or nodes.
+- a battery charging point, where a mobile robot must interface with physical charging infrastructure,
+- a place to pick or drop a single load (perhaps the most common case),
+- a racking bay, where multiple loads could be stored next to one another. This applies especially where loads of variable widths may affect how many loads can be stored on the station.
 
-For stations where a variable number of loads might be kept, such as in the example given above for a racking bay which could, for example, hold either two wider loads or three thinner ones, it is suggested to make this a single station, and to utilize action parameters for where and how exactly to pick and drop from the bay. Less elegant, alternative options, such as where there might be a total of five stations for the bay, three for individual thin loads, and two for individual wide loads, many of which overlap with one another, are possible but not encouraged.
+As a general principle, stations should be defined as atomically as possible. Different station configurations may achieve the same outcome, but keeping individual stations atomic is considered best practice.
 
-As an additional example, imagine a last-in, first-out (LIFO) 1 wide, N deep, 1 tall (1xNx1) variable deep lane, where N is runtime variable depending on the dimensions of the loads being stored. Accurately representing all possible combinations of where loads of varying dimensions may be stored may become impractical. It again is likely best to have the entire variable deep lane be a single station, possibly with a single interaction node of where to begin entering the deep lane. An action parameter could be used to describe the depth offset into the deep lane the mobile robot should drop a load if the fleet control system decides such a thing, or allowing the mobile robot to report back the depth at which it dropped if the mobile robot decides. Conversely, if a 1xNx1 deep lane would always contain loads of all the same dimensions, but there would still be some other reason to vary the number of loads stored in it, and therefore the depth of the deep lane, at runtime, treating each individual position in the deep lane as its own station returns to being the more explicit, atomic representation.
+**Stations with multiple levels**
 
-The exact configuration of the above examples and other potentially complex situations shall always be handled on a case-by-case basis between fleet control system and mobile robot integrator(s).
+Example: vertical rack column (1 wide × 1 deep × 5 tall)
+
+- A vertical column of five load storage positions on a multi-tiered tall metal rack might be represented by a single station.
+- It is likely better to define five stations: one per level, i.e. one for each discrete position of each individual load.
+- This applies even if all five stations share the same interaction node(s).
+
+**Stations with multiple loads on one level**
+
+For stations where a variable number of loads might be kept on one level, it is suggested to:
+
+- define a single station, and
+- use action parameters to specify where and how exactly to pick and drop.
+
+Example: racking bay with loads of different widths (loads next to one another)
+
+- The bay can hold either two wider loads or three thinner ones.
+- Suggested: one station for the whole bay, with action parameters for the exact pick/drop position.
+- Possible but not encouraged (less elegant): five stations for the bay, three for individual thin loads and two for individual wide loads, many of which overlap with one another.
+
+Example: variable deep lane (loads behind one another; LIFO, 1 wide × N deep × 1 tall)
+
+- N varies at runtime, depending on the dimensions of the loads being stored.
+- Accurately representing all possible combinations of where loads of varying dimensions may be stored may become impractical.
+- It is again likely best to make the entire deep lane a single station, possibly with a single interaction node where the mobile robot begins entering the lane.
+- An action parameter can describe the depth offset into the lane:
+  - If the fleet control system decides the depth, the action parameter tells the mobile robot at which depth to drop the load.
+  - If the mobile robot decides the depth, it reports back the depth at which it dropped the load.
+- Counter-case: if the deep lane always contains loads of the same dimensions, but the number of loads (and therefore the lane depth) still varies at runtime for some other reason, treating each individual position in the lane as its own station is again the more explicit, atomic representation.
+
+**Case-by-case agreement**
+
+The exact configuration of the examples above, and of other potentially complex situations, shall always be handled case by case between the fleet control system and the mobile robot integrator(s).
 
 #### 8.3.18.2 How the Fleet Control System Can Identify the Purpose of a Station
 

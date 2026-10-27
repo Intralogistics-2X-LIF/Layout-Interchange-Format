@@ -2,7 +2,7 @@
 
 Rack station with three levels modelled by three individual stations.
 
-![](assets/png/15-rack-station-modelled-by-three-stations.png)
+![](../assets/png/15-rack-station-modelled-by-three-stations.png)
 
 LIF-File:
 ```json
