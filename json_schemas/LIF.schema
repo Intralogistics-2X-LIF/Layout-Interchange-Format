@@ -489,6 +489,8 @@
                     }
                 },
                 "loadRestriction": {
+                    "type": "object",
+                    "description": "Describes the load restriction on this edge for the mobile robot types listed in mobileRobotTypes. Note: If not defined, the edge can be used by both unloaded mobile robots and loaded mobile robots carrying any load set.",
                     "$ref": "#/$defs/loadRestriction"
                 },
                 "trajectory": {
