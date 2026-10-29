@@ -572,7 +572,7 @@
             "properties": {
                 "direction": {
                     "type": "string",
-                    "description": "Defines the direction identifier of this edge at junctions for line-guided or wire-guided mobile robots. See the related VDA5050 attributes for more information."
+                    "description": "Defines the direction identifier of this edge at junctions for line-guided or wire-guided mobile robots. See the related VDA 5050 attributes for more information."
                 },
                 "length": {
                     "type": "number",
@@ -595,7 +595,7 @@
                 },
                 "stationName": {
                     "type": "string",
-                    "description": "Name of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action."
+                    "description": "Name of the station. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action."
                 },
                 "stationDescriptor": {
                     "type": "string",
@@ -603,12 +603,12 @@
                 },
                 "stationType": {
                     "type": "string",
-                    "description": "Type of the station. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action."
+                    "description": "Type of the station. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action."
                 },
                 "stationHeight": {
                     "type": "number",
                     "unit": "m",
-                    "description": "If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off. May be used and forwarded to the mobile robot as part of a VDA5050 order, such as a pick or drop action. For other types of stations, this value may have a different meaning. Its interpretation shall be clearly defined and agreed upon between the fleet control system and the mobile robot integrator. Note: If this value is not specified, the station height shall not be assumed to be zero or any default value.",
+                    "description": "If the station is a load handling station, this value represents the physical height of the base of the load on the station when it is picked up or dropped off. May be used and forwarded to the mobile robot as part of a VDA 5050 order, such as a pick or drop action. For other types of stations, this value may have a different meaning. Its interpretation shall be clearly defined and agreed upon between the fleet control system and the mobile robot integrator. Note: If this value is not specified, the station height shall not be assumed to be zero or any default value.",
                     "minimum": 0.0
                 },
                 "interactionNodeIds": {
