@@ -359,7 +359,7 @@ The mobile robot's factsheet may define actions that can be taken nearly anywher
 | Object structure | Unit | Data type | Description |
 | --- | --- | --- | --- |
 | loadRestriction { |  | JSON-object |  |
-| restrictionType |  | string | Enum {UNLOADED, LOADED, BOTH}: "UNLOADED": the mobile robot may only traverse this edge while unloaded. "LOADED": the mobile robot may not traverse this edge while unloaded, instead only while loaded. "BOTH": the mobile robot may traverse this edge either unloaded or loaded. Note: If set to LOADED or BOTH, the attribute `loadSetNames`, if given, shall be respected. |
+| restrictionType |  | string | Enum {UNLOADED, LOADED, BOTH}: "UNLOADED": the mobile robot may only traverse this node or edge while unloaded. "LOADED": the mobile robot may not traverse this node or edge while unloaded, instead only while loaded. "BOTH": the mobile robot may traverse this node or edge either unloaded or loaded. Note: If set to LOADED or BOTH, the attribute `loadSetNames`, if given, shall be respected. |
 | *loadSetNames[string]* |  | array of string | List of load sets that may be transported by the mobile robot type on this node or edge. The fleet control system shall evaluate this attribute only if the `restrictionType` is set to LOADED or BOTH. The same names for load sets shall be used in the LIF as they are given in the factsheet of the respective mobile robot type (Factsheet attribute: [loadSets.setName]). Note: If not defined or the attribute is empty, all load sets supported by the mobile robot type are allowed. |
 | } |  |  |  |
 
