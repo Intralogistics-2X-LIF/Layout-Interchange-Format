@@ -503,7 +503,7 @@
                 },
                 "corridor": {
                     "type": "object",
-                    "description": "Describes the options to set a corridor. Note: If not defined, no corridor shall be used.",
+                    "description": "Definition of boundaries in which a mobile robot can deviate from its trajectory. Note: If not defined, no corridor shall be used.",
                     "$ref": "#/$defs/corridor"
                 }
             },
